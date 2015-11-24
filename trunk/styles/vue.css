@@ -1,0 +1,32 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 17 nov. 2015, 15:06:33
+    Author     : kim.paviot
+*/
+
+.vue {
+    
+    
+}
+
+.saisie {
+    background-color: #77AADD;
+    
+}
+
+.saisie table {
+    
+    
+}
+
+ tr {
+    padding : 2px 0;
+}
+
+.saisie td {
+    border :none;
+}
