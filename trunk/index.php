@@ -23,8 +23,8 @@ case 'medicament':
 	include("controleurs/c_gerer_Medicament.php");
 	break;
 
-case 'practicien': 
-	include("controleurs/c_gerer_Practicien.php");
+case 'praticien': 
+	include("controleurs/c_gerer_Praticien.php");
 	break;
 
 case 'visiteur': 

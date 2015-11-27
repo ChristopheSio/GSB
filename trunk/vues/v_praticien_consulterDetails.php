@@ -4,21 +4,19 @@
 			<select name="choix">
 			<?php foreach( $lesPraticiens as $unPraticien ) { ?>
 				<option <?php echo (!is_null($choixPraticien)?(
-                                        ($choixPraticien["PRA_NOM"]==$unPraticien["PRA_NOM"])?"selected":""):""); ?> 
-                                    value="<?php echo $unPraticien["PRA_NOM"]; ?>"><?php echo $unPraticien["PRA_NOM"]; ?></option>
+                                        ($choixPraticien["PRA_NUM"]==
+                                        $unPraticien["PRA_NUM"])?"selected":""):""); ?> 
+                                    value="<?php echo $unPraticien["PRA_NUM"]; ?>"><?php echo $unPraticien["PRA_NOM"]; ?></option>
 			<?php } ?>
 			</select>
 			<input type="hidden" name="uc" value="praticien">
 			<input type="hidden" name="action" value="Liste">
-			<input type="submit" value="Aller" >
+			<input type="submit" value="Ok" >
 		</h2>
 	</form>
-	
 	<?php if(!is_null($choixPraticien)) { ?>
 		<form action="" method="POST"> 	
-			<h2>
-				Consulter le praticien : <?php echo $choixPraticien["PRA_NOM"]; ?>  
-			</h2>
+			<h2>Consulter le praticien : <?php echo $choixPraticien["PRA_NOM"]; ?>  </h2>
 		</form>
 		<table class="table">
 			<tr>
@@ -32,6 +30,6 @@
 			</tr><tr>
 				<td>Ville</td><td><?php echo $choixPraticien["PRA_VILLE"]; ?></td>
 			</tr>
-		</table>
-	<?php } ?>
+                </table>
+    <?php } ?>
 </div>

@@ -1,7 +1,7 @@
 ﻿<div id="contenu">
 	<form action="index.php" method="GET"> 	
 		<h2>Choix medicament : 
-			<select name="choix">
+			<select name="choix" onchange="this.form.submit()">
 			<?php foreach( $lesMedicaments as $unMedicament ) { ?>
 				<option <?php echo (!is_null($choixMedicament)?(($choixMedicament["MED_DEPOTLEGAL"]==$unMedicament["MED_DEPOTLEGAL"])?"selected":""):""); ?> value="<?php echo $unMedicament["MED_DEPOTLEGAL"]; ?>"><?php echo $unMedicament["MED_NOMCOMMERCIAL"]; ?></option>
 			<?php } ?>

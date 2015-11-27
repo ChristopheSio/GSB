@@ -19,8 +19,8 @@
            </li>
            <li class="smenu">Praticiens
                <ul>
-                   <li><a href="index.php?uc=practicien&action=Tous" title="Consulter les praticiens">Tous</a></li>
-                   <li><a href="index.php?uc=practicien&action=Liste" title="Saisir des praticiens">Par nom</a></li>
+                   <li><a href="index.php?uc=praticien&action=Tous" title="Consulter les praticiens">Tous</a></li>
+                   <li><a href="index.php?uc=praticien&action=Liste" title="Saisir des praticiens">Par nom</a></li>
                </ul>
            </li>
            <!-- Mission 3

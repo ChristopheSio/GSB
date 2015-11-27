@@ -74,12 +74,12 @@ class PdoGsb {
 
     // getLesPraticiens : ...
     public function getLesPraticiens() {
-        $rs = PdoGsb::$monPdo->query("SELECT PRA_NOM, PRA_PRENOM, PRA_ADRESSE, PRA_CP, PRA_VILLE FROM praticien ORDER BY PRA_NOM");
+        $rs = PdoGsb::$monPdo->query("SELECT PRA_NUM, PRA_NOM, PRA_PRENOM, PRA_ADRESSE, PRA_CP, PRA_VILLE FROM praticien ORDER BY PRA_NOM");
         return $rs->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getLesPraticiensDetailsNoms($num) {
-        $rs = PdoGsb::$monPdo->prepare("SELECT * FROM praticien WHERE PRA_NUM=:NUM");
+        $rs = PdoGsb::$monPdo->prepare("SELECT PRA_NUM, PRA_NOM, PRA_PRENOM, PRA_ADRESSE, PRA_CP, PRA_VILLE FROM praticien WHERE PRA_NUM=:NUM");
         $rs->execute(array("NUM" => $num));
         return $rs->fetch(PDO::FETCH_ASSOC);
     }

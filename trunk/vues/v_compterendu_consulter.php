@@ -7,7 +7,7 @@
 			<thead>
 				<tr>
 					<th>Rapport</th>
-					<th>Num practicien</th>
+					<th>Num praticien</th>
 					<th>Date</th>
 					<th>Bilan</th>
 					<th>Motif</th>
