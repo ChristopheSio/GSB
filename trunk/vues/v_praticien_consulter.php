@@ -22,7 +22,7 @@
                         
 		?>		
             <tr>
-                <td><?php echo $nom ?></td>
+                <td><a href=index.php?choix=<?php echo $unPraticien['PRA_NUM'] ?>&uc=praticien&action=Liste><?php echo $nom ?></td>
                 <td><?php echo $prenom ?></td>
                 <td><?php echo $adresse ?></td>
                 <td><?php echo $cp ?></td>

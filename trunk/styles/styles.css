@@ -319,3 +319,12 @@ a.button {
     text-decoration: none;
     color: initial;
 }
+
+tr.lovelyrow:hover{
+  background-color: #B7DCFF;
+  cursor: pointer;
+}
+
+table.nogap{
+  border-collapse: collapse;
+}

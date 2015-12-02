@@ -29,7 +29,13 @@
 				<td>Code postal</td><td><?php echo $choixPraticien["PRA_CP"]; ?></td>
 			</tr><tr>
 				<td>Ville</td><td><?php echo $choixPraticien["PRA_VILLE"]; ?></td>
-			</tr>
+                        </tr><tr>
+                                <td>Coefficient de notoriété</td><td><?php echo $choixPraticien["PRA_COEFNOTORIETE"]; ?></td>
+                        </tr><tr>
+                                <td>Type</td><td><?php echo $choixPraticien["TYP_LIBELLE"]; ?></td>
+                        </tr><tr>
+                                <td>Lieu</td><td><?php echo $choixPraticien["TYP_LIEU"]; ?></td>
+                        </tr>
                 </table>
     <?php } ?>
 </div>

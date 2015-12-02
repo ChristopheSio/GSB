@@ -78,8 +78,8 @@ class PdoGsb {
         return $rs->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getLesPraticiensDetailsNoms($num) {
-        $rs = PdoGsb::$monPdo->prepare("SELECT PRA_NUM, PRA_NOM, PRA_PRENOM, PRA_ADRESSE, PRA_CP, PRA_VILLE FROM praticien WHERE PRA_NUM=:NUM");
+    public function getLePraticienDetailNom($num) {
+        $rs = PdoGsb::$monPdo->prepare("SELECT praticien.PRA_NUM, praticien.PRA_NOM, praticien.PRA_PRENOM, praticien.PRA_ADRESSE, praticien.PRA_CP, praticien.PRA_VILLE, praticien.PRA_COEFNOTORIETE, type_praticien.TYP_LIBELLE, type_praticien.TYP_LIEU FROM praticien, type_praticien WHERE type_praticien.TYP_CODE=praticien.TYP_CODE AND PRA_NUM=:NUM");
         $rs->execute(array("NUM" => $num));
         return $rs->fetch(PDO::FETCH_ASSOC);
     }
@@ -110,7 +110,16 @@ class PdoGsb {
         $stmt->bindParam(':RAP_BILAN', $bilan);
         $stmt->bindParam(':RAP_MOTIF', $motif);
     }
-
+ public function insererCompteRendu(){
+    $rs = PdoGsb::$monPdo->prepare(
+        "START TRANSACTION;
+        SELECT @A:=SUM(salary) FROM table1 WHERE type=1;
+        UPDATE table2 SET summary=@A WHERE type=1;
+        COMMIT;"
+    );
+    
+    
+ }
 }
 
 ?>
