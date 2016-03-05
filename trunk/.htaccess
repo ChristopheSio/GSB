@@ -1,0 +1,48 @@
+﻿#INFO : http://www.htaccessredirect.net/ 
+#INFO : https://craym.eu/tutoriels/referencement/url_rewriting.html 
+#INFO : http://viralpatel.net/blogs/21-very-useful-htaccess-tips-tricks/
+
+# Apache GSB configuration
+# @author Christophe Sonntag
+# @version 1.1
+
+###
+## Configuration du dossier de travail
+# 
+
+
+
+###
+## Desactive l'indexation des repertoires
+#
+# Permet de ne pas afficher le contenue des repertoires
+Options -Indexes
+
+# Permet d'indiquer au serveur qu'il faut suivre les liens symboliques de réécriture.
+Options +FollowSymLinks
+
+###
+## Réecriture url (si active)
+#
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	#RewriteBase /GSB/trunk/
+	
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^([^/]+)/?$ index.php?uc=$1&%{QUERY_STRING} [NC,S,L]
+	RewriteRule ^([^/]+)/([^./]+)/?$ index.php?uc=$1&action=$2&%{QUERY_STRING} [NC,S,L]
+	
+</IfModule>
+
+
+###
+## Server response codes (code de réponse serveur), pour le dossier : GSB/trunk/
+#
+ErrorDocument 400 /GSB/trunk/index.php?uc=responsecode&action=400
+ErrorDocument 401 /GSB/trunk/index.php?uc=responsecode&action=401
+ErrorDocument 403 /GSB/trunk/index.php?uc=responsecode&action=403
+ErrorDocument 404 /GSB/trunk/index.php?uc=responsecode&action=404
+ErrorDocument 500 /GSB/trunk/index.php?uc=responsecode&action=500
+
+
