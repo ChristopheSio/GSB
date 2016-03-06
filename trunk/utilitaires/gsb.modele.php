@@ -30,21 +30,9 @@ class GsbModele
             throw new Exception("Erreur de connexion \n" . $e->getMessage());
         }
     }
-
-    /** Destructeur
-	  */
-    //public function __destruct() {
-    //   GsbModele::$pdo = null;
-    //}
-
-    /** retourne l'unique objet de la classe PdoExemple
-	  */
-    public static function getGsbModele() {
-        if (GsbModele::$pdoGsb == null) {
-            GsbModele::$pdoGsb = new GsbModele();
-        }
-        return GsbModele::$pdoGsb;
-    }
+	
+	/** Visiteur 
+	 */
 
     // getInfosVisiteur : retourne un tableau associatif contenant le visiteur
     public static function getInfosVisiteur($login, $mdp) {
@@ -59,36 +47,44 @@ class GsbModele
         return $rs->fetchAll(PDO::FETCH_ASSOC);
     }
 
+	/** Medicament
+	 */
+		
     // getLesMedicaments : retourne un tableau associatif contenant tous les Medicaments
     public static function getLesMedicaments() {
-        $sth = GsbModele::$pdo->query("select * from medicament order by MED_NOMCOMMERCIAL");
+        $sth = GsbModele::$pdo->query("select MED_DEPOTLEGAL,MED_NOMCOMMERCIAL from medicament order by MED_NOMCOMMERCIAL");
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
-
+	
     // getInfoMedicament : retourne un tableau associatif contenant un medicament
-    public static function getInfoMedicament($DEPOTLEGAL) {
+    public static function getLeMedicamentDetails($DEPOTLEGAL) {
         $sth = GsbModele::$pdo->prepare("select * from medicament where MED_DEPOTLEGAL=:DEPOTLEGAL");
         $sth->execute(array("DEPOTLEGAL" => $DEPOTLEGAL));
         return $sth->fetch(PDO::FETCH_ASSOC);
     }
 
+	/** Praticien
+	 */
+	
     // getLesPraticiens : ...
     public static function getLesPraticiens() {
         $rs = GsbModele::$pdo->query("SELECT PRA_NUM, PRA_NOM, PRA_PRENOM, PRA_ADRESSE, PRA_CP, PRA_VILLE FROM praticien ORDER BY PRA_NOM");
         return $rs->fetchAll(PDO::FETCH_ASSOC);
     }
-
-    public static function getLePraticienDetailNom($num) {
-        $rs = GsbModele::$pdo->prepare("SELECT praticien.PRA_NUM, praticien.PRA_NOM, praticien.PRA_PRENOM, praticien.PRA_ADRESSE, praticien.PRA_CP, praticien.PRA_VILLE, praticien.PRA_COEFNOTORIETE, type_praticien.TYP_LIBELLE, type_praticien.TYP_LIEU FROM praticien, type_praticien WHERE type_praticien.TYP_CODE=praticien.TYP_CODE AND PRA_NUM=:NUM");
+    public static function getLePraticienDetails($num) {
+        // Old Method, basic joint : $rs = GsbModele::$pdo->prepare("SELECT praticien.PRA_NUM, praticien.PRA_NOM, praticien.PRA_PRENOM, praticien.PRA_ADRESSE, praticien.PRA_CP, praticien.PRA_VILLE, praticien.PRA_COEFNOTORIETE, type_praticien.TYP_LIBELLE, type_praticien.TYP_LIEU FROM praticien, type_praticien WHERE type_praticien.TYP_CODE=praticien.TYP_CODE AND PRA_NUM=:NUM");
+        $rs = GsbModele::$pdo->prepare("SELECT * FROM praticien INNER JOIN type_praticien ON type_praticien.TYP_CODE=praticien.TYP_CODE WHERE PRA_NUM=:NUM");
         $rs->execute(array("NUM" => $num));
         return $rs->fetch(PDO::FETCH_ASSOC);
     }
-
     public static function listePraticiens() {
         $rs = GsbModele::$pdo->query("SELECT PRA_NOM, PRA_PRENOM FROM praticien");
         return $rs->fetchAll(PDO::FETCH_ASSOC);
     }
 
+	/** Compte Rendu
+	 */
+	
     // getLesComptesRendus : ...
     public static function getLesComptesRendus() {
         $rs = GsbModele::$pdo->query("select * from rapport_visite");
@@ -96,7 +92,8 @@ class GsbModele
     }
 	
 	public static function getLesComptesRendusDuVisiteur($matricule) {
-        $rs = GsbModele::$pdo->prepare("SELECT * FROM rapport_visite WHERE VIS_MATRICULE=:MATRICULE");
+        // Old Method, basic joint : $rs = GsbModele::$pdo->prepare("SELECT * FROM rapport_visite, praticien WHERE VIS_MATRICULE=:MATRICULE AND rapport_visite.PRA_NUM=praticien.PRA_NUM");
+        $rs = GsbModele::$pdo->prepare("SELECT RAP_NUM,RAP_DATE,RAP_BILAN,RAP_MOTIF,PRA_NOM,PRA_PRENOM,praticien.PRA_NUM as PRA_NUM FROM rapport_visite INNER JOIN praticien ON rapport_visite.PRA_NUM=praticien.PRA_NUM WHERE VIS_MATRICULE=:MATRICULE");
         $rs->execute(array("MATRICULE" => $matricule));
         return $rs->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -117,5 +114,22 @@ class GsbModele
 			UPDATE table2 SET summary=@A WHERE type=1;
 			COMMIT;"
     );
+		
+		
+	
  }
 }
+
+///** Destructeur
+//*/
+//public function __destruct() {
+//   GsbModele::$pdo = null;
+//}
+///** retourne l'unique objet de la classe PdoExemple
+//  */
+//public static function getGsbModele() {
+//    if (GsbModele::$pdoGsb == null) {
+//        GsbModele::$pdoGsb = new GsbModele();
+//     }
+//    return GsbModele::$pdoGsb;
+// }

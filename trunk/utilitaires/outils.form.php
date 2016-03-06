@@ -38,6 +38,20 @@ class OutilsForm
 		echo 'value="'.$value.'"';
 	}
 	/**
+	 * Affiche un information pour l'utilisateur
+	 * @param $str
+	*/
+	public static function info($str) {	
+		echo '<div class="panel panel-info"><div class="panel-heading"><i class="fa fa-info fa-fw"></i> '.$str.'</div></div>';
+	}
+	/**
+	 * Permet de partager les informations concernant OutilUrl
+	 * @param $str
+	*/
+	public static function OutilUrlComposeGet($str) {	
+		echo '<div class="panel panel-info"><div class="panel-heading"><i class="fa fa-info fa-fw"></i> '.$str.'</div></div>';
+	}
+	/**
 	 * Affiche le problème venant de l'utilisateur
 	 * @param $str, $explication
 	*/

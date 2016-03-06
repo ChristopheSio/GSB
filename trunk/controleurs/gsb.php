@@ -9,8 +9,7 @@ switch(Controleur::$action)
 {
 case "travail":	
 	Vue::$title = "Travail";
-	Vue::$ListStyle == array("css/jqvmap.css");
-	Vue::$ListScript == array("js/jquery.vmap.colorsFrance.js","js/jquery.vmap.france.js","js/jquery.vmap.js");
+	Vue::configToJqvmap();
 	Controleur::composeVue("vues/gsb/travail.php");
 	break;
 case "documentation":	

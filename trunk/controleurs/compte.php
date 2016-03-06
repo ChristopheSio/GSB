@@ -1,6 +1,6 @@
 <?php
 /** 
- * Controleur des compte gsb de l'application GSB
+ * Controleur des comptes gsb de l'application GSB
  * @package default
  * @author Kim Paviot, Julien Dignat and Christophe Sonntag
  * @version 1.1
@@ -59,10 +59,11 @@ case "connexion":
 	//
 	Controleur::composeVue("vues/compte/connexion.php",false);
 	break;
+	
 case "deconnexion":	
 	Vue::$title = "Deconnexion";
-	Vue::$HeaderSupplement = '<META http-equiv="Refresh" content="5; URL='.OutilsUrl::composer("page","accueil").'">';
-	Controleur::composeVue("vues/compte/deconnexion.php",false);
+	Vue::$HeaderSupplement .= '<META http-equiv="Refresh" content="5; URL='.OutilsUrl::composer("page","accueil").'">';
 	GsbUtilisateur::seDeconnecter();
+	Controleur::composeVue("vues/compte/deconnexion.php",false);
 	break;
 }

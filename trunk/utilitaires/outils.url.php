@@ -60,6 +60,22 @@ class OutilsUrl
 	{
 		echo '<a href="'.OutilsUrl::composer($nomControleur,$nomVue,$chaineDeRequete).'">'.$texteLien."</a>";
 	}
+	/**
+	 * Crée un lien controleur vue pour un formulaire de l'application gsb (si rewrite rule non actif)
+	 * @param $nomControleur est le nom du controlleur, $nomVue est le nom de la vue; $chaineDeRequete est une chaine a ajouté a la fin de l'url
+	 * @return les balise hidden pour formulaire 
+	*/
+	public static function formComposerInput($nomControleur=null,$nomVue=null,$chaineDeRequeteArray=null)
+	{
+		if(OutilsUrl::$utiliseRewriteRules === false) {
+			if ($nomControleur) echo '<input type="hidden" name="uc" value="'.$nomControleur.'">';
+			if ($nomVue) echo '<input type="hidden" name="action" value="'.$nomVue.'">';
+		}
+		if (is_array($chaineDeRequeteArray)) { foreach($chaineDeRequeteArray as $key => $value) {
+			echo '<input type="hidden" name="'.$key.'" value="'.$value.'">';
+		}}
+	}
+	
 	
 	/**
 	 * A l'aide de la constante __FILE__ cela permet de verifier la correspondance d'un chemin dans l'application gsb

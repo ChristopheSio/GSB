@@ -19,7 +19,7 @@
 	</li>
 <?php } else { ?>
 	<li class="dropdown">
-		<a <?php OutilsUrl::composerHref("compte","connexion"); ?>> <i class="fa fa-sign-out fa-fw"></i> Connexion</a>
+		<a <?php OutilsUrl::composerHref("compte","connexion"); ?>> <i class="fa fa-sign-in fa-fw"></i> Connexion</a>
 	</li>
 <?php } ?>
 <!-- /.dropdown -->

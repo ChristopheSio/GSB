@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
 		<div class="login-panel panel panel-default">
-			<div class="panel-heading"> <h3 class="panel-title"><i class="fa fa-sign-out fa-fw"></i> Connexion</h3> </div>
+			<div class="panel-heading"> <h3 class="panel-title"><i class="fa fa-sign-in fa-fw"></i> Connexion</h3> </div>
 			<div class="panel-body">
 				<form role="form" method="post" target="">
 					<fieldset>

@@ -142,7 +142,7 @@ case "contact":
 	Vue::$donnees["hashkey"] = md5(rand(0, 10000));
 	$_SESSION["FormContactHashkey"] = Vue::$donnees["hashkey"];
 	if( Vue::$donnees["okMail"] || !Vue::$donnees["okTime"] )
-		Vue::$HeaderSupplement = '<META http-equiv="Refresh" content="5; URL='.OutilsUrl::composer("page","contact").'">';
+		Vue::$HeaderSupplement .= '<META http-equiv="Refresh" content="5; URL='.OutilsUrl::composer("page","contact").'">';
 	//
 	Controleur::composeVue("vues/page/contact.php");
 	break;
