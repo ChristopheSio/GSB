@@ -42,6 +42,13 @@ class GsbUtilisateur
 		return GsbUtilisateur::$EtatUtilisateur == GsbUtilisateurEnumEtat::Connecte;
 	}
 	/**
+	 * Permet de savoir si l'utilisateur est un administrateur
+	 * @return vrai si TypeUtilisateur appartient a administrateur
+	*/
+	public static function estAdministrateur() {
+		return GsbUtilisateur::estConnecte(); //temporaire
+	}
+	/**
 	 * Permet de connecter un utilisateur 
 	 * (note, tout cela est fictif a l'aide de variable de session)
 	 * @params $login, $nom, $prenom, $matricule, $email

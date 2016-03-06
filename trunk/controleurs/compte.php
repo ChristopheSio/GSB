@@ -8,6 +8,16 @@
 switch(Controleur::$action)
 {
 case "connexion":	
+	
+	// Si l'utilisateur est connecté alors une vue de redirection s'affiche
+	if(GsbUtilisateur::estConnecte()) {
+		Vue::$title = "Redirection connexion";
+		Vue::$donnees["rechargement_temps"] = 5;
+		Vue::$HeaderSupplement .= '<META http-equiv="Refresh" content="'.Vue::$donnees["rechargement_temps"].'; URL='.OutilsUrl::composer("page","accueil").'">';
+		Controleur::composeVue("vues/compte/connexion-redirection.php",false);
+		break;
+	}
+
 	Vue::$title = "Connexion";
 	Vue::$donnees["info_connexion"] = null;
 			
@@ -23,7 +33,13 @@ case "connexion":
 			{
 				// Connecte l'utilisateur
 				GsbUtilisateur::seConnecter($utilisateur['VIS_LOGIN'], $utilisateur['VIS_NOM'], $utilisateur['VIS_PRENOM'], $utilisateur['VIS_MATRICULE'], $utilisateur['VIS_EMAIL']);
-				Controleur::composeVue("vues/page/accueil.php",false);
+				
+				// Redirige l'utilisateur instantanément (0s)
+				Vue::$title = "Redirection connexion";
+				Vue::$donnees["rechargement_temps"] = 0;
+				Vue::$HeaderSupplement .= '<META http-equiv="Refresh" content="'.Vue::$donnees["rechargement_temps"].'; URL='.OutilsUrl::composer("page","accueil").'">';
+				Controleur::composeVue("vues/compte/connexion-redirection.php",false);
+				
 				// Se souvenir de moi
 				if( isset($_POST["remember"]) ) {
 					$_SESSION["RappelUtilisateurLogin"] = $_POST["login"];
@@ -62,7 +78,8 @@ case "connexion":
 	
 case "deconnexion":	
 	Vue::$title = "Deconnexion";
-	Vue::$HeaderSupplement .= '<META http-equiv="Refresh" content="5; URL='.OutilsUrl::composer("page","accueil").'">';
+	Vue::$donnees["rechargement_temps"] = 5;
+	Vue::$HeaderSupplement .= '<META http-equiv="Refresh" content="'.Vue::$donnees["rechargement_temps"].'; URL='.OutilsUrl::composer("page","accueil").'">';
 	GsbUtilisateur::seDeconnecter();
 	Controleur::composeVue("vues/compte/deconnexion.php",false);
 	break;

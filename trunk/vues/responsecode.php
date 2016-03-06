@@ -22,15 +22,15 @@
 				OutilsUrl::composerHref(
 					"page",
 					"contact",
-					"responsecode=".Vue::$donnees["code"]."&ressource=".base64_encode($_SERVER["REQUEST_URI"])
+					"responsecode=".Vue::$donnees["code"]."&ressource=".urlencode(base64_encode($_SERVER["REQUEST_URI"]))
 				); 
 				?>><li class="list-group-item list-group-item-danger">
-					<span class="pull-left">Contacter l'équipe</span>
+					<span class="pull-left"><i class="fa fa-support fa-fw"></i> Contacter l'équipe</span>
 					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 					<div class="clearfix"></div>
 				</li></a>
 				<a <?php OutilsUrl::composerHref("page","accueil"); ?>><li class="list-group-item list-group-item-success">
-					<span class="pull-left">Retour à l'accueil</span>
+					<span class="pull-left"><i class="fa fa-home fa-fw"></i> Retour à l'accueil</span>
 					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 					<div class="clearfix"></div>
 				</li></a>

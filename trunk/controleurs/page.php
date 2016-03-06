@@ -50,7 +50,7 @@ case "contact":
 			(strlen($_GET["responsecode"])==3)?
 				$_GET["responsecode"]:"non définit"
 		).".\nPour la ressource : ";
-		$ressource = ((strlen($_GET["ressource"])<100)?base64_decode($_GET["ressource"]):false);
+		$ressource = ((strlen($_GET["ressource"])<100)?base64_decode(urldecode($_GET["ressource"]),true):false);
 		Vue::$donnees["message"] .= (($ressource)?$ressource:"non définit")."\n";
 	}
 	else {

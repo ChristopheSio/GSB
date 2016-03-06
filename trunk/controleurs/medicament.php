@@ -8,7 +8,7 @@
 switch(Controleur::$action)
 {
 case "liste":	
-	Vue::$title = "Consulter les medicaments";
+	Vue::$title = "Consulter les médicaments";
 	Vue::configToDataTable("DataTableMedicaments");
 	Vue::$donnees["lesMedicaments"] = GsbModele::getLesMedicaments();
 	Vue::$donnees["lesMedicamentsSontVide"] = count(Vue::$donnees["lesMedicaments"]) == 0;
@@ -40,7 +40,7 @@ case "details":
 		else
 			Vue::$donnees["leMedicament"] = null;
 	}
-	Vue::$title = "Details medicament";
+	Vue::$title = "Details médicament";
 	Controleur::composeVue("vues/medicament/details.php");
 	break;
 	

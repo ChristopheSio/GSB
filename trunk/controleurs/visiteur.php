@@ -8,7 +8,7 @@
 switch(Controleur::$action)
 {
 case "liste":	
-	Vue::$title = "Consulter les praticiens";
+	Vue::$title = "Consulter les visiteurs";
 	Vue::configToDataTable("DataTableVisiteur");
 	Vue::$donnees["lesVisiteurs"] = GsbModele::getLesVisiteurs();
 	Vue::$donnees["lesVisiteursSontVide"] = count(Vue::$donnees["lesVisiteurs"]) == 0;
