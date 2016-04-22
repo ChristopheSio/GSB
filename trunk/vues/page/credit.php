@@ -6,9 +6,27 @@
 			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-ticket fa-fw"></i> Notre équipe</h3></div>
 			<div class="panel-body">
 				<div class="list-group">
-					<a target="_blank" href="" class="list-group-item">
-						<span class="badge"> ? </span>
+					<a target="_blank" href="http://kimp73.wix.com/portfolio" class="list-group-item">
+						<span class="badge">kimp73.wix.com/portfolio</span>
 						<span class="lead">Kim Paviot</span>
+                                                <ul>
+							<li>Développement
+								<ul>
+									<li>Analyse de bases de données</li>
+									<li>Interroger les bases de données</li>
+                                                                        <li>Développement web</li>
+                                                                        <li>Développement d'applications</li>
+                                                                        <li>Développement d'applications Android</li>
+								</ul>
+							</li>
+							<li>Langues
+								<ul>
+									<li>Anglais : parlé et écrit</li>
+                                                                        <li>Espagnol : parlé et écrit</li>
+								</ul>
+							</li>
+							
+						</ul>	
 					</a>
 					<a target="_blank" href="" class="list-group-item">
 						<span class="badge"> ? </span>

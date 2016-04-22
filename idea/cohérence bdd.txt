@@ -1,0 +1,12 @@
+
+Exemple :
+a131 1992-12-11 00:00:00 BN V 
+a131 1996-05-27 00:00:00 BG V
+--> le visiteur est donc affilié uniquement à la région la plus récente donc BG
+ 
+a55 1987-07-17 00:00:00 MP V 
+a55 1995-05-19 00:00:00 RO V 
+a55 1999-08-21 00:00:00 RO D 
+--> le visiteur est donc directeur de RO
+--> donc il peut changer administrer seulement la région RO
+
