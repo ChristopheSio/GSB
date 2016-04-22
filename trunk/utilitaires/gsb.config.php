@@ -31,3 +31,7 @@ class GsbConfig
     static $BdUtilisateur = 'root';
     static $BdMotDePasse = '';
 }
+
+/** Initialise les valeurs qui requière un instanciation hors classe
+*/
+GsbConfig::$SiteUrl = "http://".$_SERVER["SERVER_NAME"]."/GSB/trunk";

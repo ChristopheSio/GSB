@@ -10,8 +10,7 @@
  */
 session_start();
 
-/*
- * Chargement des fonctions et classes utilitaires
+/* Chargement des fonctions et classes utilitaires
  */
 require_once("utilitaires/__init__.php");
 
@@ -57,49 +56,10 @@ case 'responsecode':
 	break;
 }
 
-/** Page non trouv�e si aucun controleurs 
-  * n'a appel� une vue
+/** Page non trouvée si aucun controleurs 
+  * n'a appelé une vue
   */
 if( Controleur::estCompose() == false ) {
 	Controleur::$action = "404";
 	include("controleurs/responsecode.php");
 }
-
-
-
-/*
-$i=0;
-foreach($_GET as $key => $value) {
-echo "<h1>".$i." : ".$key." = ".$value."</h1>";
-$i++;
-}
-*/
-
-
-/*
-
-<!--
-    
-  </head>
-  <body>
-    <div id="page">
-      <div id="entete">
-        <img src="./images/logo.jpg" id="logoGSB" alt="Laboratoire Galaxy-Swiss Bourdin" title="Laboratoire Galaxy-Swiss Bourdin" />
-        <h1>Gestion des visites</h1>
-      </div>
--->
-
-
-
-
-///
-if( isset($_REQUEST['uc'] ) )	$uc = $_REQUEST['uc'];
-else if ( estConnecte() )		
-{
-	
-}
-$uc = (!isset($_REQUEST['uc']) || (!isset($_SESSION['login']))) ? 'auth' : $_REQUEST['uc'];
-
-
-
-*/
