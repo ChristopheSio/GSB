@@ -36,6 +36,19 @@
 						<li><a <?php OutilsUrl::composerHref("medicament","details"); ?> title="Consulter un médicament"><i class="fa fa-search fa-fw"></i> Détails</a></li>
 					</ul>
 				</li>
+                                <li><a <?php OutilsUrl::composerHref("visiteur","liste"); ?> title="Consulter les visiteurs"><i class="fa fa-user fa-fw"></i> Consulter les visiteurs</a></li>
+				<li>
+					<a href="#"><i class="fa fa-bar-chart fa-fw"></i> Statistiques<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li><a <?php OutilsUrl::composerHref("statistique","famille-medicaments"); ?>><i class="fa fa-home fa-fw"></i> Famille de médicaments</a></li>
+						<li><a <?php OutilsUrl::composerHref("statistique","medicaments-offerts"); ?>><i class="fa fa-gift fa-fw"></i> Médicaments offerts</a></li>
+                                                <li><a <?php OutilsUrl::composerHref("statistique","localisation-praticiens"); ?>><i class="fa fa-globe fa-fw"></i> Localisation praticiens</a></li>
+                                                <li><a <?php OutilsUrl::composerHref("statistique","laboratoires"); ?>><i class="fa fa-flask fa-fw"></i> Laboratoires</a></li>
+                                                <li><a <?php OutilsUrl::composerHref("statistique","rapports-visite"); ?>><i class="fa fa-suitcase fa-fw"></i> Rapports de visite</a></li>
+                                                <li><a <?php OutilsUrl::composerHref("statistique","roles"); ?>><i class="fa fa-user fa-fw"></i> Les rôles</a></li>
+                                                <li><a <?php OutilsUrl::composerHref("statistique","type-praticiens"); ?>><i class="fa fa-user fa-fw"></i> Lestypes de praticiens</a></li>
+					</ul>
+				</li>
 				<li><a <?php OutilsUrl::composerHref("visiteur","liste"); ?> title="Consulter les visiteurs"><i class="fa fa-user fa-fw"></i> Consulter les visiteurs</a></li>
 				<li>
 					<a href="#"><i class="fa fa-newspaper-o fa-fw"></i> GSB<span class="fa arrow"></span></a>

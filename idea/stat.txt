@@ -1,0 +1,18 @@
+
+medicament de meme famille
+
+médicaments les plus souvent offerts
+
+combien de praticien par ville->région->secteur
+
+combien de praticiens par labo
+
+combien de praticien par type
+
+combien de rapport visite par visiteur
+
+combien de rapport visite par praticiens
+
+combien de visiteur par role
+
+

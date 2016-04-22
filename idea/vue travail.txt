@@ -1,0 +1,14 @@
+select t1.VIS_MATRICULE, t1.TRAV_DATETIME, t1.REG_CODE, t1.ROLE_CODE  
+from travailler t1
+where t1.TRAV_DATETIME IN( select MAX(t2.TRAV_DATETIME) from travailler t2 where t1.VIS_MATRICULE=t2.VIS_MATRICULE )
+
+
+inner join travailler t2
+on t1.VIS_MATRICULE=t2.VIS_MATRICULE
+where t1.TRAV_DATETIME>t2.TRAV_DATETIME
+
+
+
+select VIS_MATRICULE, MAX(TRAV_DATETIME, REG_CODE, ROLE_CODE  
+from travailler t1
+group by VIS_MATRICULE

@@ -81,6 +81,18 @@ class GsbModele
         $rs = GsbModele::$pdo->query("SELECT PRA_NOM, PRA_PRENOM FROM praticien");
         return $rs->fetchAll(PDO::FETCH_ASSOC);
     }
+    
+    
+    /** Statistiques
+	 */
+    
+    public static function statFamilleMedicament() {
+        $rs1 = GsbModele::$pdo->query("SELECT count(*) as total from medicament");
+        $result1 = $rs1->fetch(PDO::FETCH_ASSOC);
+        $rs2 = GsbModele::$pdo->query("SELECT m.FAM_CODE, f.FAM_LIBELLE, count(*) as nb, (count(*)*100/".$result1["total"].") as pourcentage from medicament m inner join famille f on m.FAM_CODE=f.FAM_CODE group by m.FAM_CODE ");
+        $result2 = $rs2->fetchAll(PDO::FETCH_ASSOC);
+        return array("total"=>$result1["total"],"stat"=>$result2);
+    }
 
 	/** Compte Rendu
 	 */

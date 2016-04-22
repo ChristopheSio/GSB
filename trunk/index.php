@@ -54,7 +54,12 @@ case 'visiteur':
 case 'responsecode': 
 	include("controleurs/responsecode.php");
 	break;
+    
+case 'statistique': 
+	include("controleurs/statistique.php");
+	break;
 }
+
 
 /** Page non trouvée si aucun controleurs 
   * n'a appelé une vue
