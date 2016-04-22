@@ -1,9 +1,6 @@
 
 kim
 kljfnvlkwndf
-<<<<<<< HEAD
-c'est la joie
-=======
 
+c'est la joie
 Modif 2
->>>>>>> origin/master
