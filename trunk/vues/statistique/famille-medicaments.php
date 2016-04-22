@@ -1,8 +1,8 @@
 <!-- vue : statistique/famille-médicament -->
 <pre>
     <?php
-//print_r(Vue::$donnees["familleMedicament"]);
-?>
+print_r(Vue::$donnees["familleMedicament"]);
+?>*/
 </pre>
 <div class="row">
 	<div class="col-xs-12">
@@ -30,6 +30,7 @@
 							</tbody>
 						</table>
 					</div>
+				<?php } ?>
 			</div>
 		</div>
 	</div>
