@@ -86,12 +86,29 @@ class GsbModele
     /** Statistiques
 	 */
     
+    //La prochaine requête consiste à calculer le pourcentage de médicament par famille sur le total de médicament
     public static function statFamilleMedicament() {
         $rs1 = GsbModele::$pdo->query("SELECT count(*) as total from medicament");
         $result1 = $rs1->fetch(PDO::FETCH_ASSOC);
         $rs2 = GsbModele::$pdo->query("SELECT m.FAM_CODE, f.FAM_LIBELLE, count(*) as nb, (count(*)*100/".$result1["total"].") as pourcentage from medicament m inner join famille f on m.FAM_CODE=f.FAM_CODE group by m.FAM_CODE ");
         $result2 = $rs2->fetchAll(PDO::FETCH_ASSOC);
         return array("total"=>$result1["total"],"stat"=>$result2);
+    }
+    
+    public static function statPraticienType(){
+        $res1 = GsbModele::$pdo->query("SELECT count(*) AS totPraticien FROM praticien");
+        $tot = $res1->fetch(PDO::FETCH_ASSOC);
+        $res2 = GsbModele::$pdo->query("SELECT p.TYP_CODE, t.TYP_LIBELLE, count(*) AS nb, (count(*)*100/".$tot["totPraticien"].") AS pourcentage FROM praticien p INNER JOIN type_praticien t ON p.TYP_CODE=t.TYP_CODE GROUP BY p.TYP_CODE");
+        $stat = $res2->fetchAll(PDO::FETCH_ASSOC);
+        return array("total"=>$tot["totPraticien"],"stat"=>$stat);
+    }
+    
+    public static function statVisiteLabo(){
+        $res1 = GsbModele::$pdo->query("SELECT count(*) AS totVisiteur FROM visiteur");
+        $tot = $res1->fetch(PDO::FETCH_ASSOC);
+        $res2 = GsbModele::$pdo->query("SELECT v.LAB_CODE, l.LAB_NOM, count(*) AS nb, (count(*)*100/".$tot["totVisiteur"].") AS pourcentage FROM visiteur v INNER JOIN labo l ON v.LAB_CODE=l.LAB_CODE GROUP BY v.LAB_CODE");
+        $stat = $res2->fetchAll(PDO::FETCH_ASSOC);
+        return array("total"=>$tot["totVisiteur"],"stat"=>$stat);
     }
 
 	/** Compte Rendu

@@ -1,36 +1,34 @@
 <!-- vue : statistique/famille-médicament -->
-<pre>
     <?php
-print_r(Vue::$donnees["familleMedicament"]);
-?>*/
-</pre>
+//print_r(Vue::$donnees["familleMedicament"]);
+?>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="panel panel-default">
 			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-list-alt fa-fw"></i> Pourcentage des médicaments par famille</h3></div>
 			<div class="panel-body">
+                            <!-- On affiche le total des médicaments en allant chercher cette donnée dans Vue::$donnees qui est dans le contrôleur statistique.php -->
+                            <?php OutilsForm::success("Total des médicament : ".Vue::$donnees["familleMedicament"]["total"]); ?>
 					<div class="dataTable_wrapper">
 						<table class="table table-hover" id="DataTableStatistique">
 							<thead>
 								<tr>
-									<th>Code de la famille</th>  
 									<th>Nom de la famille</th>  
 									<th>Total</th> 
 									<th>Pourcentage</th>
 								</tr>
 							</thead>
 							<tbody> 
-							<?php foreach( Vue::$donnees["lesVisiteurs"] as $unVisiteur ) { ?>
+							<?php foreach( Vue::$donnees["familleMedicament"]["stat"] as $uneFamille ) { ?>
 								<tr>
-									<td><?php echo $unVisiteur["FAM_CODE"]; ?></td>
-									<td><?php echo $unVisiteur["FAM_LIBELLE"]; ?></td>
-									<td><?php echo $unVisiteur["nb"]; ?></td>
-									<td><?php echo $unVisiteur["pourcentage"]; ?></td>
+									<td><?php echo $uneFamille["FAM_LIBELLE"]." (".$uneFamille["FAM_CODE"].")"; ?></td>
+									<td><?php echo $uneFamille["nb"]; ?></td>
+									<td><?php echo $uneFamille["pourcentage"]; ?></td>
 							<?php } ?>
 							</tbody>
 						</table>
 					</div>
-				<?php } ?>
+				<?php /*}*/ ?>
 			</div>
 		</div>
 	</div>

@@ -11,7 +11,7 @@ class GsbConfig
     /** Configuration du site
     */
     static $SiteName = "Galaxy-Swiss Bourdin (GSB) Visites";
-    static $SiteDirectory = "kimp8/GSB/trunk"; // sans << / >> de fin ex : GSB/trunk
+    static $SiteDirectory = "GSB/trunk"; // sans << / >> de fin ex : GSB/trunk
     static $SiteShortUrl = "gsb.com";
     static $SiteContactEmail = "contact@gsb.com";
     static $SiteAuteur = "Crée par Cheri Bibi. Mis à jour par Kim Paviot, Julien Dignat et Christophe Sonntag.";

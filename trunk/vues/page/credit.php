@@ -28,9 +28,24 @@
 							
 						</ul>	
 					</a>
-					<a target="_blank" href="" class="list-group-item">
-						<span class="badge"> ? </span>
+					<a target="_blank" href="http://jd-sio-portfolio.weebly.com/" class="list-group-item">
+						<span class="badge"> jd-sio-portfolio.weebly.com </span>
 						<span class="lead">Julien Dignat</span>
+                                                <ul>
+                                                    <li>Développement
+                                                        <ul>
+                                                            <li>Analyse des bases de données</li>
+                                                            <li>Gestion des bases de données</li>
+                                                            <li>Développement Web</li>
+                                                            <li>Développement d'applications</li>
+                                                            <li>Création de contenu web</li>
+                                                        </ul>
+                                                    <li>Encadrement
+                                                        <ul>
+                                                            <li>Travail en équipe et en autonomie</li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
 					</a>
 					<a target="_blank" href="http://christophe-sonntag.u4a.at/" class="list-group-item">
 						<span class="badge">christophe-sonntag.u4a.at</span>

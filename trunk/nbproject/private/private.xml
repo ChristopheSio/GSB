@@ -4,10 +4,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/kimp8/GSB/trunk/vues/visiteur/liste.php</file>
-            <file>file:/C:/wamp/www/kimp8/GSB/trunk/controleurs/statistique.php</file>
-            <file>file:/C:/wamp/www/kimp8/GSB/trunk/vues/statistique/famille-medicaments.php</file>
-            <file>file:/C:/wamp/www/kimp8/GSB/trunk/utilitaires/gsb.modele.php</file>
+            <file>file:/C:/wamp/www/GSB/trunk/vues/gabarit/navigation.php</file>
+            <file>file:/C:/wamp/www/GSB/trunk/vues/page/contact.php</file>
+            <file>file:/C:/wamp/www/GSB/trunk/utilitaires/gsb.modele.php</file>
+            <file>file:/C:/wamp/www/GSB/trunk/controleurs/visiteur.php</file>
+            <file>file:/C:/wamp/www/GSB/trunk/vues/statistique/visite-labo.php</file>
+            <file>file:/C:/wamp/www/GSB/trunk/utilitaires/outils.form.php</file>
+            <file>file:/C:/wamp/www/GSB/trunk/controleurs/statistique.php</file>
+            <file>file:/C:/wamp/www/GSB/trunk/vues/statistique/type-praticiens.php</file>
+            <file>file:/C:/wamp/www/GSB/trunk/controleurs/page.php</file>
+            <file>file:/C:/wamp/www/GSB/trunk/utilitaires/gsb.utilisateur.php</file>
+            <file>file:/C:/wamp/www/GSB/trunk/vues/statistique/famille-medicaments.php</file>
+            <file>file:/C:/wamp/www/GSB/trunk/controleurs/ancien/gerer_Practicien.php</file>
+            <file>file:/C:/wamp/www/GSB/trunk/vues/page/credit.php</file>
+            <file>file:/C:/wamp/www/GSB/trunk/utilitaires/controleur.php</file>
         </group>
     </open-files>
 </project-private>

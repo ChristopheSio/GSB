@@ -7,14 +7,14 @@
  */
 switch(Controleur::$action)
 {
-case "famille-medicaments":	
+    case "famille-medicaments":	
 	Vue::$title = "Famille de médicaments";
 	Vue::configToDataTable("DataTableStatistique");
 	Vue::$donnees["familleMedicament"] = GsbModele::statFamilleMedicament();
 	Controleur::composeVue("vues/statistique/famille-medicaments.php");
 	break;
 
-/*case "medicaments-offerts":	
+    /*case "medicaments-offerts":	
 	Vue::$title = "Famille de médicaments";
 	Vue::configToDataTable("DataTablePraticien");
 	Vue::$donnees["lesPraticiens"] = GsbModele::getLesPraticiens();
@@ -23,7 +23,7 @@ case "famille-medicaments":
 	break;
 
     
-case "localisation-praticiens":	
+    case "localisation-praticiens":	
 	Vue::$title = "Famille de médicaments";
 	Vue::configToDataTable("DataTablePraticien");
 	Vue::$donnees["lesPraticiens"] = GsbModele::getLesPraticiens();
@@ -53,21 +53,25 @@ case "localisation-praticiens":
 	Vue::$donnees["lesPraticiens"] = GsbModele::getLesPraticiens();
 	Vue::$donnees["lesPraticiensSontVide"] = count(Vue::$donnees["lesPraticiens"]) == 0;
 	Controleur::composeVue("vues/praticien/liste.php");
-	break;
-
-     case "type-praticiens":	
-	Vue::$title = "Famille de médicaments";
-	Vue::configToDataTable("DataTablePraticien");
-	Vue::$donnees["lesPraticiens"] = GsbModele::getLesPraticiens();
-	Vue::$donnees["lesPraticiensSontVide"] = count(Vue::$donnees["lesPraticiens"]) == 0;
-	Controleur::composeVue("vues/praticien/liste.php");
 	break; */
+
+    case "type-praticiens":	
+	Vue::$title = "Types de praticien";
+	Vue::configToDataTable("DataTableStatistique");
+	Vue::$donnees["lesPraticiens"] = GsbModele::statPraticienType();
+	Vue::$donnees["lesPraticiensSontVide"] = count(Vue::$donnees["lesPraticiens"]) == 0;
+	Controleur::composeVue("vues/statistique/type-praticiens.php");
+	break;
     
+    case "visite-labo":	
+	Vue::$title = "Visites de labo";
+	Vue::configToDataTable("DataTableStatistique");
+	Vue::$donnees["lesVisiteurs"] = GsbModele::statVisiteLabo();
+	Vue::$donnees["lesVisiteursSontVide"] = count(Vue::$donnees["lesVisiteurs"]) == 0;
+	Controleur::composeVue("vues/statistique/visite-labo.php");
+	break;
     
-    
-    
-    
-case "details":	
+    case "details":	
 	Vue::$donnees["lesPraticiens"] = GsbModele::getLesPraticiens();
 	Vue::$donnees["lesPraticiensSontVide"] = count(Vue::$donnees["lesPraticiens"]) == 0;
 	Vue::$donnees["lePraticien"] = null;

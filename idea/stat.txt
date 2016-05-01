@@ -1,17 +1,17 @@
 
-1)medicament de meme famille
+1)medicament de meme famille = Check
 
 2)médicaments les plus souvent offerts
 
 3)combien de praticien par ville->région->secteur
 
-4)combien de praticiens par labo
+4)combien de visiteur par labo = Check
 
-5)combien de praticien par type
+5)combien de praticien par type = Check
 
 6)combien de rapport visite par visiteur
 
-combien de rapport visite par praticiens
+combien de rapport visite par praticiens 
 
 7)combien de visiteur par role
 
