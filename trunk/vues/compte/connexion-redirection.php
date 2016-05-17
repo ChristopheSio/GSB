@@ -4,7 +4,7 @@
 		<div class="login-panel panel panel-default">
 			<div class="panel-heading"> <h3 class="panel-title"><i class="fa fa-sign-out fa-fw"></i> Connexion</h3> </div>
 			<div class="panel-body text-center">
-				<h2>Vous êtes déja connecté</h2>
+				<h2>Vous êtes connecté</h2>
 				<p>Rechargement de la page dans <?php echo Vue::$donnees["rechargement_temps"]; ?>s</p>
 			</div>
 		</div>

@@ -66,6 +66,7 @@ case "contact":
 	Vue::$donnees["valid_message"]=1;
 	Vue::$donnees["valid_captcha"]=1;
 	
+	// Temp d'attente
 	if( isset($_SESSION['ContactEnvoye']) && isset($_SESSION['ContactEnvoyeTime']) )
 	{
 		$time_send_time = $_SESSION['ContactEnvoyeTime'] + Vue::$donnees["email_timewait"];
@@ -79,8 +80,7 @@ case "contact":
 			
 	// Si le Formulaire est envoyé
 	if( 
-		(Vue::$donnees["okTime"] && Vue::$donnees["okCookie"]) &&
-		(isset($_POST["hashkey"]) && isset($_SESSION["FormContactHashkey"]) && Vue::$donnees["okAutoPost"] ) &&
+		(Vue::$donnees["okTime"] && Vue::$donnees["okCookie"] && Vue::$donnees["okAutoPost"] ) && 
 		(isset($_POST["subject"]) && isset($_POST["question"]) && isset($_POST["message"]) && isset($_POST["captcha"])) 
 	) {
 		
@@ -95,55 +95,51 @@ case "contact":
 		Vue::$donnees["message"]=$_POST["message"];
 			
 		// Si la clé du formilaire n'est pas valide
-		if( $_SESSION["FormContactHashkey"] !== $_POST["hashkey"]) {
-			Vue::$donnees["info_connexion"] = "Erreur, securité de connexion !";
-		}
-		else {
-			
-			Vue::$donnees["okPost"] = true;
-			Vue::$donnees["valid_captcha"]=OutilsForm::valideCaptcha($_POST["captcha"]);
-			Vue::$donnees["valid_subject"]=OutilsForm::valideSujet($_POST["subject"]);
-			Vue::$donnees["valid_question"]=OutilsForm::valideSelect($_POST["question"],array("question","remarque","erreur"));
-			Vue::$donnees["valid_message"]=OutilsForm::valideMessage($_POST["message"]);
-			
-			if( Vue::$donnees["valid_name"] && Vue::$donnees["valid_email"] && Vue::$donnees["valid_subject"] && Vue::$donnees["valid_question"] && Vue::$donnees["valid_message"] && (Vue::$donnees["valid_captcha"]==1) )
-			{
-				Vue::$donnees["okForm"] = true; 
-				OutilsForm::resetCaptcha();
-				$_SESSION['ContactEnvoye'] = true;
-				$_SESSION['ContactEnvoyeTime'] = time();
-				
-				$headers = 
-				'Content-Type: text/plan; charset="utf-8"' . "\r\n" .
-				'Content-Transfer-Encoding: 8bit' . "\r\n" .
-				'MIME-Version: 1.0' . "\r\n" .
-				'From: '.(Vue::$donnees["name"]).' <'.(Vue::$donnees["email"]).'>' . "\r\n" .
-				'Reply-To: '.(Vue::$donnees["name"]).' <'.(Vue::$donnees["email"]).'>' . "\r\n" .
-				'X-Mailer: PHP/' . phpversion();
-				
-				$subject="Contact ".GsbConfig::$SiteShortUrl." : " . (Vue::$donnees["subject"]);
-				
-				$message='[Mail from christophe-sonntag.u4a.at]' . "\r\n\r\n" .
-				'Nom: ' . (Vue::$donnees["name"]) . "\r\n" .
-				'Sujet: ' . (Vue::$donnees["subject"]) . "\r\n" .
-				'Email: ' . (Vue::$donnees["email"]) . "\r\n\r\n" .
-				'Message' . "\r\n" . '--------' . "\r\n" . (Vue::$donnees["message"]) . "\r\n" . '--------' . "\r\n\r\n" .
-				"Le: ".date("d/m/Y")." a: ".date("H:i");
-				
-				try {
-					if (@mail(Vue::$donnees["email_send"], ($subject), ($message), $headers) ) 
-						Vue::$donnees["okMail"] = true;
-				}
-				catch(Exception $e)	{}
-				unset($_SESSION["FormContactHashkey"]);
+		Vue::$donnees["okPost"] = true;
+		Vue::$donnees["valid_captcha"]=OutilsForm::valideCaptcha($_POST["captcha"]);
+		Vue::$donnees["valid_subject"]=OutilsForm::valideSujet($_POST["subject"]);
+		Vue::$donnees["valid_question"]=OutilsForm::valideSelect($_POST["question"],array("question","remarque","erreur"));
+		Vue::$donnees["valid_message"]=OutilsForm::valideMessage($_POST["message"]);
+
+		if( OutilsForm::valideFormulaireId("contact") && Vue::$donnees["valid_name"] && Vue::$donnees["valid_email"] && Vue::$donnees["valid_subject"] && Vue::$donnees["valid_question"] && Vue::$donnees["valid_message"] && (Vue::$donnees["valid_captcha"]==1) )
+		{
+			Vue::$donnees["okForm"] = true; 
+			OutilsForm::resetCaptcha();
+			$_SESSION['ContactEnvoye'] = true;
+			$_SESSION['ContactEnvoyeTime'] = time();
+
+			$headers = 
+			'Content-Type: text/plan; charset="utf-8"' . "\r\n" .
+			'Content-Transfer-Encoding: 8bit' . "\r\n" .
+			'MIME-Version: 1.0' . "\r\n" .
+			'From: '.(Vue::$donnees["name"]).' <'.(Vue::$donnees["email"]).'>' . "\r\n" .
+			'Reply-To: '.(Vue::$donnees["name"]).' <'.(Vue::$donnees["email"]).'>' . "\r\n" .
+			'X-Mailer: PHP/' . phpversion();
+
+			$subject="Contact ".GsbConfig::$SiteShortUrl." : " . (Vue::$donnees["subject"]);
+
+			$message='[Mail from '.GsbConfig::$SiteShortUrl.']' . "\r\n\r\n" .
+			'Nom: ' . (Vue::$donnees["name"]) . "\r\n" .
+			'Sujet: ' . (Vue::$donnees["subject"]) . "\r\n" .
+			'Email: ' . (Vue::$donnees["email"]) . "\r\n\r\n" .
+			'Message' . "\r\n" . '--------' . "\r\n" . (Vue::$donnees["message"]) . "\r\n" . '--------' . "\r\n\r\n" .
+			"Le: ".date("d/m/Y")." a: ".date("H:i");
+
+			try {
+				if (@mail(Vue::$donnees["email_send"], ($subject), ($message), $headers) ) 
+					Vue::$donnees["okMail"] = true;
 			}
+			catch(Exception $e)	{}
+			unset($_SESSION["FormContactHashkey"]);
 		}
 	}
-	Vue::$donnees["hashkey"] = md5(rand(0, 10000));
-	$_SESSION["FormContactHashkey"] = Vue::$donnees["hashkey"];
-	if( Vue::$donnees["okMail"] || !Vue::$donnees["okTime"] )
-		Vue::$HeaderSupplement .= '<META http-equiv="Refresh" content="5; URL='.OutilsUrl::composer("page","contact").'">';
+	// Si temps d'attende 
+	if( Vue::$donnees["okMail"] || !Vue::$donnees["okTime"] ) {
+		$chaineDeRequete = (isset($_GET["responsecode"])&&isset($_GET["ressource"]))?("responsecode=".$_GET["responsecode"]."&ressource=".$_GET["ressource"]):null;
+		Vue::$HeaderSupplement .= '<META http-equiv="Refresh" content="5; URL='.OutilsUrl::composer("page","contact",$chaineDeRequete).'">';
+	}
 	//
+	OutilsForm::genFormulaireId("contact");
 	Controleur::composeVue("vues/page/contact.php");
 	break;
 case "credit":	

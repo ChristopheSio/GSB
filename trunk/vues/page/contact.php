@@ -17,7 +17,6 @@
 			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-weixin fa-fw"></i> Contacter notre equipe</h3></div>
 			<div class="panel-body">
 				<form action="" method="post">
-					<input name="hashkey" type="hidden" <?php OutilsForm::value(Vue::$donnees["hashkey"]); ?>>
 					<div class="form-group">
 						<label for="name">Nom</label>
 						<input <?php OutilsForm::disabled(Vue::$donnees["name_locked"]); ?> type="text" class="form-control" name="name" id="name" placeholder="Nom" <?php OutilsForm::value(Vue::$donnees["name"]); ?>>
@@ -59,14 +58,12 @@
 					<div class="form-group">
 						<label for="message">Message</label>
 						<textarea rows="8" class="form-control" name="message" id="message" maxlength="512" placeholder="Message"><?php echo Vue::$donnees["message"]; ?></textarea>
-						<?php OutilsForm::validProbleme(Vue::$donnees["valid_message"], "Le message", "Vous n’êtes pas dans l’intervalle de caractère autorisé :   2<= <strong>".strlen(Vue::$donnees["message"])."</strong> <=512"); ?>
+						<?php OutilsForm::validProblemePourNombreDeCaractere(Vue::$donnees["valid_message"], "Le message", strlen(Vue::$donnees["message"]),3,512); ?>
 					</div>
-					<?php if(!is_null(Vue::$donnees["info_connexion"])) { ?> 
-						<p class="text-center text-danger"><?php echo Vue::$donnees["info_connexion"]; ?></p>
-					<?php } ?>
-					<div class="col-md-6">
-						<div class="form-group"><input class="form-control btn btn-success" type="submit" value="Envoyer le message"></div>
-						<div class="form-group"><input class="form-control" type="reset" value="Réinitialiser le formulaire"></div>
+					<?php OutilsForm::implanterFormulaireId("contact"); ?>
+					<div class="col-md-6 col-md-offset-3">
+						<div class="form-group"><input class="btn btn-success form-control btn-success" type="submit" value="Envoyer le message"></div>
+						<div class="form-group"><input class="btn btn-default form-control" type="reset" value="Réinitialiser le formulaire"></div>
 					</div>		
 				</form>
 			</div>

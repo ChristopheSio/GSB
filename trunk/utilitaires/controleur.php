@@ -43,6 +43,16 @@ class Controleur
 		Controleur::affichePied();
 	}
 	
+	/**
+	 * Compose une vue appeler en ajax
+	 * @param $vueUrl est la vue a inclure
+	*/
+	public static function composeAjaxVue($vueUrl) {
+		Controleur::$estCompose = true;
+		Controleur::$vueUrlCompose = $vueUrl;
+		include($vueUrl);
+	}
+	
 	/** Reseigne le statut d'un controleur
 	*/
 	public static function estCompose() {

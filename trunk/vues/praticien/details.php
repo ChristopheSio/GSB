@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="col-lg-4 col-md-5">
 		<div class="panel panel-default">
-			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-info-circle fa-fw"></i> Choix praticien</h3></div>
+			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-search fa-fw"></i> Choix praticien</h3></div>
 			<div class="panel-body">
 				<?php if(Vue::$donnees["lesPraticiensSontVide"]) { ?>
 					<h3 class="text-center">Aucun praticien</h3>
@@ -39,7 +39,7 @@
 	<?php if(Vue::$donnees["lePraticien"]) { ?>
 		<div class="col-lg-8 col-md-7">
 			<div class="panel panel-default">
-				<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-info-circle fa-fw"></i> Details praticien <?php echo Vue::$donnees["lePraticien"]["PRA_NOM"]." ".Vue::$donnees["lePraticien"]["PRA_PRENOM"]; ?></h3></div>
+				<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-user fa-fw"></i> Details praticien <?php echo Vue::$donnees["lePraticien"]["PRA_NOM"]." ".Vue::$donnees["lePraticien"]["PRA_PRENOM"]; ?></h3></div>
 				<div class="panel-body">
 					<table class="table">
 						<tr>

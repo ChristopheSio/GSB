@@ -1,0 +1,211 @@
+/** 
+ * Ergonomie de l'application GSB
+ * @package default
+ * @author Kim Paviot, Julien Dignat and Christophe Sonntag
+ * @version 1.1
+ */
+
+/* Background 1 */
+#page-wrapper,
+.form-control,
+.dropdown-menu
+{
+    background-color: #E4EEFB;
+}
+
+/* Background 2 */
+body,
+.navbar-default
+{
+    background-color: #CEDFF5;
+}
+
+/* Background 3 */
+.form-control[disabled], .form-control[readonly], fieldset[disabled],
+.btn-default.disabled.focus, .btn-default.disabled:focus, .btn-default.disabled:hover, .btn-default[disabled].focus, .btn-default[disabled]:focus, .btn-default[disabled]:hover, fieldset[disabled] .btn-default.focus, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn-default:hover
+{
+	background-color: #9FBCE1;
+}
+
+/* Background 4 */
+.btn-default,
+.nav .open>a, .nav .open>a:focus, .nav .open>a:hover,
+.panel-default>.panel-heading,
+.sidebar ul li a.active, .sidebar ul li a:active
+{
+	background-color: #9DC4F6;
+	color:#003E8E;
+}
+
+/* Background 5 */
+.btn-default:hover, .btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover,
+.nav>li>a:focus, .nav>li>a:hover, 
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover,
+.sidebar ul li a.active:hover
+{
+    background-color: #2A82F2;
+	color:#F3F8FE;
+}
+.btn-default:hover .text-info
+{
+	color:#F3F8FE;
+}
+
+/* Background 6 */
+.btn-default:target
+{
+    background-color: #036BF0;
+	color:#F3F8FE;
+}
+
+/* Background 7 */
+.dropdown-menu .divider
+{
+    background-color: #87A8D3;
+	color:#F3F8FE;
+}
+
+
+/* Border  */
+#page-wrapper, 
+.panel-default,
+.navbar-default,
+.page-header, 
+.dropdown-menu,
+.btn-default, .btn-default.disabled.focus, .btn-default.disabled:focus, .btn-default.disabled:hover, .btn-default[disabled].focus, .btn-default[disabled]:focus, .btn-default[disabled]:hover, fieldset[disabled] .btn-default.focus, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn-default:hover,
+.sidebar ul li,
+.form-control
+{
+    border-color: #87A8D3;
+}
+
+/* Bootstrap */
+.btn-primary .badge {
+  color: #337ab7;
+  background-color: #ffffff;
+}
+.btn-success {
+  color: #ffffff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+.btn-success:focus,
+.btn-success.focus {
+  color: #ffffff;
+  background-color: #449d44;
+  border-color: #255625;
+}
+.btn-success:hover {
+  color: #ffffff;
+  background-color: #449d44;
+  border-color: #398439;
+}
+.btn-success:active,
+.btn-success.active,
+.open > .dropdown-toggle.btn-success {
+  color: #ffffff;
+  background-color: #449d44;
+  border-color: #398439;
+}
+
+
+.btn-info {
+  color: #ffffff;
+  background-color: #5bc0de;
+  border-color: #46b8da;
+}
+.btn-info:focus,
+.btn-info.focus {
+  color: #ffffff;
+  background-color: #31b0d5;
+  border-color: #1b6d85;
+}
+.btn-info:hover {
+  color: #ffffff;
+  background-color: #31b0d5;
+  border-color: #269abc;
+}
+.btn-info:active,
+.btn-info.active,
+.open > .dropdown-toggle.btn-info {
+  color: #ffffff;
+  background-color: #31b0d5;
+  border-color: #269abc;
+}
+
+
+.btn-warning {
+  color: #ffffff;
+  background-color: #f0ad4e;
+  border-color: #eea236;
+}
+.btn-warning:focus,
+.btn-warning.focus {
+  color: #ffffff;
+  background-color: #ec971f;
+  border-color: #985f0d;
+}
+.btn-warning:hover {
+  color: #ffffff;
+  background-color: #ec971f;
+  border-color: #d58512;
+}
+.btn-warning:active,
+.btn-warning.active,
+.open > .dropdown-toggle.btn-warning {
+  color: #ffffff;
+  background-color: #ec971f;
+  border-color: #d58512;
+}
+
+
+.btn-danger {
+  color: #ffffff;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+.btn-danger:focus,
+.btn-danger.focus {
+  color: #ffffff;
+  background-color: #c9302c;
+  border-color: #761c19;
+}
+.btn-danger:hover {
+  color: #ffffff;
+  background-color: #c9302c;
+  border-color: #ac2925;
+}
+.btn-danger:active,
+.btn-danger.active,
+.open > .dropdown-toggle.btn-danger {
+  color: #ffffff;
+  background-color: #c9302c;
+  border-color: #ac2925;
+}
+
+.btn-link {
+  color: #337ab7;
+  font-weight: normal;
+  border-radius: 0;
+}
+.btn-link,
+.btn-link:active,
+.btn-link.active,
+.btn-link[disabled],
+fieldset[disabled] .btn-link {
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.btn-link,
+.btn-link:hover,
+.btn-link:focus,
+.btn-link:active {
+  border-color: transparent;
+}
+.btn-link:hover,
+.btn-link:focus {
+  color: #23527c;
+  text-decoration: underline;
+  background-color: transparent;
+}

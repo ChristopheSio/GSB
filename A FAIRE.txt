@@ -1,0 +1,51 @@
+
+
+# Notes pour Chris :
+
+1
+    FAIRE BDD : posseder
+    LIE posseder - specialité - praticien
+
+
+
+# MODULES
+Trois modules différents seront proposés selon le profil de l'utilisateur : 
+[Module Visiteur]
+   permet la saisie des comptes-rendus,
+   la consultation des données sur les trois années précédentes,
+   une vision synthétique du travail réalisé (visites sur une période donnée, statistiques diverses, etc.)
+   C'est le module le plus urgent et le seul décrit ici.
+ 
+[Module Délégué]
+   permet la vision de l'activité des visiteurs rattachés à une région, 
+     sous forme de statistiques,
+     graphiques ou 
+   par une vision de l'activité de chaque  employé. 
+   Il propose aussi la saisie de compte-rendu de visite (puisque les délégués restent acteurs sur le terrain).
+ 
+[Module Responsable]
+   permet la vision de l'activité des visiteurs rattachés à un secteur sous forme de statistiques diverses,
+   de graphiques, 
+   pour un visiteur en particulier ou pour l'équipe dépendant d'une région.
+   ---
+   Un accès plus direct aux données de personnel est nécessaire. 
+
+   
+# Autre
+[Les visiteurs et les autres services]
+Une gestion unique de ces frais et remboursement pour l'ensemble de la flotte visite est souhaitée.
+frais = déplacements et actions de terrain menées par les visiteurs
+   
+   
+# SITE 
+[Documentation]
+La documentation devra présenter l'arborescence des pages pour chaque module, 
+le descriptif des éléments classes et bibliothèques utilisées, 
+la liste des frameworks ou bibliothèques externes utilisés.
+
+
+
+# Recherche
+[Spécifications] 
+Vous ferez valider ces spécifications fonctionnelles par votre professeur.
+Cas d'utilisation, maquettes d'interface, menu...

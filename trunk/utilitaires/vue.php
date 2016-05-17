@@ -20,6 +20,10 @@ class Vue
 	*/
 	public static $donnees = array();
 	
+	/** Informations pour la vue si ajax
+	*/
+	public static $ajax = array("id"=>null);
+	
 	/** Personalisation du header de la page
 	*/
 	public static $ListScript = array();
@@ -52,7 +56,7 @@ class Vue
 			Vue::$ConfigModuleImport[] = "dataTables";
 		}
 		//Vue::$ListStyleEncre[] = ('$(document).ready(function() {  var '.$DataTableId.' = $("#'.$DataTableId.'").DataTable( $.extend({}, { "responsive": true, "ordering": false, "pageLength": 10,  "language": { "url": "i18n/DataTables.French.json" } }'.(is_null($DataTableJson)?"":(",".json_encode($DataTableJson,JSON_FORCE_OBJECT ))).')); '.(is_null($DataTableScript)?"":$DataTableScript).' });');
-		Vue::$ListStyleEncre[] = ('$(document).ready(function() {  var '.$DataTableId.' = $("#'.$DataTableId.'").DataTable($.extend({},{"responsive":true,"ordering":false,"pageLength":10,"stateSave":true,"language":{"url":"i18n/DataTables.French.json"}}'.(is_null($DataTableJson)?"":(",".json_encode($DataTableJson,JSON_FORCE_OBJECT ))).')); '.(is_null($DataTableScript)?"":$DataTableScript).' });');
+		Vue::$ListStyleEncre[] = ('$(document).ready(function() {  var '.$DataTableId.' = $("#'.$DataTableId.'").DataTable($.extend({},{"responsive":true,"ordering":false,"pageLength":10,"stateSave":false,"language":{"url":"i18n/DataTables.French.json"}}'.(is_null($DataTableJson)?"":(",".json_encode($DataTableJson,JSON_FORCE_OBJECT ))).')); '.(is_null($DataTableScript)?"":$DataTableScript).' });');
 	}
 	/** Permet d'inclure les configuration de DataTable
 	*/

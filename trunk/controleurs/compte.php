@@ -17,14 +17,13 @@ case "connexion":
 		Controleur::composeVue("vues/compte/connexion-redirection.php",false);
 		break;
 	}
-
 	Vue::$title = "Connexion";
 	Vue::$donnees["info_connexion"] = null;
-			
 	// Si le Formulaire est envoyé
-	if( isset($_POST["hashkey"]) && isset($_POST["login"]) && isset($_POST["password"]) && isset($_SESSION["FormUtilisateurHashkey"]) ) {
+	if( isset($_POST["login"]) && isset($_POST["password"]) ) {
 		// Si la clé du formilaire est valide
-		if( $_SESSION["FormUtilisateurHashkey"] === $_POST["hashkey"]) {
+		if(OutilsForm::valideFormulaireId("connexion")) 
+		{
 			$utilisateur = GsbModele::getInfosVisiteur(
 					$_POST["login"],
 					md5( GsbConfig::$AuthKey . $_POST["password"] )
@@ -38,6 +37,7 @@ case "connexion":
 				Vue::$title = "Redirection connexion";
 				Vue::$donnees["rechargement_temps"] = 0;
 				Vue::$HeaderSupplement .= '<META http-equiv="Refresh" content="'.Vue::$donnees["rechargement_temps"].'; URL='.OutilsUrl::composer("page","accueil").'">';
+				header('Location: '.OutilsUrl::composer("page","accueil") );  
 				Controleur::composeVue("vues/compte/connexion-redirection.php",false);
 				
 				// Se souvenir de moi
@@ -59,9 +59,6 @@ case "connexion":
 				Vue::$donnees["info_connexion"] = "Login ou mot de passe incorrect";
 			}
 		}
-		else {
-			Vue::$donnees["info_connexion"] = "Erreur, securité de connexion !";
-		}
 		Vue::$donnees["login"] = $_POST["login"];
 		Vue::$donnees["remember"] = isset($_POST["remember"]);
 	}
@@ -70,9 +67,8 @@ case "connexion":
 		Vue::$donnees["remember"] = isset($_SESSION["RappelUtilisateurActif"]);
 	}
 	Vue::$donnees["password"] = null;
-	Vue::$donnees["hashkey"] = md5(rand(0, 10000));
-	$_SESSION["FormUtilisateurHashkey"] = Vue::$donnees["hashkey"];
 	//
+	OutilsForm::genFormulaireId("connexion");
 	Controleur::composeVue("vues/compte/connexion.php",false);
 	break;
 	

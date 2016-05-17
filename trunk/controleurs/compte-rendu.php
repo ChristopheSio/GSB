@@ -15,6 +15,7 @@ case "liste":
 	Controleur::composeVue("vues/compte-rendu/liste.php");
 	break;
 
+/*
 case "valider":	
 	// Initialise erreurs
 	Vue::$donnees["erreurs"]=array();
@@ -51,18 +52,79 @@ case "valider":
 		//insererCR();
 		break;
 	}
-
+*/
 		
+case "saisie-echantitillonsDonnees":	
+	OutilsForm::ajaxMultipleDonneesInfo();
+	Vue::$donnees["lesMedicaments"] = GsbModele::getLesMedicaments();
+	Vue::$donnees["choixMedicament"] = "";
+	Vue::$donnees["qteOfferte"] = 1;
+	Vue::$donnees["valid"]["choixMedicament"]=1;
+	Vue::$donnees["valid"]["qteOfferte"]=1;
+	// Si formulaire
+	if(isset($_POST["choixMedicament"]) && isset($_POST["qteOfferte"])) {
+		Vue::$donnees["choixMedicament"] = $_POST["choixMedicament"];
+		Vue::$donnees["qteOfferte"] = $_POST["qteOfferte"];
+	}
+	Controleur::composeAjaxVue("vues/compte-rendu/saisie-echantitillonsDonnees.php");
+	break;
 case "saisir":	
-	Vue::$title = "Saisir un compte-rendu";
+	Vue::$title = "Saisir un comptes-rendu";
+	Vue::$donnees["okForm"] = false;
+	Vue::$donnees["okCompteRendu"] = false;
+	// Charge les liste déroulantes
+	Vue::$donnees["lesMotifs"] = array( "Actualisation annuelle", "Rapport annuel", "Baisse activité"  );
+	Vue::$donnees["lesPraticiens"] = GsbModele::getLesPraticiensPourCompteRendu();
+	Vue::$donnees["lesMedicaments"] = GsbModele::getLesMedicaments();
+	// Données auto
+	Vue::$donnees["info_connexion"] = null;
+	Vue::$donnees["numero"] = GsbModele::getCompteRenduLeDernierNumeroDuVisiteur(GsbUtilisateur::$Matricule)+1;
+	// Données saisie
+	Vue::$donnees["dateVisite"]=date("Y-m-d" );
+	Vue::$donnees["choixPraticien"]="";
+	Vue::$donnees["remplacant"]=0;
+	Vue::$donnees["choixMotif"]="no";
+	Vue::$donnees["motifAutre"]="";
+	Vue::$donnees["motifAutreActive"]=false;
+	Vue::$donnees["bilan"]="";
+	Vue::$donnees["documentation"]="";
+	Vue::$donnees["echantitillons"]="";
+	Vue::$donnees["echantitillonsDonnees"] = OutilsForm::receptionnnerMultipleDonnees("echantitillonsDonnees",25,  OutilsUrl::composer("compte-rendu","saisie-echantitillonsDonnees"),array("choicMedicament","qteOfferte"));
+	// Valider
+	Vue::$donnees["valid"] = array();
+	Vue::$donnees["valid"]["dateVisite"]=1;
+	Vue::$donnees["valid"]["choixPraticien"]=1;
+	Vue::$donnees["valid"]["remplacant"]=1;
+	Vue::$donnees["valid"]["choixMotif"]=1;
+	Vue::$donnees["valid"]["motifAutre"]=1;
+	Vue::$donnees["valid"]["bilan"]=1;
+	Vue::$donnees["valid"]["documentation"]=1;
+	Vue::$donnees["valid"]["echantitillons"]=1;
+	Vue::$donnees["valid"]["echantitillonsDonnees"]=null;
 	
-	// Si aucune erreurs exite (provenant de valider) alors erreurs est initialisé
+	
+	// Si Formulaire
+	if( isset($hop) 
+	) {
+		
+		
+		
+		// Si la clé du formilaire n'est pas valide
+		if( $_SESSION["FormConpteRenduHashkey"] !== $_POST["hashkey"]) {
+			Vue::$donnees["info_connexion"] = "Erreur, securité de connexion !";
+		}
+	}
+	
+	
+	
+	// Permet de verifié l'envoie du bon message
+	
+	
+	//  Si aucune erreurs exite (provenant de valider) alors erreurs est initialisé
 	if(!isset(Vue::$donnees["erreurs"])) Vue::$donnees["erreurs"] = array();
 
-	// Charge Les liste déroulantes
-	Vue::$donnees["lesPraticiens"] = GsbModele::getLesPraticiens();
-	Vue::$donnees["lesMedicaments"] = GsbModele::getLesMedicaments();
-	
+	//
+	OutilsForm::genFormulaireId("compte-rendu-saisie");
 	Controleur::composeVue("vues/compte-rendu/saisie.php");
 	break;
 }

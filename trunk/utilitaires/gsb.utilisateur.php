@@ -13,8 +13,8 @@ class GsbUtilisateurEnumEtat {
 class GsbUtilisateurEnumRole {
 		const Anonyme = 0; // Non connecté
 		const Visiteur = 1;
-		const Delegue = 2;
-		const Responsable = 3;
+		const Delegue = 2; // Régionaux (PACA/...)
+		const Responsable = 3; // Secteur (Nord/Sud/Est/Ouest)
 }
  
 class GsbUtilisateur

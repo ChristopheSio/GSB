@@ -6,12 +6,16 @@
  * @version 1.1
  */
 
+/** ! Attention en cas de modification importante ! 
+  - Modifier le fichier .htaccess à la recine du site. 
+**/
+
 class GsbConfig
 {
     /** Configuration du site
-    */
+     */
     static $SiteName = "Galaxy-Swiss Bourdin (GSB) Visites";
-    static $SiteDirectory = "GSB/trunk"; // sans << / >> de fin ex : GSB/trunk
+    static $SiteDirectory = "GSB/trunk"; // modif aussi dans htaccess. sans << / >> de fin ex : GSB/trunk
     static $SiteShortUrl = "gsb.com";
     static $SiteContactEmail = "contact@gsb.com";
     static $SiteAuteur = "Crée par Cheri Bibi. Mis à jour par Kim Paviot, Julien Dignat et Christophe Sonntag.";
@@ -21,7 +25,7 @@ class GsbConfig
     static $SiteUrl = null;
 
     /** Configuration de l'authenticité des données
-    */
+     */
     static $AuthKey = "718fa71d46fbfe3a7086c6f2710e71a4";
 
     /** Configuration de la base de donnée

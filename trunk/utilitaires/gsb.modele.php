@@ -68,7 +68,11 @@ class GsbModele
 	
     // getLesPraticiens : ...
     public static function getLesPraticiens() {
-        $rs = GsbModele::$pdo->query("SELECT PRA_NUM, PRA_NOM, PRA_PRENOM, PRA_ADRESSE, PRA_CP, PRA_VILLE FROM praticien ORDER BY PRA_NOM");
+        $rs = GsbModele::$pdo->query("SELECT PRA_NUM, PRA_NOM, PRA_PRENOM, PRA_ADRESSE, PRA_CP, PRA_VILLE FROM praticien ORDER BY PRA_NOM, PRA_PRENOM");
+        return $rs->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public static function getLesPraticiensPourCompteRendu() {
+        $rs = GsbModele::$pdo->query("SELECT PRA_NUM, PRA_NOM, PRA_PRENOM FROM praticien ORDER BY PRA_NOM, PRA_PRENOM");
         return $rs->fetchAll(PDO::FETCH_ASSOC);
     }
     public static function getLePraticienDetails($num) {
@@ -82,7 +86,45 @@ class GsbModele
         return $rs->fetchAll(PDO::FETCH_ASSOC);
     }
     
-    
+    /** Compte Rendu
+	 */
+	
+    // getLesComptesRendus : ...
+    public static function getLesComptesRendus() {
+        $rs = GsbModele::$pdo->query("select * from rapport_visite");
+        return $rs->fetchAll(PDO::FETCH_ASSOC);
+    }
+	
+	public static function getLesComptesRendusDuVisiteur($matricule) {
+        // Old Method, basic joint : $rs = GsbModele::$pdo->prepare("SELECT * FROM rapport_visite, praticien WHERE VIS_MATRICULE=:MATRICULE AND rapport_visite.PRA_NUM=praticien.PRA_NUM");
+        $rs = GsbModele::$pdo->prepare("SELECT RAP_NUM,RAP_DATE,RAP_BILAN,RAP_MOTIF,PRA_NOM,PRA_PRENOM,praticien.PRA_NUM as PRA_NUM FROM rapport_visite INNER JOIN praticien ON rapport_visite.PRA_NUM=praticien.PRA_NUM WHERE VIS_MATRICULE=:MATRICULE");
+        $rs->execute(array("MATRICULE" => $matricule));
+        return $rs->fetchAll(PDO::FETCH_ASSOC);
+    }
+	
+	public static function getCompteRenduLeDernierNumeroDuVisiteur($matricule) {
+        $rs = GsbModele::$pdo->prepare("SELECT MAX(RAP_NUM) as RAP_MAX_NUM WHERE VIS_MATRICULE=:MATRICULE");
+        $rs->execute(array("MATRICULE" => $matricule));
+        return $rs->fetch(PDO::FETCH_ASSOC)["RAP_MAX_NUM"];
+    }
+
+    public static function setCompteRendu() {
+        $stmt = $dbh->prepare("INSERT INTO rapport_visite VALUES (:VIS_MATRICULE, :RAP_NUM, :PRA_NUM, :RAP_DATE, :RAP_BILAN, :RAP_MOTIF)");
+        $stmt->bindParam(':VIS_MATRICULE', $matricule);
+        $stmt->bindParam(':RAP_NUM', $numero_rapport);
+        $stmt->bindParam(':PRA_NUM', $numero_praticien);
+        $stmt->bindParam(':RAP_DATE', $date);
+        $stmt->bindParam(':RAP_BILAN', $bilan);
+        $stmt->bindParam(':RAP_MOTIF', $motif);
+    }
+	public static function insererCompteRendu(){
+		$rs = GsbModele::$pdo->prepare(
+			"START TRANSACTION;
+			SELECT @A:=SUM(salary) FROM table1 WHERE type=1;
+			UPDATE table2 SET summary=@A WHERE type=1;
+			COMMIT;");
+	}
+	
     /** Statistiques
 	 */
     
@@ -110,43 +152,7 @@ class GsbModele
         $stat = $res2->fetchAll(PDO::FETCH_ASSOC);
         return array("total"=>$tot["totVisiteur"],"stat"=>$stat);
     }
-
-	/** Compte Rendu
-	 */
 	
-    // getLesComptesRendus : ...
-    public static function getLesComptesRendus() {
-        $rs = GsbModele::$pdo->query("select * from rapport_visite");
-        return $rs->fetchAll(PDO::FETCH_ASSOC);
-    }
-	
-	public static function getLesComptesRendusDuVisiteur($matricule) {
-        // Old Method, basic joint : $rs = GsbModele::$pdo->prepare("SELECT * FROM rapport_visite, praticien WHERE VIS_MATRICULE=:MATRICULE AND rapport_visite.PRA_NUM=praticien.PRA_NUM");
-        $rs = GsbModele::$pdo->prepare("SELECT RAP_NUM,RAP_DATE,RAP_BILAN,RAP_MOTIF,PRA_NOM,PRA_PRENOM,praticien.PRA_NUM as PRA_NUM FROM rapport_visite INNER JOIN praticien ON rapport_visite.PRA_NUM=praticien.PRA_NUM WHERE VIS_MATRICULE=:MATRICULE");
-        $rs->execute(array("MATRICULE" => $matricule));
-        return $rs->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public static function setCompteRendu() {
-        $stmt = $dbh->prepare("INSERT INTO rapport_visite VALUES (:VIS_MATRICULE, :RAP_NUM, :PRA_NUM, :RAP_DATE, :RAP_BILAN, :RAP_MOTIF)");
-        $stmt->bindParam(':VIS_MATRICULE', $matricule);
-        $stmt->bindParam(':RAP_NUM', $numero_rapport);
-        $stmt->bindParam(':PRA_NUM', $numero_praticien);
-        $stmt->bindParam(':RAP_DATE', $date);
-        $stmt->bindParam(':RAP_BILAN', $bilan);
-        $stmt->bindParam(':RAP_MOTIF', $motif);
-    }
-	public static function insererCompteRendu(){
-		$rs = GsbModele::$pdo->prepare(
-			"START TRANSACTION;
-			SELECT @A:=SUM(salary) FROM table1 WHERE type=1;
-			UPDATE table2 SET summary=@A WHERE type=1;
-			COMMIT;"
-    );
-		
-		
-	
- }
 }
 
 ///** Destructeur

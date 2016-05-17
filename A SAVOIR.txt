@@ -1,0 +1,29 @@
+
+
+# BESOIN
+[Responsive]
+Dans un premier temps sous forme d'un site Web sécurisé et authentifié,
+l'application peut devenir dans le futur un outil accessible 
+depuis des terminaux mobiles (tablettes ou téléphones).
+
+
+[Identification]
+La page d'accueil ne doit proposer qu'une zone d'identification. 
+
+
+# Contraintes
+[Ergonomie]
+Le site web sera à l'image du site public de l'entreprise en terme d'ergonomie et de couleurs, 
+(bleu prépondérant ) mais devra avoir une vocation métier et productivité. 
+On limitera donc tous les éléments graphiques superflus (pas de menu animé, pas de module flash). 
+On pourra améliorer ou contrôler l'interface utilisateur par du code Javascript. 
+
+[Environnement]
+L'application Web sera développée dans un langage de script côté serveur non imposé, éventuellement complétée par des API, frameworks et autres compléments.
+Le code produit ne doit pas être dépendant du SGBD retenu. Ce dernier n'est pas imposé. 
+L'application doit pouvoir être portable sur un système d'exploitation différent de celui de sa production.
+Dans le cadre d'une portabilité vers un environnement d'application mobile, on prendra soin de séparer au maximum le rendu utilisateur de la logique interne de l'application.
+
+[Architecture]
+L’architecture du code produit doit respecter les conventions d’usage : développement basé sur une architecture MVC (voir le code fourni pour la partie de gestion des frais)
+

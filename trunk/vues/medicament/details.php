@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="col-lg-4 col-md-5">
 		<div class="panel panel-default">
-			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-info-circle fa-fw"></i> Choix médicament</h3></div>
+			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-search fa-fw"></i> Choix médicament</h3></div>
 			<div class="panel-body">
 				<?php if(Vue::$donnees["lesMedicamentsSontVide"]) { ?>
 					<h3 class="text-center">Aucun médicament</h3>
@@ -39,7 +39,7 @@
 	<?php if(Vue::$donnees["leMedicament"]) { ?>
 		<div class="col-lg-8 col-md-7">
 			<div class="panel panel-default">
-				<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-info-circle fa-fw"></i> Details medicament <?php echo Vue::$donnees["leMedicament"]["MED_NOMCOMMERCIAL"]." (".Vue::$donnees["leMedicament"]["MED_DEPOTLEGAL"].")"; ?></h3></div>
+				<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-medkit fa-fw"></i> Details medicament <?php echo Vue::$donnees["leMedicament"]["MED_NOMCOMMERCIAL"]." (".Vue::$donnees["leMedicament"]["MED_DEPOTLEGAL"].")"; ?></h3></div>
 				<div class="panel-body">
 					<table class="table">
 						<tr>
