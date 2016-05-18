@@ -14,7 +14,7 @@ class GsbConfig
 {
     /** Configuration du site
      */
-    static $SiteName = "Galaxy-Swiss Bourdin (GSB) Visites";
+    static $SiteName = "Galaxy-Swiss Bourdin Visites";
     static $SiteDirectory = "GSB/trunk"; // modif aussi dans htaccess. sans << / >> de fin ex : GSB/trunk
     static $SiteShortUrl = "gsb.com";
     static $SiteContactEmail = "contact@gsb.com";

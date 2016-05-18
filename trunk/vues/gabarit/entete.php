@@ -57,7 +57,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<?php echo GsbConfig::$SiteUrl; ?>"> <span><img alt="<?php echo GsbConfig::$SiteName; ?>" height="100%" src="images/logo-capsules.png"/></span> <?php echo GsbConfig::$SiteName; ?> </a>
+                <a class="navbar-brand" href="<?php echo GsbConfig::$SiteUrl; ?>"> <span><img alt="<?php echo GsbConfig::$SiteName; ?>" height="100%" src="images/logo.png"/></span> <?php echo GsbConfig::$SiteName; ?> </a>
             </div>
             <!-- /.navbar-header -->
 		<?php include("vues/gabarit/menu.php"); ?>

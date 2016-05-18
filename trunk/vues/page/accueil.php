@@ -3,7 +3,7 @@
 	<div class="col-lg-12">
 		<h1 class="page-header text-center">
 			<span style="display:None;"><?php echo GsbConfig::$SiteName; ?></span>
-			<img alt="<?php echo GsbConfig::$SiteName; ?>" src="images/logo-capsules.png" /><br/>
+			<img alt="<?php echo GsbConfig::$SiteName; ?>" src="images/logo.png" /><br/>
 			<strong>G</strong>alaxy-<strong>S</strong>wiss <strong>B</strong>ourdin<br/>Visites
 		</h1>
 	</div>
@@ -12,9 +12,9 @@
 <div class="row">
 	<div class="col-xs-12">
 		<div class="panel panel-default">
-			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-weixin-o fa-fw"></i> Projet d'application : Gestion des visites</h3></div>
+			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-weixin fa-fw"></i> Projet d'application : Gestion des visites</h3></div>
 			<div class="panel-body text-center">
-				<p>Cette application permet l'enregistrement et le suivi des comptes-rendus de visite des practiciens de l'activité commerciale d'un laboratoire pharmaceutique</p>
+				<p><img alt="<?php echo GsbConfig::$SiteName; ?>" src="images/logo-capsules.png" />Cette application permet l'enregistrement et le suivi des comptes-rendus de visite des practiciens de l'activité commerciale d'un laboratoire pharmaceutique</p>
 			</div>
 		</div>
 	</div>

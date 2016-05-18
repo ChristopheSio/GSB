@@ -5,8 +5,11 @@
 1
     FAIRE BDD : posseder
     LIE posseder - specialité - praticien
+2
+    Oui A4.1.9 Rédaction d'une documentation technique
+    Oui A4.1.1 Rédaction d'une documentation d'utilisation
 
-
+    
 
 # MODULES
 Trois modules différents seront proposés selon le profil de l'utilisateur : 
