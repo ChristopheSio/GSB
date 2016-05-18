@@ -41,6 +41,7 @@ body,
 .btn-default:hover, .btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover,
 .nav>li>a:focus, .nav>li>a:hover, 
 .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover,
+.flotTip,
 .sidebar ul li a.active:hover
 {
     background-color: #2A82F2;
@@ -65,7 +66,6 @@ body,
 	color:#F3F8FE;
 }
 
-
 /* Border  */
 #page-wrapper, 
 .panel-default,
@@ -74,12 +74,23 @@ body,
 .dropdown-menu,
 .btn-default, .btn-default.disabled.focus, .btn-default.disabled:focus, .btn-default.disabled:hover, .btn-default[disabled].focus, .btn-default[disabled]:focus, .btn-default[disabled]:hover, fieldset[disabled] .btn-default.focus, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn-default:hover,
 .sidebar ul li,
-.form-control
+.form-control,
+.flotTip
 {
     border-color: #87A8D3;
 }
 
-/* Bootstrap */
+
+.flotTip {
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+
+
+/********************* Bootstrap *********************/
 .btn-primary .badge {
   color: #337ab7;
   background-color: #ffffff;

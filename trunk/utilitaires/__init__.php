@@ -14,6 +14,10 @@ require_once("utilitaires/gsb.config.php");
  */
 require_once("utilitaires/gsb.modele.php");
 
+/** Initialisation du Modèle
+ */
+GsbModele::seConnecter();
+
 /** Relation des utilisateurs dans GSB
  */
 require_once("utilitaires/gsb.utilisateur.php");

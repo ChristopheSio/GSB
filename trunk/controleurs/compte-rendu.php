@@ -5,8 +5,24 @@
  * @author Kim Paviot, Julien Dignat and Christophe Sonntag
  * @version 1.1
  */
+
+// Verifie que l'utilisateur est connecté
+Controleur::doitValiderAutorisation( GsbUtilisateur::estConnecte() );
+
 switch(Controleur::$action)
 {
+case "region-liste":
+	// Verifie que l'utilisateur est délégué
+	Controleur::doitValiderAutorisation( GsbUtilisateur::estRoleDelegue(), "Vous devez être délégué" );
+	//
+	Vue::configToDataTable("DataTableCompteRendu");
+	$leVisiteurRole = GsbModele::getLeVisiteurRole(GsbUtilisateur::$Matricule);
+	Vue::$title = "Consulter les comptes-rendus de la region ".$leVisiteurRole["REG_NOM"]." (".$leVisiteurRole["REG_CODE"].")";	
+	$lesComptesRendusDeLaRegion = GsbModele::getLesComptesRendusDeLaRegion($leVisiteurRole["REG_CODE"]);
+	$lesComptesRendusDeLaRegionSontVide = count($lesComptesRendusDeLaRegion) == 0;
+	Controleur::composeVue("vues/compte-rendu/region-liste.php");
+	break;
+	
 case "liste":	
 	Vue::$title = "Consulter les comptes-rendus";
 	Vue::configToDataTable("DataTableCompteRendu");

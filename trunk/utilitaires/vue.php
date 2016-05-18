@@ -16,10 +16,6 @@ class Vue
 	*/
 	public static $description = null;
 	
-	/** Informations pour la vue
-	*/
-	public static $donnees = array();
-	
 	/** Informations pour la vue si ajax
 	*/
 	public static $ajax = array("id"=>null);
@@ -54,6 +50,20 @@ class Vue
 		Vue::$ListStyleEncre[] = ('$(document).ready(function() {  var '.$DataTableId.' = $("#'.$DataTableId.'").DataTable($.extend({},{"responsive":true,"ordering":false,"pageLength":10,"stateSave":false,"language":{"url":"i18n/DataTables.French.json"}}'.(is_null($DataTableJson)?"":(",".json_encode($DataTableJson,JSON_FORCE_OBJECT ))).')); '.(is_null($DataTableScript)?"":$DataTableScript).' });');
 	}
 	/** Permet d'inclure les configuration de DataTable
+	*/
+	public static function configToGraphiqueCamembert($chartsId,$chartsData) {
+		if(!in_array("flot", Vue::$ConfigModuleImport)){
+			Vue::$ListScript[] = "js/jquery.flot.js";
+			Vue::$ListScript[] = "js/jquery.flot.tooltip.min.js";
+			Vue::$ConfigModuleImport[] = "flot";
+		}
+		if(!in_array("flot-pie", Vue::$ConfigModuleImport)){
+			Vue::$ListScript[] = "js/jquery.flot.pie.js";
+			Vue::$ConfigModuleImport[] = "flot-pie";
+		}
+		Vue::$ListStyleEncre[] = ('$(function() { var '.$chartsId.'_Data = '.json_encode($chartsData,JSON_NUMERIC_CHECK).';  var '.$chartsId.' = $.plot($("#'.$chartsId.'"),'.$chartsId.'_Data,{series:{pie:{show:true}},grid:{hoverable:true},tooltip:true,tooltipOpts:{content:"%p.0%, %s",shifts:{x:20,y:0},defaultTheme:false}}); });'); // %p.0%, %s" : show percentages, rounding to 2 decimal places
+	}
+	/** Permet d'inclure les configuration d'une MapMonde, Ici la France
 	*/
 	public static function configToJqvmap() {
 		if(!in_array("jqvmap", Vue::$ConfigModuleImport)){

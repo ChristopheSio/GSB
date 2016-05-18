@@ -12,6 +12,7 @@ class Controleur
 	*/
 	public static $uc = null;
 	public static $action = null;
+	public static $info = null;
 	
 	/** Gestion d'un controleur
 	*/
@@ -74,6 +75,16 @@ class Controleur
 		);
 	}
 	
+	/** Assure la sécurité autorisations de manière forte
+	*/
+	public static function doitValiderAutorisation($boolAutorisation,$messageDeSecurite=null) {
+		if( !$boolAutorisation ) {
+			Controleur::$action = "401";
+			Controleur::$info = $messageDeSecurite;
+			include("controleurs/responsecode.php");
+			die();
+		}
+	}
 	
 	/** Charge la class static (appeler en fin de classe)
 	*/

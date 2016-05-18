@@ -6,6 +6,9 @@
  * @version 1.1
  */
 
+// Verifie que l'utilisateur est connecté
+Controleur::doitValiderAutorisation( GsbUtilisateur::estConnecte() );
+
 switch(Controleur::$action)
 {
 case "liste":	

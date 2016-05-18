@@ -7,7 +7,7 @@
 		<ul class="dropdown-menu dropdown-user">
 			<li class="text-center">
 				<p class="h4"><?php echo GsbUtilisateur::$Nom." ".GsbUtilisateur::$Prenom; ?></p>
-				<p>Matricule : <?php echo GsbUtilisateur::$Matricule; ?></p>
+				<p>Matricule : <?php echo GsbUtilisateur::$Matricule; ?><br/>Rôle : <?php echo GsbUtilisateur::quelRoleTexte(); ?></p>
 			</li>
 			<li class="divider"></li>
 			<li><a <?php OutilsUrl::composerHref("profile","statut"); ?>><i class="fa fa-user fa-fw"></i> Statut</a></li>

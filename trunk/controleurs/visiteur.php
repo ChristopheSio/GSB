@@ -5,9 +5,16 @@
  * @author Kim Paviot, Julien Dignat and Christophe Sonntag
  * @version 1.1
  */
+
+// Verifie que l'utilisateur est connecté
+Controleur::doitValiderAutorisation( GsbUtilisateur::estConnecte() );
+
 switch(Controleur::$action)
 {
 case "liste":	
+	// Verifie que l'utilisateur est délégué
+	Controleur::doitValiderAutorisation( GsbUtilisateur::estRoleResponsable(), "Vous devez être responsable" );
+	//
 	Vue::$title = "Consulter les visiteurs";
 	Vue::configToDataTable("DataTableVisiteur");
 	$lesVisiteurs = GsbModele::getLesVisiteurs();

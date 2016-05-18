@@ -10,15 +10,11 @@
  */
 session_start();
 
-/* Chargement des fonctions et classes utilitaires
+/* Chargement des fonctions, des classes utilitaires et du modèle 
  */
 require_once("utilitaires/__init__.php");
 
-/** Initialisation Modèle
- */
-GsbModele::seConnecter();
-
-/** Gestion des routines controleurs
+/** Gestion des routines controleurs pour
  */
 switch (Controleur::$uc) 
 {
@@ -27,12 +23,16 @@ case 'page':
 	include("controleurs/page.php");
 	break;	
 
+case 'compte': 
+	include("controleurs/compte.php");
+	break;
+
 case 'gsb':
 	include("controleurs/gsb.php");
 	break;	
-	
-case 'compte': 
-	include("controleurs/compte.php");
+
+case 'profile': 
+	include("controleurs/profile.php");
 	break;
 
 case 'compte-rendu': 
@@ -51,20 +51,19 @@ case 'visiteur':
 	include("controleurs/visiteur.php");
 	break;
 	
-case 'responsecode': 
-	include("controleurs/responsecode.php");
-	break;
-    
 case 'statistique': 
 	include("controleurs/statistique.php");
 	break;
-}
 
+case 'responsecode': 
+	include("controleurs/responsecode.php");
+	break;
+}
 
 /** Page non trouvée si aucun controleurs 
   * n'a appelé une vue
   */
 if( Controleur::estCompose() == false ) {
-	Controleur::$action = "404";
+	Controleur::$action="404";
 	include("controleurs/responsecode.php");
 }

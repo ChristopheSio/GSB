@@ -5,7 +5,6 @@
  * @author Kim Paviot, Julien Dignat and Christophe Sonntag
  * @version 1.1
  */
- 
 
 switch(Controleur::$action)
 {
@@ -16,7 +15,7 @@ case "400":
 	break;
 case "401":	
 	$code="401";
-	$message="Une authentification est nécessaire pour accéder à la ressource";
+	$message="Une authentification/autorisation est nécessaire pour accéder à la ressource";
 	$message_en="(Unauthorized)";
 	break;
 case "403":	
@@ -40,6 +39,13 @@ default:
 	$message_en="(unknown)";
 }
 
+// Dans certains cas les varialbles peuvent ne pas être globale comme quand 
+// la fonction doitValiderAutorisation est appelée.
+if( !isset($GLOBALS["code"])) {
+	$GLOBALS += get_defined_vars ();
+}
+
+// Charge la vue des erreurs
 Vue::$title = 'Erreur '. $code . " " . $message_en . " : " . $_SERVER["REQUEST_URI"];
 Controleur::composeVue("vues/responsecode.php",false);
 

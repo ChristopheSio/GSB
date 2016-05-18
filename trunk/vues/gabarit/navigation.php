@@ -16,13 +16,19 @@
 			-->
 			<li><a <?php OutilsUrl::composerHref("page","accueil"); ?>><i class="fa fa-home fa-fw"></i> Accueil</a></li>
 			<?php if(GsbUtilisateur::estConnecte()) { ?>
-				<li>
-					<a href="#"><i class="fa fa-file-text fa-fw"></i> Compte rendu<span class="fa arrow"></span></a>
-					<ul class="nav nav-second-level">
-						<li><a <?php OutilsUrl::composerHref("compte-rendu","liste"); ?> title="Consulter les comptes rendus"><i class="fa fa-list-alt fa-fw"></i> Liste</a></li>
-						<li><a <?php OutilsUrl::composerHref("compte-rendu","saisir"); ?> title="Saisir un compte rendu"><i class="fa fa-pencil-square-o fa-fw"></i> Saisir</a></li>
-					</ul>
-				</li>
+				
+				<?php if(GsbUtilisateur::estRoleVisiteur()) { ?>
+					<li>
+						<a href="#"><i class="fa fa-file-text fa-fw"></i> Compte rendu<span class="fa arrow"></span></a>
+						<ul class="nav nav-second-level">
+							<li><a <?php OutilsUrl::composerHref("compte-rendu","liste"); ?> title="Consulter mes comptes rendus"><i class="fa fa-list-alt fa-fw"></i> Liste</a></li>
+							<?php if(GsbUtilisateur::estRoleDelegue()) { ?>
+								<li><a <?php OutilsUrl::composerHref("compte-rendu","region-liste"); ?> title="Consulter les comptes rendus de la région"><i class="fa fa-list-alt fa-fw"></i> Liste de ma région</a></li>
+							<?php } ?>
+							<li><a <?php OutilsUrl::composerHref("compte-rendu","saisir"); ?> title="Saisir un compte rendu"><i class="fa fa-pencil-square-o fa-fw"></i> Saisir</a></li>
+						</ul>
+					</li>
+				<?php } ?>
 				<li>
 					<a href="#"><i class="fa fa-user-md fa-fw"></i> Praticiens<span class="fa arrow"></span></a>
 					<ul class="nav nav-second-level">
@@ -37,7 +43,9 @@
 						<li><a <?php OutilsUrl::composerHref("medicament","details"); ?> title="Consulter un médicament"><i class="fa fa-search fa-fw"></i> Détails</a></li>
 					</ul>
 				</li>
-				<li><a <?php OutilsUrl::composerHref("visiteur","liste"); ?> title="Consulter les visiteurs"><i class="fa fa-user fa-fw"></i> Consulter les visiteurs</a></li>
+				<?php if(GsbUtilisateur::estRoleResponsable()) { ?>
+					<li><a <?php OutilsUrl::composerHref("visiteur","liste"); ?> title="Consulter les visiteurs"><i class="fa fa-user fa-fw"></i> Consulter les visiteurs</a></li>
+				<?php } ?>
 				<li>
 					<a href="#"><i class="fa fa-bar-chart fa-fw"></i> Statistiques<span class="fa arrow"></span></a>
 					<ul class="nav nav-second-level">

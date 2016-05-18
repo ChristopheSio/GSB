@@ -15,7 +15,10 @@
 			</div>
 			<div class="panel-body text-center"> 
 				<pre><?php echo $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]; ?></pre>
-				<h2><?php echo $message; ?></h2>
+				<h3 class="text-danger"><?php echo $message; ?></h3>
+				<?php if(!is_null(Controleur::$info)) { ?>
+					<h2 class="text-success"><?php echo Controleur::$info; ?></h2>
+				<?php } ?>
 			</div>
 			<ul class="list-group">
 				<a <?php 

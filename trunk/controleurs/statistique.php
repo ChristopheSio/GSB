@@ -5,12 +5,26 @@
  * @author Kim Paviot, Julien Dignat and Christophe Sonntag
  * @version 1.1
  */
+
+// Verifie que l'utilisateur est connecté
+Controleur::doitValiderAutorisation( GsbUtilisateur::estConnecte() );
+
 switch(Controleur::$action)
 {
     case "famille-medicaments":	
 	Vue::$title = "Famille de médicaments";
 	Vue::configToDataTable("DataTableStatistique");
 	$familleMedicament = GsbModele::statFamilleMedicament();
+	// 
+	$graphiqueData = array();
+	foreach($familleMedicament["stat"] as $uneFamille) {
+		$graphiqueData[] = array(
+			"label"=>($uneFamille["FAM_CODE"]." : ".$uneFamille["FAM_LIBELLE"]), 
+			"data" => $uneFamille["nb"]   
+		);
+	}
+	Vue::configToGraphiqueCamembert("CamembertStatistique",$graphiqueData); // Ajoute un cammember
+	//
 	Controleur::composeVue("vues/statistique/famille-medicaments.php");
 	break;
 

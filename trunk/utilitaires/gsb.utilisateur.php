@@ -11,7 +11,7 @@ class GsbUtilisateurEnumEtat {
 		const Connecte = 1;
 }
 class GsbUtilisateurEnumRole {
-		const Anonyme = 0; // Non connecté
+		const Inconnu = 0; // Non connecté
 		const Visiteur = 1;
 		const Delegue = 2; // Régionaux (PACA/...)
 		const Responsable = 3; // Secteur (Nord/Sud/Est/Ouest)
@@ -33,6 +33,7 @@ class GsbUtilisateur
 	
 	/** Informations sur le role de l'utilisateur par rapport aux régions
 	 */
+	private static $RoleUtilisateur = GsbUtilisateurEnumRole::Inconnu;
 	
 	/**
 	 * Permet de savoir si l'utilisateur est connecté
@@ -42,11 +43,60 @@ class GsbUtilisateur
 		return GsbUtilisateur::$EtatUtilisateur == GsbUtilisateurEnumEtat::Connecte;
 	}
 	/**
+	 * Permet de savoir le roles actif
+	 * @return $RoleUtilisateur
+	*/
+	public static function quelRole() {
+		return GsbUtilisateur::$RoleUtilisateur;
+	}
+	/**
+	 * Permet de connaitre le roles en format texte
+	 * @return $RoleUtilisateur
+	*/
+	public static function quelRoleTexte() {
+		switch(GsbUtilisateur::$RoleUtilisateur)
+		{
+			case GsbUtilisateurEnumRole::Visiteur : return "Visiteur";
+			case GsbUtilisateurEnumRole::Delegue : return "Délegué";
+			case GsbUtilisateurEnumRole::Responsable : return "Responsable";
+			default : return "Inconnu";
+		}
+	}
+	/**
+	 * Permet de savoir si l'utilisateur n'a pas de role
+	 * @return vrai si $RoleUtilisateur est visiteur ou delegue
+	*/
+	public static function estRoleInconnu() {
+		return (GsbUtilisateur::$RoleUtilisateur == GsbUtilisateurEnumRole::Inconnu);
+	}
+	/**
+	 * Permet de savoir si l'utilisateur est un visiteur
+	 * @return vrai si $RoleUtilisateur est visiteur ou delegue
+	*/
+	public static function estRoleVisiteur() {
+		return (GsbUtilisateur::$RoleUtilisateur == GsbUtilisateurEnumRole::Visiteur) || (GsbUtilisateur::$RoleUtilisateur == GsbUtilisateurEnumRole::Delegue);
+	}
+	/**
+	 * Permet de savoir si l'utilisateur est un Delegue
+	 * @return vrai si $RoleUtilisateur est delegue
+	*/
+	public static function estRoleDelegue() {
+		return (GsbUtilisateur::$RoleUtilisateur == GsbUtilisateurEnumRole::Delegue);
+	}
+	/**
+	 * Permet de savoir si l'utilisateur est responsable
+	 * @return vrai si $RoleUtilisateur est responsable
+	*/
+	public static function estRoleResponsable() {
+		return (GsbUtilisateur::$RoleUtilisateur == GsbUtilisateurEnumRole::Responsable);
+	}
+	/**
 	 * Permet de savoir si l'utilisateur est un administrateur
 	 * @return vrai si TypeUtilisateur appartient a administrateur
 	*/
 	public static function estAdministrateur() {
-		return GsbUtilisateur::estConnecte(); //temporaire
+		return (GsbUtilisateur::$Matricule=="admin");
+		//return GsbUtilisateur::estConnecte(); //temporaire
 	}
 	/**
 	 * Permet de connecter un utilisateur 
@@ -66,6 +116,7 @@ class GsbUtilisateur
 		GsbUtilisateur::$Matricule = $matricule;
 		GsbUtilisateur::$Email = $email;
 		GsbUtilisateur::$EtatUtilisateur = GsbUtilisateurEnumEtat::Connecte;
+		GsbUtilisateur::avoirLeRole();
 	}
 	
 	/**
@@ -85,6 +136,20 @@ class GsbUtilisateur
 		GsbUtilisateur::$Matricule = null;
 		GsbUtilisateur::$Email = null;
 		GsbUtilisateur::$EtatUtilisateur = GsbUtilisateurEnumEtat::Anonyme;
+		GsbUtilisateur::$RoleUtilisateur = GsbUtilisateurEnumRole::Inconnu;
+	}
+	/**
+	 * Permet de connaitre le role de l'utilisateur 
+	*/
+	public static function avoirLeRole() {
+		$utilisateurRoles = GsbModele::getLeVisiteurRole(GsbUtilisateur::$Matricule);
+		GsbUtilisateur::$RoleUtilisateur = GsbUtilisateurEnumRole::Inconnu;
+		if(!isset($utilisateurRoles["ROLE_CODE"])) return;
+		switch($utilisateurRoles["ROLE_CODE"]) {
+			case "V" : GsbUtilisateur::$RoleUtilisateur = GsbUtilisateurEnumRole::Visiteur; break;
+			case "D" : GsbUtilisateur::$RoleUtilisateur = GsbUtilisateurEnumRole::Delegue; break;
+			case "R" : GsbUtilisateur::$RoleUtilisateur = GsbUtilisateurEnumRole::Responsable; break;
+		}
 	}
 	
 	/** Charge la class static (appeler en fin de classe)
@@ -101,6 +166,7 @@ class GsbUtilisateur
 		GsbUtilisateur::$Matricule = $_SESSION['UtilisateurMatricule'];
 		GsbUtilisateur::$Email = $_SESSION['UtilisateurEmail'];
 		GsbUtilisateur::$EtatUtilisateur = GsbUtilisateurEnumEtat::Connecte;
+		GsbUtilisateur::avoirLeRole();
 	}
 }
 GsbUtilisateur::initialiseMoi();
