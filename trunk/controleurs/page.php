@@ -6,9 +6,6 @@
  * @version 1.1
  */
 
-// Verifie que l'utilisateur est connecté
-Controleur::doitValiderAutorisation( GsbUtilisateur::estConnecte() );
-
 switch(Controleur::$action)
 {
 case null:	
@@ -151,6 +148,8 @@ case "credit":
 	Controleur::composeVue("vues/page/credit.php");
 	break;
 case "debug":	
+	// Verifie que l'utilisateur est un administrateur
+	Controleur::doitValiderAutorisation( GsbUtilisateur::estAdministrateur(), "Vous devez être administrateur" );
 	Vue::$title = "Debug";
 	Controleur::composeVue("vues/page/debug.php");
 	break;

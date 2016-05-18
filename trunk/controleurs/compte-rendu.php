@@ -24,6 +24,9 @@ case "region-liste":
 	break;
 	
 case "liste":	
+	// Verifie que l'utilisateur est délégué
+	Controleur::doitValiderAutorisation( GsbUtilisateur::estRoleVisiteur(), "Vous devez être visiteur" );
+	//
 	Vue::$title = "Consulter les comptes-rendus";
 	Vue::configToDataTable("DataTableCompteRendu");
 	$lesComptesRendusDuVisiteur = GsbModele::getLesComptesRendusDuVisiteur(GsbUtilisateur::$Matricule);
@@ -71,6 +74,9 @@ case "valider":
 */
 		
 case "saisie-echantitillonsDonnees":	
+	// Verifie que l'utilisateur est délégué
+	Controleur::doitValiderAutorisation( GsbUtilisateur::estRoleVisiteur(), "Vous devez être visiteur" );
+	//
 	OutilsForm::ajaxMultipleDonneesInfo();
 	$lesMedicaments = GsbModele::getLesMedicaments();
 	$choixMedicament = "";
@@ -85,6 +91,9 @@ case "saisie-echantitillonsDonnees":
 	Controleur::composeAjaxVue("vues/compte-rendu/saisie-echantitillonsDonnees.php");
 	break;
 case "saisir":	
+	// Verifie que l'utilisateur est délégué
+	Controleur::doitValiderAutorisation( GsbUtilisateur::estRoleVisiteur(), "Vous devez être visiteur" );
+	//
 	Vue::$title = "Saisir un comptes-rendu";
 	$okForm = false;
 	$okCompteRendu = false;

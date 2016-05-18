@@ -16,8 +16,8 @@ class GsbConfig
      */
     static $SiteName = "Galaxy-Swiss Bourdin Visites";
     static $SiteDirectory = "GSB/trunk"; // modif aussi dans htaccess. sans << / >> de fin ex : GSB/trunk
-    static $SiteShortUrl = "gsb.com";
-    static $SiteContactEmail = "contact@gsb.com";
+    static $SiteShortUrl = "gsb.ppe.sio.u4a.at";
+    static $SiteContactEmail = "gsb.ppe.sio@yopmail.com";
     static $SiteAuteur = "Crée par Cheri Bibi. Mis à jour par Kim Paviot, Julien Dignat et Christophe Sonntag.";
     static $SiteAuteurCreateur = "Cheri Bibi";
     static $SiteAuteurDev = "Kim Paviot, Julien Dignat et Christophe Sonntag";
@@ -35,8 +35,12 @@ class GsbConfig
     static $BdBase = 'sio_gsb';
     static $BdUtilisateur = 'root';
     static $BdMotDePasse = '';
+	
+	/** Configuration de réecriture d'url
+    */
+	static $RewriteRuleForce = false; // pour serveur qui n'ont pas de detection
 }
 
 /** Initialise les valeurs qui requière un instanciation hors classe
 */
-GsbConfig::$SiteUrl = "http://".$_SERVER["SERVER_NAME"].'/'.GsbConfig::$SiteDirectory;
+GsbConfig::$SiteUrl = "http://".$_SERVER["SERVER_NAME"].((GsbConfig::$SiteDirectory!="")?('/'.GsbConfig::$SiteDirectory):"");

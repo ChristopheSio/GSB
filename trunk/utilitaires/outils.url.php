@@ -95,7 +95,7 @@ class OutilsUrl
 	/** Charge la class static (appeler en fin de classe)
 	*/
 	public static function initialiseMoi() {
-		OutilsUrl::$utiliseRewriteRules = in_array("mod_rewrite", apache_get_modules());
+		OutilsUrl::$utiliseRewriteRules = (GsbConfig::$RewriteRuleForce==true) ? true : in_array("mod_rewrite", apache_get_modules());
 		OutilsUrl::$ServeurDossierRacine = str_replace('\\', '/', realpath(__DIR__.'/..') );
 	}
 }

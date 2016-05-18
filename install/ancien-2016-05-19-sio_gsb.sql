@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 18 Mai 2016 à 23:44
+-- Généré le :  Mer 18 Mai 2016 à 12:15
 -- Version du serveur :  5.7.9
 -- Version de PHP :  7.0.0
 
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `dosage` (
 DROP TABLE IF EXISTS `famille`;
 CREATE TABLE IF NOT EXISTS `famille` (
   `FAM_CODE` varchar(3) NOT NULL,
-  `FAM_LIBELLE` varchar(80) NOT NULL,
+  `FAM_LIBELLE` varchar(80) DEFAULT NULL,
   PRIMARY KEY (`FAM_CODE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -112,9 +112,9 @@ CREATE TABLE IF NOT EXISTS `inviter` (
 
 DROP TABLE IF EXISTS `labo`;
 CREATE TABLE IF NOT EXISTS `labo` (
-  `LAB_CODE` varchar(2) NOT NULL,
-  `LAB_NOM` varchar(10) NOT NULL,
-  `LAB_CHEFVENTE` varchar(20) NOT NULL
+  `LAB_CODE` varchar(2) DEFAULT NULL,
+  `LAB_NOM` varchar(10) DEFAULT NULL,
+  `LAB_CHEFVENTE` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -382,9 +382,9 @@ CREATE TABLE IF NOT EXISTS `rapport_visite` (
 --
 
 INSERT INTO `rapport_visite` (`VIS_MATRICULE`, `RAP_NUM`, `PRA_NUM`, `RAP_DATETIME`, `RAP_DATEVISITE`, `RAP_BILAN`, `RAP_MOTIF`, `RAP_REMPLACANT`, `RAP_DOC_OFFERTE`, `RAP_ECHANTILLONS`) VALUES
-('a131', 0, 41, '2003-03-23 16:42:52', '2003-03-23', 'RAS\r\nChangement de tel : 05 89 89 89 89', 'Rapport Annuel', 0, 0, 0),
-('a131', 1, 23, '2002-04-18 13:02:16', '2002-04-18', 'Médecin curieux, à recontacer en décembre pour réunion', 'Actualisation annuelle', 0, 0, 0),
-('a17', 0, 4, '2003-05-21 08:16:18', '2003-05-21', 'Changement de direction, redéfinition de la politique médicamenteuse, recours au générique', 'Baisse activité', 0, 0, 0);
+('a131', 3, 23, '2002-04-18 13:02:16', '2002-04-18', 'Médecin curieux, à recontacer en décembre pour réunion', 'Actualisation annuelle', 0, 0, 0),
+('a131', 7, 41, '2003-03-23 16:42:52', '2003-03-23', 'RAS\r\nChangement de tel : 05 89 89 89 89', 'Rapport Annuel', 0, 0, 0),
+('a17', 4, 4, '2003-05-21 08:16:18', '2003-05-21', 'Changement de direction, redéfinition de la politique médicamenteuse, recours au générique', 'Baisse activité', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -476,7 +476,7 @@ INSERT INTO `role` (`ROLE_CODE`, `ROLE_LABEL`) VALUES
 DROP TABLE IF EXISTS `secteur`;
 CREATE TABLE IF NOT EXISTS `secteur` (
   `SEC_CODE` varchar(1) NOT NULL,
-  `SEC_LIBELLE` varchar(15) NOT NULL,
+  `SEC_LIBELLE` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`SEC_CODE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -565,7 +565,7 @@ CREATE TABLE IF NOT EXISTS `travailler` (
   `VIS_MATRICULE` varchar(10) NOT NULL,
   `TRAV_DATETIME` datetime NOT NULL,
   `REG_CODE` varchar(2) NOT NULL,
-  `ROLE_CODE` varchar(11) NOT NULL,
+  `ROLE_CODE` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`VIS_MATRICULE`,`TRAV_DATETIME`,`REG_CODE`),
   KEY `fk_travailler_visiteur1_idx` (`VIS_MATRICULE`),
   KEY `fk_travailler_region1_idx` (`REG_CODE`)
@@ -603,7 +603,6 @@ INSERT INTO `travailler` (`VIS_MATRICULE`, `TRAV_DATETIME`, `REG_CODE`, `ROLE_CO
 ('d13', '1991-12-05 00:00:00', 'PL', 'V'),
 ('d51', '1997-11-18 00:00:00', 'FC', 'D'),
 ('d51', '2002-03-20 00:00:00', 'FC', 'R'),
-('dE4', '2016-05-18 00:00:00', 'AL', 'D'),
 ('e22', '1989-03-24 00:00:00', 'AL', 'V'),
 ('e24', '1993-05-17 00:00:00', 'AL', 'D'),
 ('e24', '2000-02-29 00:00:00', 'AL', 'R'),
@@ -655,14 +654,12 @@ INSERT INTO `travailler` (`VIS_MATRICULE`, `TRAV_DATETIME`, `REG_CODE`, `ROLE_CO
 ('r24', '1984-07-29 00:00:00', 'BN', 'V'),
 ('r24', '1998-05-25 00:00:00', 'BN', 'R'),
 ('r58', '1990-06-30 00:00:00', 'BG', 'V'),
-('rE4', '2016-05-18 00:00:00', 'AL', 'R'),
 ('s10', '1995-11-14 00:00:00', 'FC', 'V'),
 ('s21', '1992-09-25 00:00:00', 'LI', 'V'),
 ('t43', '1995-03-09 00:00:00', 'BO', 'V'),
 ('t47', '1997-08-29 00:00:00', 'PI', 'V'),
 ('t55', '1994-11-29 00:00:00', 'MP', 'V'),
-('t60', '1991-03-29 00:00:00', 'CE', 'V'),
-('vE4', '2016-05-18 00:00:00', 'AL', 'V');
+('t60', '1991-03-29 00:00:00', 'CE', 'V');
 
 -- --------------------------------------------------------
 

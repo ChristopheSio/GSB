@@ -9,9 +9,9 @@
 			<div class="panel-heading text-center"><h2>Erreur lors de l'envoi</h2></div>
 			<div class="panel-body text-center"><?php OutilsForm::erreurEmailContact("La fonction mail"); ?></div>
 		<?php } else if($okForm && $okMail) { ?>
-			<div class="panel-heading text-center"><h2>Je vous remercie pour votre message</h2></div>
+			<div class="panel-heading text-center"><h2>Nous vous remercions pour votre message</h2></div>
 		<?php } else if(!$okTime) { ?>
-			<div class="panel-heading text-center"><h2>Je vous remercie pour votre message</h2></div>
+			<div class="panel-heading text-center"><h2>Nous vous remercions pour votre message</h2></div>
 			<div class="panel-body text-center"><p>Temps d'attente avant prochain message <?php echo $info_timewait; ?> secondes </p></div>	
 		<?php } else { ?>
 			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-weixin fa-fw"></i> Contacter notre equipe</h3></div>

@@ -16,6 +16,7 @@ case "400":
 case "401":	
 	$code="401";
 	$message="Une authentification/autorisation est nécessaire pour accéder à la ressource";
+	$messagebis="Une authentification/autorisation est nécessaire pour accéder à la ressource";
 	$message_en="(Unauthorized)";
 	break;
 case "403":	
@@ -39,10 +40,10 @@ default:
 	$message_en="(unknown)";
 }
 
-// Dans certains cas les varialbles peuvent ne pas être globale comme quand 
+// Dans certains cas les variables peuvent ne pas être globale comme quand 
 // la fonction doitValiderAutorisation est appelée.
-if( !isset($GLOBALS["code"])) {
-	$GLOBALS += get_defined_vars ();
+foreach (get_defined_vars() as $key => $value) {
+	$GLOBALS[$key] = $value;
 }
 
 // Charge la vue des erreurs
