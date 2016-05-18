@@ -4,7 +4,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-list-alt fa-fw"></i> Liste des praticiens</h3></div>
 			<div class="panel-body">
-				<?php if(Vue::$donnees["lesMedicamentsSontVide"]) { ?>
+				<?php if($lesMedicamentsSontVide) { ?>
 					<h3 class="text-center">Aucun Medicaments</h3>
 				<?php } else { ?>
 					<?php OutilsForm::info("Cliquer sur un médicament pour avoir plus de détail"); ?>
@@ -17,7 +17,7 @@
 								</tr>
 							</thead>
 							<tbody> 
-							<?php foreach( Vue::$donnees["lesMedicaments"] as $unMedicament ) { ?>
+							<?php foreach( $lesMedicaments as $unMedicament ) { ?>
 								<tr class="link" onclick="location.href='<?php echo OutilsUrl::composer("medicament","details","depot=".$unMedicament["MED_DEPOTLEGAL"]);?>'">
 									<td><?php echo $unMedicament["MED_DEPOTLEGAL"]; ?></td>
 									<td><?php echo $unMedicament["MED_NOMCOMMERCIAL"]; ?></td>

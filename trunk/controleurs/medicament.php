@@ -10,35 +10,35 @@ switch(Controleur::$action)
 case "liste":	
 	Vue::$title = "Consulter les médicaments";
 	Vue::configToDataTable("DataTableMedicaments");
-	Vue::$donnees["lesMedicaments"] = GsbModele::getLesMedicaments();
-	Vue::$donnees["lesMedicamentsSontVide"] = count(Vue::$donnees["lesMedicaments"]) == 0;
+	$lesMedicaments = GsbModele::getLesMedicaments();
+	$lesMedicamentsSontVide = count($lesMedicaments) == 0;
 	Controleur::composeVue("vues/medicament/liste.php");
 	break;
 
 case "details":	
-	Vue::$donnees["lesMedicaments"] = GsbModele::getLesMedicaments();
-	Vue::$donnees["lesMedicamentsSontVide"] = count(Vue::$donnees["lesMedicaments"]) == 0;
-	Vue::$donnees["leMedicament"] = null;
-	Vue::$donnees["leMedicamentDepot"] = null;
-	Vue::$donnees["leMedicamentPrecedant"] = null;
-	Vue::$donnees["leMedicamentSuivant"] = null;
+	$lesMedicaments = GsbModele::getLesMedicaments();
+	$lesMedicamentsSontVide = count($lesMedicaments) == 0;
+	$leMedicament = null;
+	$leMedicamentDepot = null;
+	$leMedicamentPrecedant = null;
+	$leMedicamentSuivant = null;
 	if(isset($_GET["depot"])) {
-		Vue::$donnees["leMedicament"] = GsbModele::getLeMedicamentDetails($_GET["depot"]);
-		if(Vue::$donnees["leMedicament"] && Vue::$donnees["lesMedicaments"]) {
-			Vue::$donnees["leMedicamentDepot"] = Vue::$donnees["leMedicament"]["MED_DEPOTLEGAL"];
-			$lesMedicamentsTaille = count(Vue::$donnees["lesMedicaments"]);
+		$leMedicament = GsbModele::getLeMedicamentDetails($_GET["depot"]);
+		if($leMedicament && $lesMedicaments) {
+			$leMedicamentDepot = $leMedicament["MED_DEPOTLEGAL"];
+			$lesMedicamentsTaille = count($lesMedicaments);
 			for($i=0; $i<$lesMedicamentsTaille; $i++)
 			{
-				if(Vue::$donnees["leMedicament"]["MED_DEPOTLEGAL"]==Vue::$donnees["lesMedicaments"][$i]["MED_DEPOTLEGAL"])
+				if($leMedicament["MED_DEPOTLEGAL"]==$lesMedicaments[$i]["MED_DEPOTLEGAL"])
 				{
-					if($i>0) Vue::$donnees["leMedicamentPrecedant"] = Vue::$donnees["lesMedicaments"][$i-1];
-					if(($i+1)<$lesMedicamentsTaille) Vue::$donnees["leMedicamentSuivant"] = Vue::$donnees["lesMedicaments"][$i+1];
+					if($i>0) $leMedicamentPrecedant = $lesMedicaments[$i-1];
+					if(($i+1)<$lesMedicamentsTaille) $leMedicamentSuivant = $lesMedicaments[$i+1];
 					break; // Arrète le FOR
 				}
 			}
 		}
 		else
-			Vue::$donnees["leMedicament"] = null;
+			$leMedicament = null;
 	}
 	Vue::$title = "Details médicament";
 	Controleur::composeVue("vues/medicament/details.php");

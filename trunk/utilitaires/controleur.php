@@ -35,6 +35,10 @@ class Controleur
 	 * @param $vueUrl est la vue a inclure et extraTitre permet d'afficher le titre de la vue
 	*/
 	public static function composeVue($vueUrl,$extraTitre=true) {
+		foreach($GLOBALS as $varName => $varValue ) {
+			if( (substr($varName, 0, 1) == "_") || ($varName=="GLOBALS") ) continue;
+			${$varName} = $varValue;
+		}
 		Controleur::$estCompose = true;
 		Controleur::$vueUrlCompose = $vueUrl;
 		Controleur::afficheEntete();
@@ -48,6 +52,10 @@ class Controleur
 	 * @param $vueUrl est la vue a inclure
 	*/
 	public static function composeAjaxVue($vueUrl) {
+		foreach($GLOBALS as $varName => $varValue ) {
+			if( (substr($varName, 0, 1) == "_") || ($varName=="GLOBALS") ) continue;
+			${$varName} = $varValue;
+		}
 		Controleur::$estCompose = true;
 		Controleur::$vueUrlCompose = $vueUrl;
 		include($vueUrl);

@@ -4,7 +4,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-list-alt fa-fw"></i> Liste des praticiens</h3></div>
 			<div class="panel-body">
-				<?php if(Vue::$donnees["lesPraticiensSontVide"]) { ?>
+				<?php if($lesPraticiensSontVide) { ?>
 					<h3 class="text-center">Aucun praticien</h3>
 				<?php } else { ?>
 					<?php OutilsForm::info("Cliquer sur un praticien pour avoir plus de détail"); ?>
@@ -21,7 +21,7 @@
 								</tr>
 							</thead>
 							<tbody> 
-							<?php foreach( Vue::$donnees["lesPraticiens"] as $unPraticien ) { ?>
+							<?php foreach( $lesPraticiens as $unPraticien ) { ?>
 								<tr class="link" <?php echo $unPraticien["PRA_NUM"]=="42"?'id="selected-row"':""; ?> onclick="location.href='<?php echo OutilsUrl::composer("praticien","details","num=".$unPraticien["PRA_NUM"]);?>'">
 									<td><?php echo $unPraticien["PRA_NUM"]; ?></td>
 									<td><?php echo $unPraticien["PRA_NOM"]; ?></td>

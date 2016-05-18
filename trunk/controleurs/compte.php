@@ -12,13 +12,13 @@ case "connexion":
 	// Si l'utilisateur est connecté alors une vue de redirection s'affiche
 	if(GsbUtilisateur::estConnecte()) {
 		Vue::$title = "Redirection connexion";
-		Vue::$donnees["rechargement_temps"] = 5;
-		Vue::$HeaderSupplement .= '<META http-equiv="Refresh" content="'.Vue::$donnees["rechargement_temps"].'; URL='.OutilsUrl::composer("page","accueil").'">';
+		$rechargement_temps = 5;
+		Vue::$HeaderSupplement .= '<META http-equiv="Refresh" content="'.$rechargement_temps.'; URL='.OutilsUrl::composer("page","accueil").'">';
 		Controleur::composeVue("vues/compte/connexion-redirection.php",false);
 		break;
 	}
 	Vue::$title = "Connexion";
-	Vue::$donnees["info_connexion"] = null;
+	$info_connexion = null;
 	// Si le Formulaire est envoyé
 	if( isset($_POST["login"]) && isset($_POST["password"]) ) {
 		// Si la clé du formilaire est valide
@@ -35,8 +35,8 @@ case "connexion":
 				
 				// Redirige l'utilisateur instantanément (0s)
 				Vue::$title = "Redirection connexion";
-				Vue::$donnees["rechargement_temps"] = 0;
-				Vue::$HeaderSupplement .= '<META http-equiv="Refresh" content="'.Vue::$donnees["rechargement_temps"].'; URL='.OutilsUrl::composer("page","accueil").'">';
+				$rechargement_temps = 0;
+				Vue::$HeaderSupplement .= '<META http-equiv="Refresh" content="'.$rechargement_temps.'; URL='.OutilsUrl::composer("page","accueil").'">';
 				header('Location: '.OutilsUrl::composer("page","accueil") );  
 				Controleur::composeVue("vues/compte/connexion-redirection.php",false);
 				
@@ -56,17 +56,17 @@ case "connexion":
 			}
 			else
 			{
-				Vue::$donnees["info_connexion"] = "Login ou mot de passe incorrect";
+				$info_connexion = "Login ou mot de passe incorrect";
 			}
 		}
-		Vue::$donnees["login"] = $_POST["login"];
-		Vue::$donnees["remember"] = isset($_POST["remember"]);
+		$login = $_POST["login"];
+		$remember = isset($_POST["remember"]);
 	}
 	else {
-		Vue::$donnees["login"] = (isset($_SESSION["RappelUtilisateurLogin"])?$_SESSION["RappelUtilisateurLogin"]:"");
-		Vue::$donnees["remember"] = isset($_SESSION["RappelUtilisateurActif"]);
+		$login = (isset($_SESSION["RappelUtilisateurLogin"])?$_SESSION["RappelUtilisateurLogin"]:"");
+		$remember = isset($_SESSION["RappelUtilisateurActif"]);
 	}
-	Vue::$donnees["password"] = null;
+	$password = null;
 	//
 	OutilsForm::genFormulaireId("connexion");
 	Controleur::composeVue("vues/compte/connexion.php",false);
@@ -74,8 +74,8 @@ case "connexion":
 	
 case "deconnexion":	
 	Vue::$title = "Deconnexion";
-	Vue::$donnees["rechargement_temps"] = 5;
-	Vue::$HeaderSupplement .= '<META http-equiv="Refresh" content="'.Vue::$donnees["rechargement_temps"].'; URL='.OutilsUrl::composer("page","accueil").'">';
+	$rechargement_temps = 5;
+	Vue::$HeaderSupplement .= '<META http-equiv="Refresh" content="'.$rechargement_temps.'; URL='.OutilsUrl::composer("page","accueil").'">';
 	GsbUtilisateur::seDeconnecter();
 	Controleur::composeVue("vues/compte/deconnexion.php",false);
 	break;

@@ -1,14 +1,14 @@
 <!-- vue : statistique/famille-médicament -->
     <?php
-//print_r(Vue::$donnees["familleMedicament"]);
+//print_r($familleMedicament);
 ?>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="panel panel-default">
 			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-list-alt fa-fw"></i> Pourcentage des médicaments par famille</h3></div>
 			<div class="panel-body">
-                            <!-- On affiche le total des médicaments en allant chercher cette donnée dans Vue::$donnees qui est dans le contrôleur statistique.php -->
-                            <?php OutilsForm::success("Total des médicament : ".Vue::$donnees["familleMedicament"]["total"]); ?>
+                            <!-- On affiche le total des médicaments en allant chercher cette donnée dans $ui t dans le contrôleur statistique.php -->
+                            <?php OutilsForm::success("Total des médicament : ".$familleMedicament["total"]); ?>
 					<div class="dataTable_wrapper">
 						<table class="table table-hover" id="DataTableStatistique">
 							<thead>
@@ -19,7 +19,7 @@
 								</tr>
 							</thead>
 							<tbody> 
-							<?php foreach( Vue::$donnees["familleMedicament"]["stat"] as $uneFamille ) { ?>
+							<?php foreach( $familleMedicament["stat"] as $uneFamille ) { ?>
 								<tr>
 									<td><?php echo $uneFamille["FAM_LIBELLE"]." (".$uneFamille["FAM_CODE"].")"; ?></td>
 									<td><?php echo $uneFamille["nb"]; ?></td>

@@ -10,37 +10,37 @@
 switch(Controleur::$action)
 {
 case "400":	
-	Vue::$donnees["code"]="400";
-	Vue::$donnees["message"]="La syntaxe de la requête est erronée";
-	Vue::$donnees["message_en"]="(Bad Request)";
+	$code="400";
+	$message="La syntaxe de la requête est erronée";
+	$message_en="(Bad Request)";
 	break;
 case "401":	
-	Vue::$donnees["code"]="401";
-	Vue::$donnees["message"]="Une authentification est nécessaire pour accéder à la ressource";
-	Vue::$donnees["message_en"]="(Unauthorized)";
+	$code="401";
+	$message="Une authentification est nécessaire pour accéder à la ressource";
+	$message_en="(Unauthorized)";
 	break;
 case "403":	
-	Vue::$donnees["code"]="403";
-	Vue::$donnees["message"]="Le serveur a compris la requête, mais refuse de l'exécuter";
-	Vue::$donnees["message_en"]="(Forbidden)";
+	$code="403";
+	$message="Le serveur a compris la requête, mais refuse de l'exécuter";
+	$message_en="(Forbidden)";
 	break;
 case "404":	
-	Vue::$donnees["code"]="404";
-	Vue::$donnees["message"]="Ressource non trouvée";
-	Vue::$donnees["message_en"]="(Not Found)";
+	$code="404";
+	$message="Ressource non trouvée";
+	$message_en="(Not Found)";
 	break;
 case "500":	
-	Vue::$donnees["code"]="500";
-	Vue::$donnees["message"]="Erreur interne du serveur";
-	Vue::$donnees["message_en"]="(Internal Server Error)";
+	$code="500";
+	$message="Erreur interne du serveur";
+	$message_en="(Internal Server Error)";
 	break;
 default:	
-	Vue::$donnees["code"]="inconnu";
-	Vue::$donnees["message"]="";
-	Vue::$donnees["message_en"]="(unknown)";
+	$code="inconnu";
+	$message="";
+	$message_en="(unknown)";
 }
 
-Vue::$title = 'Erreur '. Vue::$donnees["code"] . " " . Vue::$donnees["message_en"] . " : " . $_SERVER["REQUEST_URI"];
+Vue::$title = 'Erreur '. $code . " " . $message_en . " : " . $_SERVER["REQUEST_URI"];
 Controleur::composeVue("vues/responsecode.php",false);
 
 ?>

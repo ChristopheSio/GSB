@@ -4,7 +4,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-list-alt fa-fw"></i> Liste de mes comptes rendus</h3></div>
 			<div class="panel-body">
-				<?php if(Vue::$donnees["lesComptesRendusDuVisiteurSontVide"]) { ?>
+				<?php if($lesComptesRendusDuVisiteurSontVide) { ?>
 					<h3 class="text-center">Aucun compte-rendu</h3>
 				<?php } else { ?>
 					<div class="dataTable_wrapper">
@@ -19,7 +19,7 @@
 								</tr>
 							</thead>
 							<tbody> 
-							<?php foreach( Vue::$donnees["lesComptesRendusDuVisiteur"] as $unCompteRendu ) { ?>
+							<?php foreach( $lesComptesRendusDuVisiteur as $unCompteRendu ) { ?>
 								<tr>
 									<td><?php echo $unCompteRendu["RAP_NUM"]; ?></td>
 									<td><?php OutilsUrl::composerLien($unCompteRendu["PRA_NOM"]." ".$unCompteRendu["PRA_PRENOM"]." (N°".$unCompteRendu["PRA_NUM"].")","praticien","details","num=".$unCompteRendu["PRA_NUM"]);?></td>

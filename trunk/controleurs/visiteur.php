@@ -10,48 +10,48 @@ switch(Controleur::$action)
 case "liste":	
 	Vue::$title = "Consulter les visiteurs";
 	Vue::configToDataTable("DataTableVisiteur");
-	Vue::$donnees["lesVisiteurs"] = GsbModele::getLesVisiteurs();
-	Vue::$donnees["lesVisiteursSontVide"] = count(Vue::$donnees["lesVisiteurs"]) == 0;
+	$lesVisiteurs = GsbModele::getLesVisiteurs();
+	$lesVisiteursSontVide = count($lesVisiteurs) == 0;
 	Controleur::composeVue("vues/visiteur/liste.php");
 	break;
 
 /*
 case "details":	
-	Vue::$donnees["lesPraticiens"] = GsbModele::getLesPraticiens();
-	Vue::$donnees["lesPraticiensSontVide"] = count(Vue::$donnees["lesPraticiens"]) == 0;
-	Vue::$donnees["lePraticien"] = null;
-	Vue::$donnees["lePraticienNum"] = null;
+	$lesPraticiens = GsbModele::getLesPraticiens();
+	$lesPraticiensSontVide = count($lesPraticiens) == 0;
+	$lePraticien = null;
+	$lePraticienNum = null;
 	if(isset($_GET["num"])) {
-		Vue::$donnees["lePraticien"] = GsbModele::getLePraticienDetails($_GET["num"]);
-		if(Vue::$donnees["lesPraticiens"]) 
-			Vue::$donnees["lePraticienNum"] = Vue::$donnees["lePraticien"]["PRA_NUM"];
+		$lePraticien = GsbModele::getLePraticienDetails($_GET["num"]);
+		if($lesPraticiens) 
+			$lePraticienNum = $lePraticien["PRA_NUM"];
 		else
-			Vue::$donnees["lePraticien"] = null;
+			$lePraticien = null;
 	}
 	
-	Vue::$donnees["lesPraticiens"] = GsbModele::getLesPraticiens();
-	Vue::$donnees["lesPraticiensSontVide"] = count(Vue::$donnees["lesPraticiens"]) == 0;
-	Vue::$donnees["lePraticien"] = null;
-	Vue::$donnees["lePraticienDepot"] = null;
-	Vue::$donnees["lePraticienPrecedant"] = null;
-	Vue::$donnees["lePraticienSuivant"] = null;
+	$lesPraticiens = GsbModele::getLesPraticiens();
+	$lesPraticiensSontVide = count($lesPraticiens) == 0;
+	$lePraticien = null;
+	$lePraticienDepot = null;
+	$lePraticienPrecedant = null;
+	$lePraticienSuivant = null;
 	if(isset($_GET["num"])) {
-		Vue::$donnees["lePraticien"] = GsbModele::getLePraticienDetails($_GET["num"]);
-		if(Vue::$donnees["lePraticien"] && Vue::$donnees["lesPraticiens"]) {
-			Vue::$donnees["lePraticienNum"] = Vue::$donnees["lePraticien"]["PRA_NUM"];
-			$lesPraticiensTaille = count(Vue::$donnees["lesPraticiens"]);
+		$lePraticien = GsbModele::getLePraticienDetails($_GET["num"]);
+		if($lePraticien && $lesPraticiens) {
+			$lePraticienNum = $lePraticien["PRA_NUM"];
+			$lesPraticiensTaille = count($lesPraticiens);
 			for($i=0; $i<$lesPraticiensTaille; $i++)
 			{
-				if(Vue::$donnees["lePraticien"]["PRA_NUM"]==Vue::$donnees["lesPraticiens"][$i]["PRA_NUM"])
+				if($lePraticien["PRA_NUM"]==$lesPraticiens[$i]["PRA_NUM"])
 				{
-					if($i>0) Vue::$donnees["lePraticienPrecedant"] = Vue::$donnees["lesPraticiens"][$i-1];
-					if(($i+1)<$lesPraticiensTaille) Vue::$donnees["lePraticienSuivant"] = Vue::$donnees["lesPraticiens"][$i+1];
+					if($i>0) $lePraticienPrecedant = $lesPraticiens[$i-1];
+					if(($i+1)<$lesPraticiensTaille) $lePraticienSuivant = $lesPraticiens[$i+1];
 					break; // Arrète le FOR
 				}
 			}
 		}
 		else
-			Vue::$donnees["lePraticien"] = null;
+			$lePraticien = null;
 	}
 	Vue::$title = "Details praticiens";
 	Controleur::composeVue("vues/praticien/details.php");

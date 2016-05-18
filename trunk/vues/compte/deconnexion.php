@@ -5,7 +5,7 @@
 			<div class="panel-heading"> <h3 class="panel-title"><i class="fa fa-sign-out fa-fw"></i> Déconnexion</h3> </div>
 			<div class="panel-body text-center">
 				<h2>Vous êtes déconnecté</h2>
-				<p>Rechargement de la page dans <?php echo Vue::$donnees["rechargement_temps"]; ?>s</p>
+				<p>Rechargement de la page dans <?php echo $rechargement_temps; ?>s</p>
 			</div>
 		</div>
 	</div>

@@ -4,7 +4,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-list-alt fa-fw"></i> Liste des visiteurs</h3></div>
 			<div class="panel-body">
-				<?php if(Vue::$donnees["lesVisiteursSontVide"]) { ?>
+				<?php if($lesVisiteursSontVide) { ?>
 					<h3 class="text-center">Aucun visiteur</h3>
 				<?php } else { ?>
 					<div class="dataTable_wrapper">
@@ -20,7 +20,7 @@
 								</tr>
 							</thead>
 							<tbody> 
-							<?php foreach( Vue::$donnees["lesVisiteurs"] as $unVisiteur ) { ?>
+							<?php foreach( $lesVisiteurs as $unVisiteur ) { ?>
 								<tr>
 									<td><?php echo $unVisiteur["VIS_MATRICULE"]; ?></td>
 									<td><?php echo $unVisiteur["VIS_NOM"]; ?></td>

@@ -35,11 +35,6 @@ class Vue
 	*/
 	private static $ConfigModuleImport = array();
 	
-	/** Permet de savoir si une donnée existe
-	*/
-	public static function existDonnee($donneeNom) {
-		return isset(Vue::$donnees[$donneeNom]);
-	}
 	/** Permet de concatener un element javascript pour su html
 	*/
 	public static function afficheJavascriptEncre($str) {

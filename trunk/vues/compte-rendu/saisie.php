@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="col-xs-12">
 		<div class="panel panel-default">
-			<?php if (Vue::$donnees["okForm"] && Vue::$donnees["okCompteRendu"]) { ?>
+			<?php if ($okForm && $okCompteRendu) { ?>
 				<div class="panel-heading text-center"><h2>Votre compte rendu a bien était enregistré</h2></div>
 			<?php } else { ?>
 				<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-pencil-square-o fa-fw"></i> Saisie du compte rendu</h3></div>
@@ -13,7 +13,7 @@
 								<label for="numero">Numero (automatique)</label>
 								<div class="row">
 									<div class="col-sm-4">
-										<input disabled="disabled" type="text" class="form-control" name="numero" id="numero" placeholder="Numero" <?php OutilsForm::value(Vue::$donnees["numero"]); ?>>
+										<input disabled="disabled" type="text" class="form-control" name="numero" id="numero" placeholder="Numero" <?php OutilsForm::value($numero); ?>>
 									</div>
 									<div class="col-sm-8">
 										<span><i class="fa fa-info-circle fa-fw"></i> (pas encore attribué en base de donnée)</span>
@@ -22,8 +22,8 @@
 							</div>
 							<div class="col-sm-6">
 								<label for="dateVisite">Date de visite</label>
-								<input type="date" class="form-control" name="dateVisite" id="dateVisite" placeholder="Date de visite" <?php OutilsForm::value(Vue::$donnees["dateVisite"]); ?>>
-								<?php OutilsForm::validProbleme(Vue::$donnees["valid"]["dateVisite"], "La date de visite"); ?>
+								<input type="date" class="form-control" name="dateVisite" id="dateVisite" placeholder="Date de visite" <?php OutilsForm::value($dateVisite); ?>>
+								<?php OutilsForm::validProbleme($valid["dateVisite"], "La date de visite"); ?>
 							</div>
 						</div>
 						<div class="form-group vertical-align">
@@ -31,16 +31,16 @@
 								<label for="choixPraticien">Praticien visité</label>
 								<select class="form-control" name="choixPraticien" id="choixPraticien">
 									<option value="">--</option> 
-									<?php foreach (Vue::$donnees["lesPraticiens"] as $unPraticien) { ?>
-										<option <?php OutilsForm::selectedCompose(Vue::$donnees["choixPraticien"], $unPraticien['PRA_NUM']); ?>><?php echo $unPraticien['PRA_NOM'] . " " . $unPraticien['PRA_PRENOM']; ?></option>
+									<?php foreach ($lesPraticiens as $unPraticien) { ?>
+										<option <?php OutilsForm::selectedCompose($choixPraticien, $unPraticien['PRA_NUM']); ?>><?php echo $unPraticien['PRA_NOM'] . " " . $unPraticien['PRA_PRENOM']; ?></option>
 									<?php } ?>
 								</select>
-								<?php OutilsForm::validProbleme(Vue::$donnees["valid"]["choixPraticien"], "Le praticien visité"); ?>
+								<?php OutilsForm::validProbleme($valid["choixPraticien"], "Le praticien visité"); ?>
 							</div>
 							<div class="col-sm-6">
 								<label for="remplacant">
-									<input type="checkbox" name="remplacant" id="remplacant" <?php OutilsForm::checked(Vue::$donnees["remplacant"]); ?>> Remplaçant</label>
-								<?php OutilsForm::validProbleme(Vue::$donnees["valid"]["remplacant"], "Le remplacant"); ?>
+									<input type="checkbox" name="remplacant" id="remplacant" <?php OutilsForm::checked($remplacant); ?>> Remplaçant</label>
+								<?php OutilsForm::validProbleme($valid["remplacant"], "Le remplacant"); ?>
 							</div>
 						</div>
 						<div class="form-group">
@@ -48,31 +48,31 @@
 								<label for="choixMotif">Motif de la visite</label>
 								<select class="form-control" name="choixMotif" id="choixMotif" onchange='changerInputActifParSelectChoix(this, "motifAutre", "autre-saisie");'>
 									<option value="-1">--</option> 
-									<?php foreach (Vue::$donnees["lesMotifs"] as $unMotifId => $unMotifInfo) { ?>
-										<option <?php OutilsForm::selectedCompose(Vue::$donnees["choixMotif"], $unMotifId); ?>><?php echo $unMotifInfo; ?></option>
+									<?php foreach ($lesMotifs as $unMotifId => $unMotifInfo) { ?>
+										<option <?php OutilsForm::selectedCompose($choixMotif, $unMotifId); ?>><?php echo $unMotifInfo; ?></option>
 									<?php } ?>
 									<option value="autre-saisie">Autre, preciser</option> 
 								</select>
-								<?php OutilsForm::validProbleme(Vue::$donnees["valid"]["choixMotif"], "La motif choisi"); ?>
+								<?php OutilsForm::validProbleme($valid["choixMotif"], "La motif choisi"); ?>
 							</div>
 							<div class="col-sm-6">
 								<label for="motifAutre">Autre motif</label>
-								<input <?php OutilsForm::disabled(!Vue::$donnees["motifAutreActive"]); ?> type="text" class="form-control" name="motifAutre" id="motifAutre" placeholder="Motif..." <?php OutilsForm::value(Vue::$donnees["motifAutre"]); ?>>
-								<?php OutilsForm::validProblemePourNombreDeCaractere(Vue::$donnees["valid"]["motifAutre"], "Le motif", strlen(Vue::$donnees["motifAutre"]), 2, 128); ?>
+								<input <?php OutilsForm::disabled(!$motifAutreActive); ?> type="text" class="form-control" name="motifAutre" id="motifAutre" placeholder="Motif..." <?php OutilsForm::value($motifAutre); ?>>
+								<?php OutilsForm::validProblemePourNombreDeCaractere($valid["motifAutre"], "Le motif", strlen($motifAutre), 2, 128); ?>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-12">
 								<label for="bilan">Bilan</label>
-								<textarea rows="8" class="form-control" name="bilan" id="bilan" maxlength="512" placeholder="Bilan"><?php echo Vue::$donnees["bilan"]; ?></textarea>
-								<?php OutilsForm::validProblemePourNombreDeCaractere(Vue::$donnees["valid"]["bilan"], "Le bilan", strlen(Vue::$donnees["bilan"]), 2, 512); ?>
+								<textarea rows="8" class="form-control" name="bilan" id="bilan" maxlength="512" placeholder="Bilan"><?php echo $bilan; ?></textarea>
+								<?php OutilsForm::validProblemePourNombreDeCaractere($valid["bilan"], "Le bilan", strlen($bilan), 2, 512); ?>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-6">
 								<label for="documentation">
-									<input type="checkbox" name="documentation" id="documentation" <?php OutilsForm::checked(Vue::$donnees["documentation"]); ?>> Documentation fournit</label>
-								<?php OutilsForm::validProbleme(Vue::$donnees["valid"]["documentation"], "La documentation"); ?>
+									<input type="checkbox" name="documentation" id="documentation" <?php OutilsForm::checked($documentation); ?>> Documentation fournit</label>
+								<?php OutilsForm::validProbleme($valid["documentation"], "La documentation"); ?>
 							</div>
 						</div>
 						<div class="form-group">
@@ -81,7 +81,7 @@
 									<div class="panel-heading"><h4 class="panel-title"><i class="fa fa-list fa-fw"></i> Echantitillons</h4></div>
 									<div class="panel-body">
 										<?php
-										OutilsForm::implanterAjaxMultipleDonnees(Vue::$donnees["echantitillonsDonnees"]);
+										OutilsForm::implanterAjaxMultipleDonnees($echantitillonsDonnees);
 										?>
 									</div>
 								</div>

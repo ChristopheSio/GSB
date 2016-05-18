@@ -8,21 +8,21 @@
 						<i class="fa fa-exclamation-triangle fa-5x"></i>
 					</div>
 					<div class="col-xs-9 text-right">
-						<div class="huge">Erreur <?php echo Vue::$donnees["code"]; ?></div>
-						<div><?php echo Vue::$donnees["message_en"]; ?></div>
+						<div class="huge">Erreur <?php echo $code; ?></div>
+						<div><?php echo $message_en; ?></div>
 					</div>
 				</div>
 			</div>
 			<div class="panel-body text-center"> 
 				<pre><?php echo $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]; ?></pre>
-				<h2><?php echo Vue::$donnees["message"]; ?></h2>
+				<h2><?php echo $message; ?></h2>
 			</div>
 			<ul class="list-group">
 				<a <?php 
 				OutilsUrl::composerHref(
 					"page",
 					"contact",
-					"responsecode=".Vue::$donnees["code"]."&ressource=".urlencode(base64_encode($_SERVER["REQUEST_URI"]))
+					"responsecode=".$code."&ressource=".urlencode(base64_encode($_SERVER["REQUEST_URI"]))
 				); 
 				?>><li class="list-group-item list-group-item-danger">
 					<span class="pull-left"><i class="fa fa-support fa-fw"></i> Contacter l'équipe</span>
