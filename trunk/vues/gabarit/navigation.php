@@ -23,7 +23,7 @@
 						<ul class="nav nav-second-level">
 							<li><a <?php OutilsUrl::composerHref("compte-rendu","liste"); ?> title="Consulter mes comptes rendus"><i class="fa fa-list-alt fa-fw"></i> Liste</a></li>
 							<?php if(GsbUtilisateur::estRoleDelegue()) { ?>
-								<li><a <?php OutilsUrl::composerHref("compte-rendu","region-liste"); ?> title="Consulter les comptes rendus de la région"><i class="fa fa-list-alt fa-fw"></i> Liste de ma région</a></li>
+								<li><a <?php OutilsUrl::composerHref("compte-rendu","region-liste"); ?> title="Consulter les comptes rendus de la région"><i class="fa fa-list-alt fa-fw"></i> Liste de la région</a></li>
 							<?php } ?>
 							<li><a <?php OutilsUrl::composerHref("compte-rendu","saisir"); ?> title="Saisir un compte rendu"><i class="fa fa-pencil-square-o fa-fw"></i> Saisir</a></li>
 						</ul>
