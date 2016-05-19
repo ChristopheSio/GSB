@@ -53,12 +53,14 @@ class GsbModele
     }
 	// getLesVisiteursRoles : retourne un tableau associatif contenant le roles de tous les visiteurs
     public static function getLesVisiteursRoles() {
-        $rs = GsbModele::$pdo->query("select t1.VIS_MATRICULE, t1.TRAV_DATETIME, t1.REG_CODE, t1.ROLE_CODE, r.SEC_CODE, r.REG_NOM, s.SEC_LIBELLE from travailler t1 LEFT JOIN region r ON t1.REG_CODE = r.REG_CODE LEFT JOIN secteur s ON r.SEC_CODE = s.SEC_CODE where t1.TRAV_DATETIME IN( select MAX(t2.TRAV_DATETIME) from travailler t2 where t1.VIS_MATRICULE=t2.VIS_MATRICULE )");
+        //$rs = GsbModele::$pdo->query("select t1.VIS_MATRICULE, t1.TRAV_DATETIME, t1.REG_CODE, t1.ROLE_CODE, r.SEC_CODE, r.REG_NOM, s.SEC_LIBELLE from travailler t1 LEFT JOIN region r ON t1.REG_CODE = r.REG_CODE LEFT JOIN secteur s ON r.SEC_CODE = s.SEC_CODE where t1.TRAV_DATETIME IN( select MAX(t2.TRAV_DATETIME) from travailler t2 where t1.VIS_MATRICULE=t2.VIS_MATRICULE )");
+        $rs = GsbModele::$pdo->query("select vtr.* r.SEC_CODE, r.REG_NOM, s.SEC_LIBELLE from vue_travailler_role vtr LEFT JOIN region r ON vtr.REG_CODE = r.REG_CODE LEFT JOIN secteur s ON r.SEC_CODE = s.SEC_CODE");
         return $rs->fetchAll(PDO::FETCH_ASSOC);
     }
 	// getLeVisiteurRole : retourne un tableau associatif contenant le role d'un visiteurs
     public static function getLeVisiteurRole($matricule) {
-        $sth = GsbModele::$pdo->prepare("select t1.VIS_MATRICULE, t1.TRAV_DATETIME, t1.REG_CODE, t1.ROLE_CODE, r.SEC_CODE, r.REG_NOM, s.SEC_LIBELLE from travailler t1 LEFT JOIN region r ON t1.REG_CODE = r.REG_CODE LEFT JOIN secteur s ON r.SEC_CODE = s.SEC_CODE where t1.TRAV_DATETIME IN( select MAX(t2.TRAV_DATETIME) from travailler t2 where t1.VIS_MATRICULE=t2.VIS_MATRICULE ) AND t1.VIS_MATRICULE=:matricule");
+        //$sth = GsbModele::$pdo->prepare("select t1.VIS_MATRICULE, t1.TRAV_DATETIME, t1.REG_CODE, t1.ROLE_CODE, r.SEC_CODE, r.REG_NOM, s.SEC_LIBELLE from travailler t1 LEFT JOIN region r ON t1.REG_CODE = r.REG_CODE LEFT JOIN secteur s ON r.SEC_CODE = s.SEC_CODE where t1.TRAV_DATETIME IN( select MAX(t2.TRAV_DATETIME) from travailler t2 where t1.VIS_MATRICULE=t2.VIS_MATRICULE ) AND t1.VIS_MATRICULE=:matricule");
+        $sth = GsbModele::$pdo->prepare("select vtr.*, r.SEC_CODE, r.REG_NOM, s.SEC_LIBELLE from vue_travailler_role vtr LEFT JOIN region r ON vtr.REG_CODE = r.REG_CODE LEFT JOIN secteur s ON r.SEC_CODE = s.SEC_CODE where vtr.VIS_MATRICULE=:matricule");
         $sth->execute(array("matricule" => $matricule));
 		return $sth->fetch(PDO::FETCH_ASSOC);
     }

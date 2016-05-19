@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 19 Mai 2016 à 10:47
+-- Généré le :  Mer 18 Mai 2016 à 23:44
 -- Version du serveur :  5.7.9
 -- Version de PHP :  7.0.0
 
@@ -804,28 +804,6 @@ INSERT INTO `visiteur` (`VIS_MATRICULE`, `VIS_LOGIN`, `VIS_MDP`, `VIS_NOM`, `VIS
 ('t60', 'TusseauJosselin', '6c583c5ebfeb2c782d613e7388965918', 'Tusseau', 'Josselin', 'fictif.gsb@yopmail.com', '63 r Bon Repos', '28000', 'CHARTRES', '1991-03-29 00:00:00', NULL, 'GY'),
 ('vE4', 'visiteurE4', 'b5b6f9de8dc878ab1e99b3c07839e747', 'E4', 'Visteur', 'fictif.gsb@yopmail.com', 'Lycée Marie Curie', '13005', 'Marseille', '2016-05-18 00:00:00', 'S', 'SW'),
 ('zzz', 'swissbourdin', '6c583c5ebfeb2c782d613e7388965918', 'swiss', 'bourdin', 'fictif.gsb@yopmail.com', NULL, NULL, NULL, '2003-06-18 00:00:00', NULL, 'BC');
-
--- --------------------------------------------------------
-
---
--- Doublure de structure pour la vue `vue_travailler_role`
---
-DROP VIEW IF EXISTS `vue_travailler_role`;
-CREATE TABLE IF NOT EXISTS `vue_travailler_role` (
-`VIS_MATRICULE` varchar(10)
-,`TRAV_DATETIME` datetime
-,`REG_CODE` varchar(2)
-,`ROLE_CODE` varchar(11)
-);
-
--- --------------------------------------------------------
-
---
--- Structure de la vue `vue_travailler_role`
---
-DROP TABLE IF EXISTS `vue_travailler_role`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vue_travailler_role`  AS  select `t1`.`VIS_MATRICULE` AS `VIS_MATRICULE`,`t1`.`TRAV_DATETIME` AS `TRAV_DATETIME`,`t1`.`REG_CODE` AS `REG_CODE`,`t1`.`ROLE_CODE` AS `ROLE_CODE` from `travailler` `t1` where `t1`.`TRAV_DATETIME` in (select max(`t2`.`TRAV_DATETIME`) from `travailler` `t2` where (`t1`.`VIS_MATRICULE` = `t2`.`VIS_MATRICULE`)) ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
