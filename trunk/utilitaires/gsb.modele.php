@@ -27,7 +27,7 @@ class GsbModele
             GsbModele::$pdo->query("SET CHARACTER SET utf8"); // règle les problème d'encodage
         } 
 		catch (Exception $e) {
-            throw new Exception("Erreur de connexion \n" . $e->getMessage());
+            Controleur::erreurConnexionBdd("Erreur de connexion \n" . $e->getMessage());
         }
     }
 	
@@ -114,7 +114,6 @@ class GsbModele
     }
 	
 	public static function getLesComptesRendusDuVisiteur($matricule) {
-        // Old Method, basic joint : $rs = GsbModele::$pdo->prepare("SELECT * FROM rapport_visite, praticien WHERE VIS_MATRICULE=:MATRICULE AND rapport_visite.PRA_NUM=praticien.PRA_NUM");
         $rs = GsbModele::$pdo->prepare("SELECT r.*, p.* FROM rapport_visite r INNER JOIN praticien p ON r.PRA_NUM=p.PRA_NUM WHERE VIS_MATRICULE=:MATRICULE ORDER BY r.RAP_NUM DESC");
         $rs->execute(array("MATRICULE" => $matricule));
         return $rs->fetchAll(PDO::FETCH_ASSOC);
@@ -126,27 +125,71 @@ class GsbModele
         return $rs->fetchAll(PDO::FETCH_ASSOC);
     }
 	
+	/*public static function getLesComptesRendusDeLaRegionEtVisiteur($codeRegion,$matricule) {
+        $rs = GsbModele::$pdo->prepare("SELECT DISTINCT r.*, p.*, v.VIS_MATRICULE,v.VIS_NOM,v.VIS_PRENOM  FROM rapport_visite r INNER JOIN praticien p ON r.PRA_NUM=p.PRA_NUM INNER JOIN travailler t ON t.VIS_MATRICULE=r.VIS_MATRICULE INNER JOIN visiteur v ON v.VIS_MATRICULE=r.VIS_MATRICULE WHERE t.REG_CODE=:region OR r.VIS_MATRICULE=:matricule  ORDER BY v.VIS_NOM, v.VIS_PRENOM ,r.RAP_NUM DESC");
+        $rs->execute(array("region" => $codeRegion,"matricule"=>$matricule));
+        return $rs->fetchAll(PDO::FETCH_ASSOC);
+    }*/
+	
 	public static function getCompteRenduLeDernierNumeroDuVisiteur($matricule) {
-        $rs = GsbModele::$pdo->prepare("SELECT MAX(RAP_NUM) as RAP_MAX_NUM WHERE VIS_MATRICULE=:MATRICULE");
+        $rs = GsbModele::$pdo->prepare("SELECT MAX(RAP_NUM) as RAP_MAX_NUM FROM rapport_visite WHERE VIS_MATRICULE=:MATRICULE");
         $rs->execute(array("MATRICULE" => $matricule));
         return $rs->fetch(PDO::FETCH_ASSOC)["RAP_MAX_NUM"];
     }
-
-    public static function setCompteRendu() {
-        $stmt = $dbh->prepare("INSERT INTO rapport_visite VALUES (:VIS_MATRICULE, :RAP_NUM, :PRA_NUM, :RAP_DATE, :RAP_BILAN, :RAP_MOTIF)");
-        $stmt->bindParam(':VIS_MATRICULE', $matricule);
-        $stmt->bindParam(':RAP_NUM', $numero_rapport);
-        $stmt->bindParam(':PRA_NUM', $numero_praticien);
-        $stmt->bindParam(':RAP_DATE', $date);
-        $stmt->bindParam(':RAP_BILAN', $bilan);
-        $stmt->bindParam(':RAP_MOTIF', $motif);
+	
+	public static function getLeCompteRenduSiDelegue($matricule,$rapportNum,$codeRegion,$matriculeDelegue) {
+        $rs = GsbModele::$pdo->prepare("SELECT r.*, p.*, v.VIS_NOM, v.VIS_PRENOM FROM rapport_visite r INNER JOIN praticien p ON r.PRA_NUM=p.PRA_NUM INNER JOIN vue_travailler_role tr ON tr.VIS_MATRICULE=r.VIS_MATRICULE INNER JOIN visiteur v ON v.VIS_MATRICULE=r.VIS_MATRICULE WHERE r.VIS_MATRICULE=:MATRICULE AND r.RAP_NUM=:NUM AND (tr.REG_CODE=:CODE_REGION OR r.VIS_MATRICULE=:MAT_DELEGUE)");
+        $rs->execute(array("MATRICULE" => $matricule,"NUM" => $rapportNum,"CODE_REGION"=>$codeRegion,'MAT_DELEGUE'=>$matriculeDelegue));
+        return $rs->fetch(PDO::FETCH_ASSOC);
     }
-	public static function insererCompteRendu(){
-		$rs = GsbModele::$pdo->prepare(
-			"START TRANSACTION;
-			SELECT @A:=SUM(salary) FROM table1 WHERE type=1;
-			UPDATE table2 SET summary=@A WHERE type=1;
-			COMMIT;");
+	
+	public static function getLeCompteRendu($matricule,$rapport_num) {
+        $rs = GsbModele::$pdo->prepare("SELECT r.*, p.*, v.VIS_NOM, v.VIS_PRENOM FROM rapport_visite r INNER JOIN praticien p ON r.PRA_NUM=p.PRA_NUM INNER JOIN visiteur v ON v.VIS_MATRICULE=r.VIS_MATRICULE WHERE r.VIS_MATRICULE=:MATRICULE AND RAP_NUM=:NUM");
+        $rs->execute(array("MATRICULE" => $matricule,"NUM" => $rapport_num));
+        return $rs->fetch(PDO::FETCH_ASSOC);
+    }
+	
+	public static function getLeCompteRenduLesEchantillonsOffert($matricule,$rapport_num) {
+        $rs = GsbModele::$pdo->prepare("SELECT o.MED_DEPOTLEGAL, m.MED_NOMCOMMERCIAL, o.OFF_QTE FROM offrir o INNER JOIN medicament m ON o.MED_DEPOTLEGAL=m.MED_DEPOTLEGAL WHERE VIS_MATRICULE=:MATRICULE AND RAP_NUM=:NUM");
+        $rs->execute(array("MATRICULE" => $matricule,"NUM" => $rapport_num));
+        return $rs->fetchAll(PDO::FETCH_ASSOC);
+    }
+	
+	public static function insererCompteRendu(&$matricule,$praticien,&$dateVisite,&$bilan,&$motif,&$remplacant,&$documentation,&$echantillons){
+		$echantillonsExists = count($echantillons)>0;
+		GsbModele::$pdo->beginTransaction();
+		//
+		$rs = GsbModele::$pdo->prepare("SELECT IFNULL(MAX(RAP_NUM)+1,0) AS RAP_NEXT FROM rapport_visite WHERE VIS_MATRICULE=:MATRICULE;");
+        $rs->execute(array("MATRICULE" => $matricule));
+        $rapportNum = $rs->fetch(PDO::FETCH_ASSOC)["RAP_NEXT"];
+		//
+		$stmt = GsbModele::$pdo->prepare('INSERT INTO rapport_visite VALUES (:MATRICULE,:RAP_NUM,:PRA_NUM,CURRENT_TIMESTAMP,:RAP_DATEVISITE,:RAP_BILAN,:RAP_MOTIF,:RAP_REMPLACANT,:RAP_DOC_OFFERTE,:RAP_ECHANTILLONS);');
+		$stmt->bindParam('MATRICULE', $matricule);
+		$stmt->bindParam('RAP_NUM', $rapportNum);
+		$stmt->bindParam('PRA_NUM', $praticien);
+		$stmt->bindParam('RAP_DATEVISITE', $dateVisite);
+		$stmt->bindParam('RAP_BILAN', $bilan);
+		$stmt->bindParam('RAP_MOTIF', $motif);
+		$stmt->bindValue('RAP_REMPLACANT', intval($remplacant));
+		$stmt->bindValue('RAP_DOC_OFFERTE', intval($documentation));
+		$stmt->bindValue('RAP_ECHANTILLONS', intval($echantillonsExists));
+		$okInsert = $stmt->execute();
+		$codeError = GsbModele::$pdo->errorCode();
+		$okCommit = GsbModele::$pdo->commit();
+		//
+		$validRequest = $okCommit && $okInsert;
+		//
+		if($echantillonsExists && $validRequest) {
+			$stmtEchantillon = GsbModele::$pdo->prepare('INSERT INTO offrir VALUES (:VIS_MATRICULE,:RAP_NUM,:MED_DEPOTLEGAL,:OFF_QTE);');
+			$stmtEchantillon->bindParam('VIS_MATRICULE', $matricule);
+			$stmtEchantillon->bindParam('RAP_NUM', $rapportNum);
+			foreach($echantillons as $unEchantillon ) {
+				$stmtEchantillon->bindParam('MED_DEPOTLEGAL', $unEchantillon["choixMedicament"]);
+				$stmtEchantillon->bindParam('OFF_QTE', $unEchantillon["qteOfferte"]);
+				$stmtEchantillon->execute();
+			}
+		}
+		return array("OK"=>$validRequest,"CODE"=>$codeError,"RAP_NUM"=>$rapportNum,"MATRICULE"=>$matricule);
 	}
 	
     /** Statistiques

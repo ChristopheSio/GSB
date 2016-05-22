@@ -28,6 +28,14 @@
 				<?php /*}*/ ?>
 			</div>
 		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading"><i class="fa fa-pie-chart fa-fw"></i> Pourcentage des praticiens par type</h3></div>
+			<div class="panel-body">
+				<div class="flot-chart">
+					<div class="flot-chart-content" id="CamembertStatistique"></div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 

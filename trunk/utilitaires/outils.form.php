@@ -59,6 +59,14 @@ class OutilsForm {
 	public static function success($str) {
 		echo '<div class="panel panel-success"><div class="panel-heading"><i class="fa fa-table fa-fw"></i> ' . $str . '</div></div>';
 	}
+	
+	/**
+	 * Affiche un information pour l'utilisateur
+	 * @param $str
+	 */
+	public static function danger($str) {
+		echo '<div class="panel panel-danger"><div class="panel-heading">' . $str . '</div></div>';
+	}
 
 	/**
 	 * Permet de partager les informations concernant OutilUrl
@@ -93,9 +101,9 @@ class OutilsForm {
 	 * @param $validProb,$message,$explication=nul
 	 */
 	public static function validProbleme($validProb, $message, $explication = null) {
-		if ($validProb == 0)
+		if (($validProb === 0) || ($validProb===false))
 			OutilsForm::incorrecte($message, $explication);
-		else if ($validProb == -1)
+		else if ($validProb === -1)
 			OutilsForm::erreur($message, $explication);
 	}
 
@@ -131,6 +139,19 @@ class OutilsForm {
 			}
 		}
 	}
+	
+	/**
+	 * Permet de verifié si les entrée existe
+	 * @param $listEntrees
+	 * @return -1 si inexistant et 0 ou 1 si valide
+	 */
+	public static function existePostEntrees($listEntrees) {
+		foreach($listEntrees as $uneEntree) {
+			if(!isset($_POST[$uneEntree])) 
+				return false;
+		}
+		return true;
+	}
 
 	/**
 	 * Validation du captcha
@@ -159,6 +180,26 @@ class OutilsForm {
 		return in_array($value, $estDansListe) ? 1 : 0;
 	}
 
+	/*public static function valideTableList($tableList, $nomColonne, $doitEtreEgal) {
+		foreach($tableList as $ligneTable) {
+			if(isset($ligneTable[$nomColonne]))
+				if( $ligneTable[$nomColonne]!=$doitEtreEgal )
+					return 0;
+		}
+		return 1;
+	}*/
+	
+	
+	/* Valide une liste de validation 
+	 */
+	public static function valideListValid($listValid,$doitEtreEgal=1) {
+		foreach($listValid as $aValid) {
+			if( $aValid!=$doitEtreEgal )
+				return 0;
+		}
+		return 1;
+	}
+	
 	/**
 	 * Regex de validation
 	 * @param $value
@@ -172,84 +213,24 @@ class OutilsForm {
 		return preg_match("#^[0-9a-zA-ZÀ-ÿ\s,\’\:\-\.\?\!\(\)\[\]]{2,80}$#", $value);
 	}
 
-	public static function valideMessage($value, $maxstr = 512) {
+	public static function valideMessage($value, $maxstr=512) {
 		$len = strlen($value);
-		return ( ($len > 2) && ($len < $maxstr) ) ? 1 : 0;
+		return (($len>=2)&&($len<=$maxstr))?1:0;
 	}
 
 	public static function valideEmail($value) {
 		return preg_match("#^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$#i", $value);
 	}
-
-	/**
-	 * Permet d'obtenir/gerer plusieurs donnée d'une rubrique
-	 * @param $nomDeDonnee, $contenuDeDonnnee
-	 * @return tableau des données
-	 */
-	public static function ajaxMultipleDonneesInfo() {
-		Vue::$ajax["id"] = isset($_POST["MD_Id"]) ? $_POST["MD_Id"] : 1;
-	}
-
-	public static function receptionnnerMultipleDonnees($nomDeDonnees, $maxDonnees, $urlAjax, $contenuDeDonnnees) {
-		$donnees = array("size" => 0, "overlySize" => 0, "name" => $nomDeDonnees, "max" => $maxDonnees, "url" => $urlAjax, "properties" => $contenuDeDonnnees, "values" => null);
-		// Regarde la taille
-		$idDonneesOverlySize = $nomDeDonnees . "_OverlySize";
-		$idDonneesSize = $nomDeDonnees . "_Size";
-		if (!isset($_POST[$idDonneesSize]) && !isset($_POST[$idDonneesOverlySize]))
-			return $donnees;
-		if ((intval($_POST[$idDonneesSize]) != $_POST[$idDonneesSize]) && (intval($_POST[$idDonneesOverlySize]) != $_POST[$idDonneesOverlySize]))
-			return $donnees;
-		$donnees["overlySize"] = intval($_POST[$idDonneesOverlySize]);
-		$donnees["size"] = intval($_POST[$idDonneesSize]);
-		if ($donnees["size"] <= 0 && $donnees["size"] > $maxDonnees)
-			return $donnees;
-		// Liste les données
-		$donnees["values"] = array();
-		$iListed = 0;
-		$iContentsOk = false;
-		for ($i = 0; $i < $donnees["size"]; $i++) {
-			$iContentsOk = false;
-			foreach ($contenuDeDonnnees as $unContenu) {
-				$idDonneesUnContenu = $nomDeDonnee . "_" . $i . "_" . $unContenu;
-				if (isset($_POST[$idDonneesUnContenu])) {
-					$iContentsOk = true;
-					break;
-				}
+	
+	public static function valideDate($date,$timeMax=null) {
+		if( preg_match(  '/[0-9]{4}-[0-9]{2}-[0-9]{2}/i', $date ) ) {
+			if(!is_null($timeMax)) {
+				if(strtotime($date)>$timeMax) 
+					return false;
 			}
-			if ($iContentsOk) {
-				$donnees["values"][$iListed] = array();
-				foreach ($contenuDeDonnnees as $unContenu) {
-					$idDonneesUnContenu = $nomDeDonnee . "_" . $i . "_" . $unContenu;
-					$donnees["values"][$iListed][$unContenu] = (isset($_POST[$idDonneesUnContenu])) ? $_POST[$idDonneesUnContenu] : null;
-				}
-				$iListed++;
-			}
+			return true;
 		}
-		return $donnees;
+		return false;
 	}
-
-	public static function implanterAjaxMultipleDonnees($MD) {
-		?> 
-		<input type="hidden" name="<?php echo $MD["name"]; ?>_Size" id="<?php echo $MD["name"]; ?>_Size" value="0">
-		<input type="hidden" name="<?php echo $MD["name"]; ?>_OverlySize" id="<?php echo $MD["name"]; ?>_OverlySize" value="0">
-		<div class="MultipleDonnees">
-			<div id="MD-<?php echo $MD["name"]; ?>"></div>
-			<?php
-			if (!is_null($MD["values"])) {
-				echo "<span onload='" . 'AjaxMultipleDonneesAjouterListe("' . $MD["name"] . '","' . $MD["url"] . '",' . $MD["max"] . ',[';
-				foreach ($MD["values"] as $idDonnees => $donnees) {
-					echo '"MD_Id=' . $idDonnees . '&';
-					foreach ($donnees as $key => $value) {
-						echo "&" . urlencode($key) . "=" . urlencode($value);
-					}
-					echo '",';
-				}
-				echo 'null]' . "'></span>";
-			}
-			?>
-			<a id="<?php echo "MD-" . $MD["name"] . "-append"; ?>" class="btn btn-default" onclick='AjaxMultipleDonneesAjouter(<?php echo '"' . $MD["name"] . '","' . $MD["url"] . '",' . $MD["max"]; ?>, null);'><i class="fa fa-plus-circle fa-fw"></i> Ajouter</a>
-		</div>
-		<?php
-	}
-
+	
 }

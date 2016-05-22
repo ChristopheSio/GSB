@@ -22,7 +22,7 @@
 							</thead>
 							<tbody> 
 							<?php foreach( $lesPraticiens as $unPraticien ) { ?>
-								<tr class="link" <?php echo $unPraticien["PRA_NUM"]=="42"?'id="selected-row"':""; ?> onclick="location.href='<?php echo OutilsUrl::composer("praticien","details","num=".$unPraticien["PRA_NUM"]);?>'">
+								<tr class="link" onclick="location.href='<?php echo OutilsUrl::composer("praticien","details","num=".$unPraticien["PRA_NUM"]);?>'">
 									<td><?php echo $unPraticien["PRA_NUM"]; ?></td>
 									<td><?php echo $unPraticien["PRA_NOM"]; ?></td>
 									<td><?php echo $unPraticien["PRA_PRENOM"]; ?></td>

@@ -14,7 +14,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-weixin fa-fw"></i> Projet d'application : Gestion des visites</h3></div>
 			<div class="panel-body text-center">
-				<p><img alt="<?php echo GsbConfig::$SiteName; ?>" src="images/logo-capsules.png" />Cette application permet l'enregistrement et le suivi des comptes-rendus de visite des practiciens de l'activité commerciale d'un laboratoire pharmaceutique</p>
+				<p>Cette application permet l'enregistrement et le suivi des comptes-rendus de visite des practiciens de l'activité commerciale d'un laboratoire pharmaceutique</p>
 			</div>
 		</div>
 	</div>

@@ -7,6 +7,7 @@
 				<?php if($lesComptesRendusDeLaRegionSontVide) { ?>
 					<h3 class="text-center">Aucun compte-rendu</h3>
 				<?php } else { ?>
+					<?php OutilsForm::info("Cliquer sur un compte rendu pour avoir plus de détail"); ?>
 					<div class="dataTable_wrapper">
 						<table class="table table-hover" id="DataTableCompteRendu">
 							<thead>
@@ -22,7 +23,7 @@
 							</thead>
 							<tbody> 
 							<?php foreach( $lesComptesRendusDeLaRegion as $unCompteRendu ) { ?>
-								<tr>
+								<tr class="link" onclick="location.href='<?php echo OutilsUrl::composer("compte-rendu","details","matricule=".$unCompteRendu["VIS_MATRICULE"]."&num=".$unCompteRendu["RAP_NUM"]);?>'">
 									<td><?php echo $unCompteRendu["VIS_NOM"]." ".$unCompteRendu["VIS_PRENOM"]." <span class='text-nowrap'>(M°".$unCompteRendu["VIS_MATRICULE"].")</span>";?></td>
 									<td><?php echo $unCompteRendu["RAP_NUM"]; ?></td>
 									<td><?php OutilsUrl::composerLien($unCompteRendu["PRA_NOM"]." ".$unCompteRendu["PRA_PRENOM"]." <span class='text-nowrap'>(N°".$unCompteRendu["PRA_NUM"].")</span>","praticien","details","num=".$unCompteRendu["PRA_NUM"]);?></td>

@@ -40,12 +40,11 @@
 	<script src="js/metisMenu.min.js"></script>
 	<!-- Custom Theme JavaScript  -->
 	<script src="js/sb-admin-2.js"></script>
-	<script src="js/ajax.js"></script>
 	<script src="js/gsb.js"></script>
 	<?php foreach(Vue::$ListScript as $ScriptUrl) { ?><script src="<?php echo $ScriptUrl; ?>"></script><?php } ?>
 	<?php foreach(Vue::$ListStyleEncre as $ScriptEncre) { Vue::afficheJavascriptEncre($ScriptEncre); } ?>
 </head>
-<body>
+<body<?php if(count(Vue::$ListScriptOnLoad)!=0) { echo " onload='"; foreach(Vue::$ListScriptOnLoad as $scriptOnLoad){echo $scriptOnLoad;} echo "'"; } ?>>
 	<div id="wrapper">
 		
 	<!-- Navigation -->

@@ -36,6 +36,7 @@
 			<div class="panel-body">
 				<div class="flot-chart">
 					<div class="flot-chart-content" id="CamembertStatistique"></div>
+					<div class="legend"></div>
 				</div>
 			</div>
 		</div>

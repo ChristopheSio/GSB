@@ -45,9 +45,11 @@ default:
 foreach (get_defined_vars() as $key => $value) {
 	$GLOBALS[$key] = $value;
 }
-
 // Charge la vue des erreurs
 Vue::$title = 'Erreur '. $code . " " . $message_en . " : " . $_SERVER["REQUEST_URI"];
-Controleur::composeVue("vues/responsecode.php",false);
+// Notes :
+// Si ajaxEstActive alors ajax-responsecode sinon responsecode
+Controleur::composeVue( (Controleur::ajaxEstActive() ? "vues/ajax-responsecode.php" : "vues/responsecode.php") ,false);
+
 
 ?>

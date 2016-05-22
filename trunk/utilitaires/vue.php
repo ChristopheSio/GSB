@@ -25,6 +25,7 @@ class Vue
 	public static $ListScript = array();
 	public static $ListStyle = array();
 	public static $ListStyleEncre = array();
+	public static $ListScriptOnLoad = array();
 	public static $HeaderSupplement = "";
 	
 	/** Variables de gestion de la vue
@@ -49,7 +50,7 @@ class Vue
 		//Vue::$ListStyleEncre[] = ('$(document).ready(function() {  var '.$DataTableId.' = $("#'.$DataTableId.'").DataTable( $.extend({}, { "responsive": true, "ordering": false, "pageLength": 10,  "language": { "url": "i18n/DataTables.French.json" } }'.(is_null($DataTableJson)?"":(",".json_encode($DataTableJson,JSON_FORCE_OBJECT ))).')); '.(is_null($DataTableScript)?"":$DataTableScript).' });');
 		Vue::$ListStyleEncre[] = ('$(document).ready(function() {  var '.$DataTableId.' = $("#'.$DataTableId.'").DataTable($.extend({},{"responsive":true,"ordering":false,"pageLength":10,"stateSave":false,"language":{"url":"i18n/DataTables.French.json"}}'.(is_null($DataTableJson)?"":(",".json_encode($DataTableJson,JSON_FORCE_OBJECT ))).')); '.(is_null($DataTableScript)?"":$DataTableScript).' });');
 	}
-	/** Permet d'inclure les configuration de DataTable
+	/** Permet d'inclure les configuration des Graphiques en Camembert
 	*/
 	public static function configToGraphiqueCamembert($chartsId,$chartsData) {
 		if(!in_array("flot", Vue::$ConfigModuleImport)){
@@ -62,6 +63,20 @@ class Vue
 			Vue::$ConfigModuleImport[] = "flot-pie";
 		}
 		Vue::$ListStyleEncre[] = ('$(function() { var '.$chartsId.'_Data = '.json_encode($chartsData,JSON_NUMERIC_CHECK).';  var '.$chartsId.' = $.plot($("#'.$chartsId.'"),'.$chartsId.'_Data,{series:{pie:{show:true}},grid:{hoverable:true},tooltip:true,tooltipOpts:{content:"%p.0%, %s",shifts:{x:20,y:0},defaultTheme:false}}); });'); // %p.0%, %s" : show percentages, rounding to 2 decimal places
+	}
+	/** Permet d'inclure les configuration d'un formulaire multivue
+	*/
+	public static function configToMultidataForm($multidataFormID,$data) {
+		if(!in_array("ajax", Vue::$ConfigModuleImport)){
+			Vue::$ListScript[] = "js/ajax.js";
+			Vue::$ConfigModuleImport[] = "ajax";
+		}
+		if(!in_array("MultidataForm", Vue::$ConfigModuleImport)){
+			Vue::$ListScript[] = "js/outil.multidata.form.js";
+			Vue::$ConfigModuleImport[] = "MultidataForm";
+		}
+		Vue::$ListStyleEncre[] = ('var multidata_'.$multidataFormID.' = '.json_encode($data,JSON_NUMERIC_CHECK).';  ');
+		Vue::$ListScriptOnLoad[] = ('multidataInit("'.$multidataFormID.'");');
 	}
 	/** Permet d'inclure les configuration d'une MapMonde, Ici la France
 	*/

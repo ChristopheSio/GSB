@@ -74,6 +74,16 @@ switch(Controleur::$action)
 	Vue::configToDataTable("DataTableStatistique");
 	$lesPraticiens = GsbModele::statPraticienType();
 	$lesPraticiensSontVide = count($lesPraticiens) == 0;
+	//
+	$graphiqueData = array();
+	foreach($lesPraticiens["stat"] as $unType) {
+		$graphiqueData[] = array(
+			"label"=>($unType["TYP_LIBELLE"]." (".$unType["TYP_CODE"].")"), 
+			"data" => $unType["nb"]   
+		);
+	}
+	Vue::configToGraphiqueCamembert("CamembertStatistique",$graphiqueData); // Ajoute un cammember
+	//
 	Controleur::composeVue("vues/statistique/type-praticiens.php");
 	break;
     
@@ -82,9 +92,22 @@ switch(Controleur::$action)
 	Vue::configToDataTable("DataTableStatistique");
 	$lesVisiteurs = GsbModele::statVisiteLabo();
 	$lesVisiteursSontVide = count($lesVisiteurs) == 0;
+	//
+	$graphiqueData = array();
+	foreach($lesVisiteurs["stat"] as $unVisiteur) {
+		$graphiqueData[] = array(
+			"label"=>($unVisiteur["LAB_NOM"]." (".$unVisiteur["LAB_CODE"].")"), 
+			"data" => $unVisiteur["nb"]   
+		);
+	}
+	Vue::configToGraphiqueCamembert("CamembertStatistique",$graphiqueData); // Ajoute un cammember
+	//
 	Controleur::composeVue("vues/statistique/visite-labo.php");
 	break;
+
+	
     
+/*
     case "details":	
 	$lesPraticiens = GsbModele::getLesPraticiens();
 	$lesPraticiensSontVide = count($lesPraticiens) == 0;
@@ -113,4 +136,7 @@ switch(Controleur::$action)
 	Vue::$title = "Details praticiens";
 	Controleur::composeVue("vues/praticien/details.php");
 	break;
+*/
+
+
 }

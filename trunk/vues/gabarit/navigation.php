@@ -50,11 +50,13 @@
 					<a href="#"><i class="fa fa-bar-chart fa-fw"></i> Statistiques<span class="fa arrow"></span></a>
 					<ul class="nav nav-second-level">
 						<li><a <?php OutilsUrl::composerHref("statistique","famille-medicaments"); ?>><i class="fa fa-home fa-fw"></i> Famille de médicaments</a></li>
+						<?php /*
 						<li><a <?php OutilsUrl::composerHref("statistique","medicaments-offerts"); ?>><i class="fa fa-gift fa-fw"></i> Médicaments offerts</a></li>
 						<li><a <?php OutilsUrl::composerHref("statistique","localisation-praticiens"); ?>><i class="fa fa-globe fa-fw"></i> Localisation praticiens</a></li>
 						<li><a <?php OutilsUrl::composerHref("statistique","laboratoires"); ?>><i class="fa fa-flask fa-fw"></i> Laboratoires</a></li>
 						<li><a <?php OutilsUrl::composerHref("statistique","rapports-visite"); ?>><i class="fa fa-suitcase fa-fw"></i> Rapports de visite</a></li>
 						<li><a <?php OutilsUrl::composerHref("statistique","roles"); ?>><i class="fa fa-user fa-fw"></i> Les rôles</a></li>
+						*/ ?>
 						<li><a <?php OutilsUrl::composerHref("statistique","visite-labo"); ?>><i class="fa fa-user fa-fw"></i> Les visites par labo</a></li>
 						<li><a <?php OutilsUrl::composerHref("statistique","type-praticiens"); ?>><i class="fa fa-user fa-fw"></i> Les types de praticien</a></li>
 					</ul>

@@ -2,8 +2,16 @@
 <div class="row">
 	<div class="col-xs-12">
 		<div class="panel panel-default">
-			<?php if ($okForm && $okCompteRendu) { ?>
-				<div class="panel-heading text-center"><h2>Votre compte rendu a bien était enregistré</h2></div>
+			<?php if ($okCompteRendu && $rapportKeys["OK"]) { ?>
+				<div class="panel-heading text-center">
+					<h2>Votre compte rendu a bien été enregistré</h2>
+					<h3>Matricule <?php echo $rapportKeys["MATRICULE"]; ?>, N°<?php echo $rapportKeys["RAP_NUM"]; ?></h3>
+				</div>
+			<?php } else if ($okCompteRendu && !$rapportKeys["OK"]) { ?>
+				<div class="panel-heading text-center">
+					<h2>Votre compte rendu n'a pas pu être enregistré</h2>
+					<?php OutilsForm::erreur("La fonction d'insertion d'un compte rendu","Code mysql :".$rapportKeys["CODE"]); ?>
+				</div>
 			<?php } else { ?>
 				<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-pencil-square-o fa-fw"></i> Saisie du compte rendu</h3></div>
 				<div class="panel-body">
@@ -31,16 +39,14 @@
 								<label for="choixPraticien">Praticien visité</label>
 								<select class="form-control" name="choixPraticien" id="choixPraticien">
 									<option value="">--</option> 
-									<?php foreach ($lesPraticiens as $unPraticien) { ?>
-										<option <?php OutilsForm::selectedCompose($choixPraticien, $unPraticien['PRA_NUM']); ?>><?php echo $unPraticien['PRA_NOM'] . " " . $unPraticien['PRA_PRENOM']; ?></option>
-									<?php } ?>
+									<?php foreach ($lesPraticiens as $unPraticien) { 
+										?><option <?php OutilsForm::selectedCompose($choixPraticien, $unPraticien['PRA_NUM']); ?>><?php echo $unPraticien['PRA_NOM'] . " " . $unPraticien['PRA_PRENOM']. " (".$unPraticien['PRA_NUM'].")"; ?></option><?php 
+									} ?>
 								</select>
-								<?php OutilsForm::validProbleme($valid["choixPraticien"], "Le praticien visité"); ?>
+								<?php OutilsForm::validProbleme($valid["choixPraticien"], "Le praticien"); ?>
 							</div>
 							<div class="col-sm-6">
-								<label for="remplacant">
-									<input type="checkbox" name="remplacant" id="remplacant" <?php OutilsForm::checked($remplacant); ?>> Remplaçant</label>
-								<?php OutilsForm::validProbleme($valid["remplacant"], "Le remplacant"); ?>
+								<label for="remplacant"><input type="checkbox" name="remplacant" id="remplacant" <?php OutilsForm::checked($remplacant); ?>> Remplaçant</label>
 							</div>
 						</div>
 						<div class="form-group">
@@ -48,10 +54,10 @@
 								<label for="choixMotif">Motif de la visite</label>
 								<select class="form-control" name="choixMotif" id="choixMotif" onchange='changerInputActifParSelectChoix(this, "motifAutre", "autre-saisie");'>
 									<option value="-1">--</option> 
-									<?php foreach ($lesMotifs as $unMotifId => $unMotifInfo) { ?>
-										<option <?php OutilsForm::selectedCompose($choixMotif, $unMotifId); ?>><?php echo $unMotifInfo; ?></option>
-									<?php } ?>
-									<option value="autre-saisie">Autre, preciser</option> 
+									<?php foreach ($lesMotifs as $unMotifId => $unMotifInfo) { 
+										?><option <?php OutilsForm::selectedCompose($choixMotif, $unMotifId); ?>><?php echo $unMotifInfo; ?></option><?php 
+									} ?>
+									<option <?php OutilsForm::selectedCompose($choixMotif, "autre-saisie"); ?>>Autre, preciser</option> 
 								</select>
 								<?php OutilsForm::validProbleme($valid["choixMotif"], "La motif choisi"); ?>
 							</div>
@@ -70,21 +76,24 @@
 						</div>
 						<div class="form-group">
 							<div class="col-sm-6">
-								<label for="documentation">
-									<input type="checkbox" name="documentation" id="documentation" <?php OutilsForm::checked($documentation); ?>> Documentation fournit</label>
-								<?php OutilsForm::validProbleme($valid["documentation"], "La documentation"); ?>
+								<label for="documentation"><input type="checkbox" name="documentation" id="documentation" <?php OutilsForm::checked($documentation); ?>> Documentation fournit</label>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-12">
+								<?php OutilsMultidataForm::implanter($echantillonsMultidataForm,'<i class="fa fa-list fa-fw"></i> Echantillons</h4>',array("Medicament","Quantité offerte")); ?>
+								<?php 
+								/*
 								<div class="panel panel-default">
-									<div class="panel-heading"><h4 class="panel-title"><i class="fa fa-list fa-fw"></i> Echantitillons</h4></div>
+									<div class="panel-heading"><h4 class="panel-title"></div>
 									<div class="panel-body">
 										<?php
-										OutilsForm::implanterAjaxMultipleDonnees($echantitillonsDonnees);
+										OutilsForm::implanterAjaxMultipleDonnees($echantillonsDonnees);
 										?>
 									</div>
+									<div class="panel-footer"><a id="MD-echantillonsDonnees-append" class="btn btn-default" onclick="AjaxMultipleDonneesAjouter(&quot;echantillonsDonnees&quot;,&quot;http://ppe.localhost/GSB/trunk/compte-rendu/ajax-saisie-echantillons&quot;,25, null);"><i class="fa fa-plus-circle fa-fw"></i> Ajouter</a></div>
 								</div>
+								 */ ?>
 							</div>
 						</div>
 

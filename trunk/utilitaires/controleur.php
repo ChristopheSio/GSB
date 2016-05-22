@@ -16,6 +16,7 @@ class Controleur
 	
 	/** Gestion d'un controleur
 	*/
+	private static $estAjax = false;
 	private static $estCompose = false;
 	private static $vueUrlCompose = null;
 	
@@ -42,24 +43,29 @@ class Controleur
 		}
 		Controleur::$estCompose = true;
 		Controleur::$vueUrlCompose = $vueUrl;
-		Controleur::afficheEntete();
-		if($extraTitre) Controleur::afficheExtraTitre();
+		if( !Controleur::$estAjax ) {
+			Controleur::afficheEntete();
+			if($extraTitre) 
+				Controleur::afficheExtraTitre();
+		}
+		//
 		include($vueUrl);
-		Controleur::affichePied();
+		//
+		if( !Controleur::$estAjax ) {
+			Controleur::affichePied();
+		}
 	}
 	
-	/**
-	 * Compose une vue appeler en ajax
-	 * @param $vueUrl est la vue a inclure
-	*/
-	public static function composeAjaxVue($vueUrl) {
-		foreach($GLOBALS as $varName => $varValue ) {
-			if( (substr($varName, 0, 1) == "_") || ($varName=="GLOBALS") ) continue;
-			${$varName} = $varValue;
-		}
-		Controleur::$estCompose = true;
-		Controleur::$vueUrlCompose = $vueUrl;
-		include($vueUrl);
+	/** Renseigne sur le statue ajax
+	 */
+	public static function ajaxActiver() {
+		Controleur::$estAjax = true;
+	}
+	public static function ajaxDesactiver() {
+		Controleur::$estAjax = false;
+	}
+	public static function ajaxEstActive() {
+		return Controleur::$estAjax;
 	}
 	
 	/** Reseigne le statut d'un controleur
@@ -73,6 +79,14 @@ class Controleur
 				false:
 				OutilsUrl::testConstFileVersUrl($constFile,Controleur::$vueUrlCompose)
 		);
+	}
+	
+	/** Assure la sécurité de connexion bdd
+	*/
+	public static function erreurConnexionBdd($messageErreur) {
+		$info = $messageErreur;
+		include("vues/maintenance.php");
+		die();
 	}
 	
 	/** Assure la sécurité autorisations de manière forte

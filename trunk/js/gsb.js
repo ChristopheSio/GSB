@@ -1,7 +1,7 @@
 /** 
  * Script de l'application GSB
  * @package default
- * @author Kim Paviot, Julien Dignat and Christophe Sonntag
+ * @author Christophe Sonntag
  * @version 1.1
  */
 
@@ -15,6 +15,8 @@ function changerInputActifParSelectChoix(elementSelect,idElementEtatChanger,vale
 	elementEtatChanger.disabled = (valeurChoix!=valeurSelect);
     //elementEtatChanger.style.visible = "visible";
 }
+
+/*
 
 function AjaxMultipleDonneesAjouter(nomDeDonnee,urlDeLaVueAjax,maxDonnees,postDonnees)
 {
@@ -95,3 +97,5 @@ $(function()
 		return false;
 	});
 });
+ 
+ **/
