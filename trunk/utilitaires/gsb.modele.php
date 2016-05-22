@@ -125,12 +125,6 @@ class GsbModele
         return $rs->fetchAll(PDO::FETCH_ASSOC);
     }
 	
-	/*public static function getLesComptesRendusDeLaRegionEtVisiteur($codeRegion,$matricule) {
-        $rs = GsbModele::$pdo->prepare("SELECT DISTINCT r.*, p.*, v.VIS_MATRICULE,v.VIS_NOM,v.VIS_PRENOM  FROM rapport_visite r INNER JOIN praticien p ON r.PRA_NUM=p.PRA_NUM INNER JOIN travailler t ON t.VIS_MATRICULE=r.VIS_MATRICULE INNER JOIN visiteur v ON v.VIS_MATRICULE=r.VIS_MATRICULE WHERE t.REG_CODE=:region OR r.VIS_MATRICULE=:matricule  ORDER BY v.VIS_NOM, v.VIS_PRENOM ,r.RAP_NUM DESC");
-        $rs->execute(array("region" => $codeRegion,"matricule"=>$matricule));
-        return $rs->fetchAll(PDO::FETCH_ASSOC);
-    }*/
-	
 	public static function getCompteRenduLeDernierNumeroDuVisiteur($matricule) {
         $rs = GsbModele::$pdo->prepare("SELECT MAX(RAP_NUM) as RAP_MAX_NUM FROM rapport_visite WHERE VIS_MATRICULE=:MATRICULE");
         $rs->execute(array("MATRICULE" => $matricule));

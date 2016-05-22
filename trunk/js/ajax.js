@@ -40,35 +40,3 @@ function XhrSend(elementToReceive, urlToAjaxPost, postDataLine)
 	xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');  // entête pour le post (comme si c'était un formulaire)
 	xhr.send( (postDataLine==null)?"":postDataLine );  
 }
-
-/*
-function XhrSend(varsDictPOST, pathPagePOST, idNameRECEPTINFORM)
-{
-	var xhr = getXMLHTTP(); // objet Ajax
-
-	xhr.onreadystatechange = function() {   
-		//if(xhr.readyState == 3)
-		//{
-			document.getElementById( idNameRECEPTINFORM ).innerHTML = '<i class="fa fa-spinner fa-pulse"></i>';
-		//}
-		if(xhr.readyState == 4) 
-		{
-			/*elementRefresh = document.getElementById( idNameREFRESH ); 
-			elementRefresh.blur();
-			elementRefresh.focus();*/
-			/*
-			elementRefresh.value = elementRefresh.value;*/
-
-/*
-			document.getElementById( idNameRECEPTINFORM ).innerHTML = xhr.responseText;
-		}	
-		
-	}
-	xhr.open("POST",pathPagePOST,true);  
-	xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');  // entête pour le post (comme si c'était un formulaire)
-	var concatVarsPOST = "";
-	for (var index in varsDictPOST) { concatVarsPOST = concatVarsPOST + (concatVarsPOST==""?"":"&") + encodeURI(index) + "=" + encodeURI(varsDictPOST[index]); }
-	xhr.send( concatVarsPOST );  
-}
-
-*/
