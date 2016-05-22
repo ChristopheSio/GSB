@@ -31,7 +31,7 @@
 					<li>Une gestion pour les responsables</li>
 				</ul>
 				<?php if( GsbUtilisateur::estConnecte() ) { ?>
-					<p>Une documentation détailé est disponible ici : <?php OutilsUrl::composerLien("Documentation","gsb","documentation"); ?>
+					<p>Une documentation détaillé est disponible ici : <?php OutilsUrl::composerLien("Documentation","gsb","documentation"); ?>
 				<?php } else { ?>
 					<p>Pour acceder à la documentation, veuillez vous conecter : <?php OutilsUrl::composerLien("Se connecter","compte","connexion"); ?>
 				<?php } ?>
@@ -44,7 +44,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-weixin fa-fw"></i> Contactez nous</h3></div>
 			<div class="panel-body">
-				<p>Pour des questions spécifiques liées à <strong>GSB</strong>, veuillez communiquer avec par notre page de contact : <?php OutilsUrl::composerLien("Contact","page","contact"); ?></p> 
+				<p>Pour des questions spécifiques liées à <strong>GSB</strong>, veuillez nous les communiquer par notre page de contact : <?php OutilsUrl::composerLien("Contact","page","contact"); ?></p> 
 			</div>
 		</div>
 	</div>

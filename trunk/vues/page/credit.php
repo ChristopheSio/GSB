@@ -83,7 +83,7 @@
 			<div class="panel-body">
 				<p>Si votre travail utilise ce service, s'il vous plaît ajouter la mention suivante : </p> 
 				<blockquote class="text-center">
-					<p>Ce travail est basé (en partie) sur les produits de données généré par l'application <strong>GSB</strong> situé au Lycée Marie Curie de Marseille.</p> 
+					<p>Ce travail est basé (en partie) sur les produits de données générées par l'application <strong>GSB</strong> situé au Lycée Marie Curie de Marseille.</p> 
 				</blockquote>
 			</div>
 		</div>
@@ -96,9 +96,9 @@
 			<div class="panel-body">
 				<p>
 					Nous sommes plusieurs développeurs du Lycée Marie Curie de Marseille.<br/>
-					En charge d'analiser, de concevoir, de mettre à jour et d'installer l'application web <strong>GSB</strong>.
+					En charge d'analyser, de concevoir, de mettre à jour et d'installer l'application web <strong>GSB</strong>.
 				</p>
-				<p>Ce travail est une projet personnel encadré de l'année 2016.<br/>Développer par <?php echo GsbConfig::$SiteAuteurCreateur; ?> et mis à jour par <?php echo GsbConfig::$SiteAuteurDev; ?>.</p> 
+				<p>Ce travail est un projet personnel encadré de l'année 2016.<br/>Développé par <?php echo GsbConfig::$SiteAuteurCreateur; ?> et mis à jour par <?php echo GsbConfig::$SiteAuteurDev; ?>.</p> 
 				<?php if( !Controleur::estVueUrlComposeParConstFile(__FILE__) ) { ?>
 					<p>Pour en savoir plus aller sur : <?php OutilsUrl::composerLien("Crédit","page","credit"); ?></p> 
 				<?php } ?>

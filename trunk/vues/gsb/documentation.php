@@ -24,7 +24,7 @@
 			<div class="col-sm-4">
 				<div class="thumbnail">
 					<img class="img-thumbnail" width="200px" src="images/documentation/menu_equipe.jpg"/>
-					<div class="caption"><p>Un accées a l'équipe est quand même possible ainsi q'un formulaire de contact.</p></div>
+					<div class="caption"><p>Un accès a l'équipe est quand même possible ainsi q'un formulaire de contact.</p></div>
 				</div>
 			</div>
 		</div>
@@ -64,7 +64,7 @@
 			<div class="col-sm-6">
 				<div class="thumbnail">
 					<img class="img-thumbnail" width="200px" src="images/documentation/liste_ou_details.jpg"/>
-					<div class="caption"><p>La possibilité de consulter les ressources en liste et/ou en detail</p></div>
+					<div class="caption"><p>La possibilité de consulter les ressources en liste et/ou en détail</p></div>
 				</div>
 			</div>
 			<div class="col-sm-6">
@@ -78,7 +78,7 @@
 	</div>
 </div>
 <div class="panel panel-default" id="Compte-rendus">
-	<div class="panel-heading"><h3 class="panel-title">Les compte-rendus pour les délégués et visiteurs</h3></div>
+	<div class="panel-heading"><h3 class="panel-title">Les compte rendu pour les délégués et visiteurs</h3></div>
 	<div class="panel-body text-center">
 		<div class="row">
 			<div class="col-sm-4">
@@ -99,7 +99,7 @@
 			<div class="col-sm-12">
 				<div class="thumbnail">
 					<img class="img-thumbnail" width="350px" src="images/documentation/compte-rendu-ok.jpg"/>
-					<div class="caption"><p>Enregistrer un compte-rendu</p></div>
+					<div class="caption"><p>Enregistrer un compte rendu</p></div>
 				</div>
 			</div>
 		</div>
